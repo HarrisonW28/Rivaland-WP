@@ -1,0 +1,462 @@
+// ============================================
+// APPROACH SECTION COMPONENT
+// ============================================
+// Grid layout with fixed left and scrollable right
+// Vertical scrolling through approach pages with progress bar
+
+.approach-section {
+    background: $color-primary;
+    color: $color-white;
+    border-top: 1px solid $color-border;
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr auto 2fr; // Left 1/3, Right 2/3
+    grid-template-rows: 1fr;
+    
+    // On 1920px+, extend border to full width
+    // Approach section is dark by default, so use dark border color
+    @media (min-width: 1920px) {
+        border-top: none; // Hide regular border, use ::before for full-width
+        
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+    }
+    
+    // Progress bar at bottom of approach section
+    .approach-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        min-width: 20px; // Minimum width so it's always draggable
+        height: 10px;
+        background: #02635E;
+        transition: width 0.1s ease-out, left 0.1s ease-out;
+        z-index: 101; // Above accent line
+        cursor: grab;
+        user-select: none;
+        
+        &:active {
+            cursor: grabbing;
+        }
+    }
+    
+    // Fixed left side - doesn't scroll
+    .approach-left {
+        position: sticky;
+        left: 0;
+        top: 0;
+        padding: $spacing-5xl;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: 100vh;
+        z-index: 5;
+        background: $color-primary;
+        
+        .approach-title {
+            display: flex;
+            flex-direction: column;
+            font-size: 56px;
+            font-weight: $font-weight-light;
+            color: $color-white;
+            margin: 0;
+            line-height: 1.1;
+            
+            span {
+                display: block;
+            }
+        }
+    }
+    
+    // Fixed divider
+    .approach-divider {
+        width: 1px;
+        background: #9CB7B2;
+        position: sticky;
+        left: 0;
+        z-index: 4;
+        align-self: stretch;
+    }
+    
+    // Scrollable container for right side only - vertical scroll
+    .approach-container {
+        display: flex;
+        flex-direction: column;
+        scroll-snap-type: y mandatory;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        min-width: 0; // Allow flex item to shrink below content size
+        grid-column: 3; // Explicitly set grid column
+        
+        // Hide scrollbar but keep functionality
+        scrollbar-width: none; // Firefox
+        -ms-overflow-style: none; // IE/Edge
+        
+        &::-webkit-scrollbar {
+            display: none; // Chrome/Safari
+        }
+        
+    }
+    
+    .approach-page {
+        flex: 0 0 100vh;
+        min-height: 100vh;
+        height: 100vh;
+        width: 100%;
+        position: relative;
+        scroll-snap-align: start;
+        display: flex;
+        align-items: stretch;
+        box-sizing: border-box;
+    }
+    
+    .approach-right {
+        padding: $spacing-5xl;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        height: 100%;
+        
+        // Bottom accent line - extends from divider to right edge
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0; // Starts at divider (left edge of right panel)
+            right: 0;
+            height: 1px;
+            background: #02635E;
+            z-index: 1;
+        }
+        
+        .approach-heading {
+            font-size: $font-size-3xl;
+            font-weight: $font-weight-normal;
+            color: $color-white;
+            margin: 0 0 $spacing-lg 0;
+        }
+        
+        .approach-text {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: $font-size-base;
+            line-height: 1.6;
+            max-width: 303px;
+            margin: 0 0 auto 0;
+        }
+        
+        .approach-number {
+            position: absolute;
+            top: $spacing-5xl;
+            right: $spacing-5xl;
+            font-size: 200px;
+            font-weight: $font-weight-light;
+            color: $color-white;
+            line-height: 1;
+            pointer-events: none;
+            
+            @media (max-width: $breakpoint-tablet) {
+                font-size: 120px;
+                top: $spacing-3xl;
+                right: $spacing-3xl;
+            }
+        }
+        
+        .approach-icon-wrapper {
+            position: absolute;
+            bottom: $spacing-5xl;
+            right: $spacing-5xl;
+            width: 180px;
+            height: 180px;
+            
+            
+            @media (min-width: $breakpoint-desktop) {
+                width: 500px;
+                height: 500px;
+            }
+            
+            .approach-icon {
+                width: 100%;
+                height: 100%;
+                opacity: 0.4;
+                object-fit: contain;
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
+    
+    // Hide navigation arrows on desktop
+    .approach-nav {
+        display: none;
+    }
+    
+    // ============================================
+    // TYPE VARIANTS
+    // ============================================
+    
+    // Standard type (default - regular approach layout)
+    &--standard {
+        // Uses base .approach-section styles
+    }
+    
+    // ============================================
+    // COLOR VARIANTS (can be combined with type variants)
+    // ============================================
+    
+    // Dark color scheme (default)
+    &--dark {
+        // Standard type with dark colors
+        &.approach-section--standard {
+        background: $color-primary;
+        color: $color-white;
+        border-top-color: rgba(255, 255, 255, 0.2);
+        
+        .approach-left {
+            background: $color-primary;
+            
+            .approach-title {
+                color: $color-white;
+            }
+        }
+        
+        .approach-divider {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .approach-right {
+            .approach-heading {
+                color: $color-white;
+            }
+            
+            .approach-text {
+                color: rgba(255, 255, 255, 0.85);
+            }
+            
+            .approach-number {
+                color: $color-white;
+            }
+            
+            &::after {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+        
+        .approach-progress {
+            background: #02635E;
+        }
+        }
+    }
+    
+    // Light color scheme
+    &--light {
+        // Standard type with light colors
+        &.approach-section--standard {
+        background: $color-white;
+        color: $color-primary;
+        border-top-color: $color-border;
+        
+        .approach-left {
+            background: $color-white;
+            
+            .approach-title {
+                color: $color-primary;
+            }
+        }
+        
+        .approach-divider {
+            background: $color-border;
+        }
+        
+        .approach-right {
+            .approach-heading {
+                color: $color-primary;
+            }
+            
+            .approach-text {
+                color: $color-text;
+            }
+            
+            .approach-number {
+                color: $color-primary-light;
+            }
+            
+            &::after {
+                background: $color-border;
+            }
+        }
+        
+        .approach-progress {
+            background: $color-accent-teal;
+        }
+        }
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .approach-section {
+        height: auto;
+        min-height: 100vh;
+        grid-template-columns: 1fr; // Single column on mobile
+        grid-template-rows: auto auto 1fr; // Title row, divider row, content row
+        overflow: visible; // Allow nav arrows to be visible
+        position: relative; // Ensure positioning context
+        
+        .approach-left {
+            padding: $spacing-3xl;
+            height: auto;
+            position: relative;
+            grid-row: 1;
+            grid-column: 1;
+            
+            .approach-title {
+                font-size: 40px;
+                
+                span {
+                    display: inline;
+                }
+            }
+        }
+        
+        .approach-divider {
+            grid-row: 2;
+            grid-column: 1;
+            width: 100%;
+            height: 1px;
+            background: #9CB7B2;
+            position: relative;
+            align-self: stretch;
+        }
+        
+        .approach-container {
+            grid-column: 1;
+            grid-row: 3;
+            max-height: 706px;
+            height: 706px;
+            overflow: hidden; // Disable scrolling - force swipe/buttons only
+            overflow-y: hidden;
+            scroll-snap-type: none;
+        }
+        
+        .approach-page {
+            max-height: 706px;
+            height: 706px;
+            overflow: hidden;
+        }
+        
+        .approach-right {
+            padding: $spacing-3xl;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; // Left align content
+            position: relative;
+        }
+        
+        .approach-heading {
+            font-size: $font-size-2xl;
+            margin-bottom: $spacing-md;
+            text-align: left; // Left align heading
+            position: relative;
+            width: 100%;
+            padding-right: 80px; // Space for number
+        }
+        
+        .approach-number {
+            position: absolute !important;
+            top: 0 !important;
+            right: $spacing-3xl !important;
+            font-size: 60px !important;
+            line-height: 1;
+            margin: 0;
+            padding-top: 0.35em; // Align with heading text baseline
+            pointer-events: none;
+        }
+        
+        .approach-text {
+            max-width: 100%;
+            text-align: left; // Left align text
+            margin: 0 0 $spacing-lg 0;
+        }
+        
+        .approach-icon-wrapper {
+            width: 350px !important;
+            height: 350px !important;
+            bottom: auto;
+            right: auto;
+            left: 50%;
+            top: auto;
+            transform: translateX(-50%);
+            margin-top: $spacing-3xl;
+            position: relative;
+            z-index: 2;
+        }
+        
+        // Navigation arrows for mobile
+        .approach-nav {
+            display: flex !important;
+            justify-content: space-between;
+            align-items: center;
+            padding: $spacing-md $spacing-3xl $spacing-3xl;
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 100 !important;
+            background: $color-primary;
+            visibility: visible !important;
+            opacity: 1 !important;
+            
+            button {
+                background: none;
+                border: none;
+                color: $color-white;
+                cursor: pointer;
+                padding: $spacing-sm;
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                transition: opacity 0.2s ease;
+                visibility: visible !important;
+                opacity: 1 !important;
+                
+                svg {
+                    width: 19px;
+                    height: 16px;
+                    display: block !important;
+                    visibility: visible !important;
+                }
+                
+                &:hover:not(.disabled) {
+                    opacity: 0.7;
+                }
+                
+                &.disabled {
+                    opacity: 0.3;
+                    cursor: not-allowed;
+                }
+        }
+        }
+    }
+}
+

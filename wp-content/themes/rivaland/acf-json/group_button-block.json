@@ -1,0 +1,113 @@
+{
+    "key": "group_button_block",
+    "title": "Button Block",
+    "fields": [
+        {
+            "key": "field_button_text",
+            "label": "Button Text",
+            "name": "button_text",
+            "type": "text",
+            "instructions": "The text displayed on the button",
+            "required": 1,
+            "default_value": "Button",
+            "placeholder": "Enter button text"
+        },
+        {
+            "key": "field_button_url",
+            "label": "Button URL",
+            "name": "button_url",
+            "type": "url",
+            "instructions": "The URL the button links to",
+            "required": 0,
+            "default_value": "#"
+        },
+        {
+            "key": "field_button_variant",
+            "label": "Button Variant",
+            "name": "button_variant",
+            "type": "select",
+            "instructions": "Choose the button style variant",
+            "required": 0,
+            "choices": {
+                "primary": "Primary (White background, teal border)",
+                "secondary": "Secondary (Transparent, white border)",
+                "outline": "Outline (Transparent, white border)",
+                "ghost": "Ghost (Transparent, minimal styling)"
+            },
+            "default_value": "primary",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_button_size",
+            "label": "Button Size",
+            "name": "button_size",
+            "type": "select",
+            "instructions": "Choose the button size",
+            "required": 0,
+            "choices": {
+                "sm": "Small",
+                "md": "Medium (Default)",
+                "lg": "Large"
+            },
+            "default_value": "md",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_button_show_icon",
+            "label": "Show Arrow Icon",
+            "name": "button_show_icon",
+            "type": "true_false",
+            "instructions": "Display the arrow icon on the button",
+            "required": 0,
+            "message": "Show arrow icon",
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_button_class",
+            "label": "Additional CSS Classes",
+            "name": "button_class",
+            "type": "text",
+            "instructions": "Add custom CSS classes (space-separated)",
+            "required": 0,
+            "placeholder": "custom-class another-class"
+        },
+        {
+            "key": "field_button_id",
+            "label": "Button ID",
+            "name": "button_id",
+            "type": "text",
+            "instructions": "Optional HTML ID attribute",
+            "required": 0,
+            "placeholder": "button-id"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/button-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Button component block with variant and size options",
+    "show_in_rest": 0
+}
+

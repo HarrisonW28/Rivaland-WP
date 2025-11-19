@@ -1,0 +1,176 @@
+h1, h2, h3, .h1, .h2, .h3 {
+
+}
+
+h1, .h1, .gform_title{
+    @include fluid-type(40px, 60px, 500px, 1440px);
+}
+
+h2, .h2{
+    @include fluid-type(32px, 48px, 500px, 1440px);
+}
+
+h3, .h3{
+    @include fluid-type(24px, 36px, 500px, 1440px);
+}
+
+h4, .h4{
+    @include fluid-type(22px, 32px, 500px, 1440px);
+}
+
+h5, .h5{
+    @include fluid-type(18px, 24px, 500px, 1440px);
+}
+
+h6, .h6{
+    @include fluid-type(16px, 20px, 500px, 1440px);
+}
+
+.subtext{
+    p, p a:not(.btn), li, td{
+        @include fluid-type(14px, 16px, 900px, 1440px);
+        line-height: 1.5;
+    }
+
+    &.sm{
+        p, p a:not(.btn), li, td{
+            @include fluid-type(12px, 14px, 900px, 1440px);
+        }
+    }
+
+    &.lg{
+        p, p a:not(.btn), li, td{
+            @include fluid-type(16px, 20px, 900px, 1440px);
+
+        }
+    }
+
+    a:not(.btn) {
+        font-size: inherit;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        width: fit-content;
+        color: #0d00ff;
+        font-weight: 400;
+        background-image: linear-gradient(transparent, transparent),
+            linear-gradient(currentColor, currentColor);
+        background-size: 100% 2px, 0 2px;
+        background-position: 100% 100%, 0 100%;
+        background-repeat: no-repeat;
+        transition: background-size .8s ease;
+        
+        &:hover{
+            background-size: 0 2px, 100% 2px;
+        }
+    }
+
+    > h1, > h2, > h3, > h4, > h5, > h6{
+        margin-bottom: 24px;
+
+        &:not(:first-child){
+
+        }
+    }
+
+    p{
+        &:not(:last-child){
+            margin-bottom: 1.5em !important
+        }
+    }
+
+    //default list
+    ul{
+        list-style: disc;
+        margin-bottom: 24px;
+        padding-left: 20px;
+
+        li{
+            position: relative;
+            margin-bottom: 3px;
+
+            &:last-child{
+                margin-bottom: 0;
+            }
+
+			&::marker{
+				color: #333;
+			}
+        }
+    }
+    
+
+	//numbered list
+    ol{
+        list-style: none;
+        padding-left: 35px;
+        margin-bottom: 24px !important;
+		counter-set: count;
+
+        li{
+            padding-left: 0px;
+            position: relative;
+            margin-bottom: 3px;
+            margin-bottom: 10px !important;
+			counter-increment: count;
+
+			&::before{
+				content: counter(count);
+				display: block;
+				position: absolute;
+				left: -35px;
+				top: 1px;
+				background-color: #333;
+				color: #fff;
+				width: 24px;
+				height: 24px;
+				border-radius: 9999px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			&:last-child{
+				margin-bottom: 0;
+			}
+        }
+    }
+
+    > *:last-child{
+        margin-bottom: 0 !important;
+
+        img{
+            margin-bottom: 0
+        }
+    }
+
+    //default form styling
+    table {
+        margin-top: 20px;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        border-collapse: collapse;
+        width: 100%;
+      
+        th, td {
+          padding: 15px;
+          border: 1px solid #ccc;
+          font-size: 12px;
+          color: #333;
+        }
+      
+        th {
+          background-color: #666;
+          color: #fff;
+          text-align: left;
+        }
+      
+        tr:nth-child(2n) {
+          background-color: #f9f9f9;
+        }
+    }
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

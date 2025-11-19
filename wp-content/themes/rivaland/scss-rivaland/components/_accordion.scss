@@ -1,0 +1,180 @@
+// ============================================
+// ACCORDION COMPONENT
+// ============================================
+// Base accordion component for expandable/collapsible content
+// Replaces the old .services component for better semantic accuracy
+//
+// Usage:
+// <section class="accordion">
+//     <article class="accordion__item">
+//         <div class="accordion__header">
+//             <p>Item Title</p>
+//             <button class="accordion__toggle">+</button>
+//         </div>
+//         <div class="accordion__content">
+//             <!-- Content -->
+//         </div>
+//     </article>
+// </section>
+
+.accordion {
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    border-top: 1px solid $color-border;
+    border-bottom: 1px solid $color-border;
+    min-height: 100%;
+    
+    &__item {
+        background: $color-white;
+        border-bottom: 1px solid $color-border;
+        transition: background $transition-base;
+        
+        &:last-child {
+            border-bottom: none;
+        }
+        
+        &.active {
+            background: $color-white;
+            
+            .accordion__header {
+                background: $color-primary;
+                
+                p {
+                    color: $color-white;
+                }
+            }
+            
+            .accordion__toggle {
+                color: $color-white;
+            }
+            
+            .accordion__content {
+                max-height: 2000px;
+                padding: $spacing-lg $spacing-2xl $spacing-lg;
+                background: $color-white;
+            }
+        }
+        
+        &:not(.active) {
+            background: $color-white;
+            
+            .accordion__header {
+                background: $color-white;
+                
+                &:hover {
+                    background: $color-primary !important;
+                    
+                    p {
+                        color: $color-white;
+                    }
+                    
+                    .accordion__toggle {
+                        color: $color-white;
+                    }
+                }
+            }
+            
+            .accordion__content {
+                background: $color-white;
+            }
+        }
+    }
+    
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: $spacing-lg $spacing-2xl;
+        cursor: pointer;
+        transition: background $transition-accordion;
+        background: $color-white;
+        
+        p {
+            color: $color-primary;
+            font-size: $font-size-xl;
+            font-weight: $font-weight-light;
+            margin: 0;
+            transition: color $transition-base;
+        }
+        
+        &:hover {
+            background: $color-primary;
+            
+            p {
+                color: $color-white;
+            }
+            
+            .accordion__toggle {
+                color: $color-white;
+            }
+        }
+    }
+    
+    &__toggle {
+        background: none;
+        border: none;
+        font-size: $font-size-2xl;
+        color: $color-primary;
+        cursor: pointer;
+        padding: $spacing-10;
+        width: $icon-size-md;
+        height: $icon-size-md;
+        min-width: $icon-size-md;
+        min-height: $icon-size-md;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color $transition-base;
+        line-height: 1;
+        
+        &:hover {
+            color: $color-white;
+        }
+    }
+    
+    &__content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height $transition-accordion, padding $transition-accordion;
+        padding: 0 $spacing-2xl;
+        background: $color-white;
+        
+        p {
+            color: $color-accent-teal;
+            font-size: $font-size-base;
+            line-height: 1.6;
+            margin: 0 0 $spacing-lg 0;
+            font-weight: $font-weight-normal;
+        }
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .accordion {
+        border-left: none;
+        border-right: none;
+        
+        &__header {
+            padding: $spacing-md 40px; // Top/bottom: 20px, left/right: 40px
+            
+            p {
+                font-size: $font-size-md;
+            }
+        }
+        
+        &__content {
+            padding: 0 40px; // Left/right: 40px
+        }
+        
+        &__item.active &__content {
+            padding: $spacing-md 40px; // Top/bottom: 20px, left/right: 40px
+        }
+    }
+}
+

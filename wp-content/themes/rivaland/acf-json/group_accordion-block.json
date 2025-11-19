@@ -1,0 +1,370 @@
+{
+    "key": "group_accordion_block",
+    "title": "Accordion Block",
+    "fields": [
+        {
+            "key": "field_accordion_type",
+            "label": "Accordion Type",
+            "name": "accordion_type",
+            "type": "select",
+            "instructions": "Choose the accordion layout type",
+            "required": 1,
+            "choices": {
+                "services": "Services (2-column with card on left)",
+                "page": "Page (Full-width accordion)"
+            },
+            "default_value": "services",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_accordion_variant",
+            "label": "Color Variant",
+            "name": "accordion_variant",
+            "type": "select",
+            "instructions": "Choose the color scheme variant",
+            "required": 0,
+            "choices": {
+                "light": "Light (Default)",
+                "dark": "Dark"
+            },
+            "default_value": "light",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_accordion_left_card",
+            "label": "Left Column Card",
+            "name": "accordion_left_card",
+            "type": "group",
+            "instructions": "Card content for left column (services type only)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_accordion_type",
+                        "operator": "==",
+                        "value": "services"
+                    }
+                ]
+            ],
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_accordion_card_eyebrow",
+                    "label": "Eyebrow",
+                    "name": "eyebrow",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_accordion_card_eyebrow_text",
+                            "label": "Eyebrow Text",
+                            "name": "text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "default_value": "",
+                            "placeholder": "Meeting all demands within the development market"
+                        },
+                        {
+                            "key": "field_accordion_card_eyebrow_variant",
+                            "label": "Eyebrow Variant",
+                            "name": "variant",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "choices": {
+                                "primary": "Primary (Teal color)",
+                                "secondary": "Secondary",
+                                "light": "Light",
+                                "dark": "Dark"
+                            },
+                            "default_value": "primary",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 1,
+                            "ajax": 0,
+                            "return_format": "value"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_accordion_card_button",
+                    "label": "Button",
+                    "name": "button",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_accordion_card_button_text",
+                            "label": "Button Text",
+                            "name": "text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "default_value": "What we offer",
+                            "placeholder": "What we offer"
+                        },
+                        {
+                            "key": "field_accordion_card_button_url",
+                            "label": "Button URL",
+                            "name": "url",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 0,
+                            "default_value": ""
+                        },
+                        {
+                            "key": "field_accordion_card_button_variant",
+                            "label": "Button Variant",
+                            "name": "variant",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "choices": {
+                                "primary": "Primary (White background, teal border)",
+                                "secondary": "Secondary (Transparent, white border)",
+                                "outline": "Outline (Transparent, white border)",
+                                "ghost": "Ghost (Transparent, minimal styling)"
+                            },
+                            "default_value": "primary",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 1,
+                            "ajax": 0,
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_accordion_card_button_size",
+                            "label": "Button Size",
+                            "name": "size",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "choices": {
+                                "sm": "Small",
+                                "md": "Medium (Default)",
+                                "lg": "Large"
+                            },
+                            "default_value": "md",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 1,
+                            "ajax": 0,
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_accordion_card_button_show_icon",
+                            "label": "Show Arrow Icon",
+                            "name": "show_icon",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "message": "Show arrow icon",
+                            "default_value": 1,
+                            "ui": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_accordion_items",
+            "label": "Accordion Items",
+            "name": "accordion_items",
+            "type": "repeater",
+            "instructions": "Add accordion items",
+            "required": 1,
+            "min": 1,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Add Accordion Item",
+            "sub_fields": [
+                {
+                    "key": "field_accordion_item_title",
+                    "label": "Item Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "The accordion item title",
+                    "required": 1,
+                    "default_value": "",
+                    "placeholder": "Consultancy"
+                },
+                {
+                    "key": "field_accordion_item_preview",
+                    "label": "Preview Text",
+                    "name": "preview_text",
+                    "type": "wysiwyg",
+                    "instructions": "Short preview text (for page type)",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_accordion_type",
+                                "operator": "==",
+                                "value": "page"
+                            }
+                        ]
+                    ],
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0
+                },
+                {
+                    "key": "field_accordion_item_content",
+                    "label": "Content",
+                    "name": "content",
+                    "type": "wysiwyg",
+                    "instructions": "Full accordion content",
+                    "required": 1,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
+                },
+                {
+                    "key": "field_accordion_item_image",
+                    "label": "Image",
+                    "name": "image",
+                    "type": "image",
+                    "instructions": "Image for page type accordion",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_accordion_type",
+                                "operator": "==",
+                                "value": "page"
+                            }
+                        ]
+                    ],
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_accordion_item_button",
+                    "label": "Button",
+                    "name": "button",
+                    "type": "group",
+                    "instructions": "Optional button for accordion item",
+                    "required": 0,
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_accordion_item_button_text",
+                            "label": "Button Text",
+                            "name": "text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 1,
+                            "default_value": "Discover more",
+                            "placeholder": "Discover more"
+                        },
+                        {
+                            "key": "field_accordion_item_button_url",
+                            "label": "Button URL",
+                            "name": "url",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 1,
+                            "default_value": ""
+                        },
+                        {
+                            "key": "field_accordion_item_button_variant",
+                            "label": "Button Variant",
+                            "name": "variant",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "choices": {
+                                "primary": "Primary (White background, teal border)",
+                                "secondary": "Secondary (Transparent, white border)",
+                                "outline": "Outline (Transparent, white border)",
+                                "ghost": "Ghost (Transparent, minimal styling)"
+                            },
+                            "default_value": "primary",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 1,
+                            "ajax": 0,
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_accordion_item_button_size",
+                            "label": "Button Size",
+                            "name": "size",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "choices": {
+                                "sm": "Small",
+                                "md": "Medium (Default)",
+                                "lg": "Large"
+                            },
+                            "default_value": "md",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 1,
+                            "ajax": 0,
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_accordion_item_button_show_icon",
+                            "label": "Show Arrow Icon",
+                            "name": "show_icon",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "message": "Show arrow icon",
+                            "default_value": 1,
+                            "ui": 1
+                        }
+                    ]
+                },
+                {
+                    "key": "field_accordion_item_active",
+                    "label": "Active by Default",
+                    "name": "active",
+                    "type": "true_false",
+                    "instructions": "Open this accordion item by default",
+                    "required": 0,
+                    "message": "Open by default",
+                    "default_value": 0,
+                    "ui": 1
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/accordion-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Accordion component block with type and variant options",
+    "show_in_rest": 0
+}
+

@@ -1,0 +1,102 @@
+// ============================================
+// INTRO SECTION
+// ============================================
+
+.intro {
+    max-width: 64vw;
+    margin: $spacing-5xl auto $spacing-3xl;
+    padding: 0;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-light;
+    color: $color-primary;
+    
+    // Light variant (default)
+    &--light {
+        background: $color-white;
+        color: $color-primary;
+    }
+    
+    // Dark variant
+    &--dark {
+        background: $color-primary;
+        color: $color-white;
+        position: relative;
+        
+        // On 1920px+, extend background to fill whitespace
+        @media (min-width: 1920px) {
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100vw;
+                height: 100%;
+                background: $color-primary;
+                z-index: -1;
+            }
+        }
+    }
+}
+
+// Desktop (≥1025px) - Intro text width and spacing
+@media (min-width: $breakpoint-desktop + 1) {
+    .intro {
+        max-width: 1059px;
+        margin-top: 140px;
+        margin-bottom: 116px;
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Tablet (≤1024px)
+@media (max-width: $breakpoint-desktop) {
+    .intro {
+        max-width: 85vw;
+        padding: $spacing-4xl $spacing-3xl;
+        font-size: $font-size-2xl;
+    }
+}
+
+// Tablet Landscape (768px - 1024px)
+@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    .intro {
+        max-width: 80vw;
+        padding: $spacing-4xl $spacing-4xl;
+        font-size: $font-size-xl;
+    }
+}
+
+// Mobile Landscape / Tablet (768px - 1024px)
+@media (min-width: 768px) and (max-width: 1024px) {
+    .intro {
+        position: relative;
+        margin-top: 0;
+        clear: both; // Ensure it appears after hero
+    }
+}
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .intro {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: $spacing-3xl 40px; // Top/bottom: 40px, left/right: 40px
+        font-size: $font-size-2xl; // 24px on mobile
+        line-height: 1.6;
+        color: $color-primary; // Consistent with desktop
+    }
+}
+
+// Small Mobile (≤480px)
+@media (max-width: $breakpoint-mobile) {
+    .intro {
+        font-size: $font-size-2xl; // 24px on small mobile too
+        padding: $spacing-30 40px; // Top/bottom: 30px, left/right: 40px
+        color: $color-primary; // Consistent with desktop
+    }
+}
+

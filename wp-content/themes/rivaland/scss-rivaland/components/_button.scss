@@ -1,0 +1,167 @@
+// ============================================
+// BUTTON COMPONENT
+// ============================================
+// Standardized button component replacing:
+// - link-button
+// - service-button
+// - projects-button
+// - contact-btn
+//
+// Usage:
+// <a href="#" class="button button--primary">Button Text</a>
+// <a href="#" class="button button--secondary button--dark">Button Text</a>
+
+.button {
+    // Base button styles
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    font-family: $font-family;
+    font-weight: $font-weight-light;
+    font-size: $font-size-md;
+    line-height: $line-height-button;
+    letter-spacing: 0;
+    padding: $spacing-12 $spacing-md;
+    border: 1px solid transparent;
+    background: transparent;
+    color: $color-black;
+    transition: all $transition-base;
+    box-sizing: border-box;
+    cursor: pointer;
+    @include button-hover-effect;
+    
+    // Icon wrapper
+    &__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: $spacing-sm;
+        flex-shrink: 0;
+        
+        .icon-arrow {
+            width: $icon-size-sm;
+            height: $spacing-sm;
+            transition: filter $transition-base, transform $transition-base;
+        }
+    }
+    
+    // Size variants
+    &--sm {
+        padding: $spacing-10 $spacing-md;
+        font-size: $font-size-sm;
+        line-height: $line-height-base;
+    }
+    
+    &--md {
+        // Default size - no additional styles needed
+    }
+    
+    &--lg {
+        padding: $spacing-md $spacing-lg;
+        font-size: $font-size-lg;
+    }
+    
+    // Primary variant (default - replaces link-button, projects-button)
+    &--primary {
+        border-color: $color-accent-teal-light;
+        background: $color-white;
+        color: $color-black;
+        
+        &:hover {
+            background: $color-primary;
+            color: $color-white;
+            
+            .button__icon .icon-arrow {
+                filter: brightness(0) invert(1);
+            }
+        }
+    }
+    
+    // Secondary variant (replaces service-button)
+    &--secondary {
+        border-color: $color-white-opacity-30;
+        background: transparent;
+        color: $color-white;
+        
+        &:hover {
+            background: $color-white;
+            color: $color-primary;
+            
+            .button__icon .icon-arrow {
+                filter: brightness(0);
+            }
+        }
+    }
+    
+    // Outline variant (replaces contact-btn)
+    &--outline {
+        border-color: $color-white;
+        background: transparent;
+        color: $color-white;
+        
+        &:hover {
+            background: $color-white;
+            color: $color-primary-dark;
+        }
+    }
+    
+    // Ghost variant (transparent, minimal styling)
+    &--ghost {
+        border-color: transparent;
+        background: transparent;
+        color: $color-black;
+        
+        &:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+    }
+    
+    // Dark background variants
+    &--dark {
+        &.button--primary {
+            border-color: $color-white-opacity-30;
+            background: transparent;
+            color: $color-white;
+            
+            &:hover {
+                background: $color-white;
+                color: $color-primary;
+            }
+        }
+    }
+    
+    // Light background variants
+    &--light {
+        // Default styles work for light backgrounds
+    }
+    
+    // Full width variant
+    &--full {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    // Button without icon
+    &:not(:has(.button__icon)) {
+        justify-content: center;
+    }
+}
+
+// Legacy class support (for gradual migration)
+.link-button,
+.projects-button {
+    @extend .button;
+    @extend .button--primary;
+}
+
+.service-button {
+    @extend .button;
+    @extend .button--secondary;
+}
+
+.contact-btn {
+    @extend .button;
+    @extend .button--outline;
+}
+

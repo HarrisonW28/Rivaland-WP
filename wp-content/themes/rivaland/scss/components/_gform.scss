@@ -1,0 +1,47 @@
+
+.gform_wrapper {
+    
+    .gform_footer {
+        
+    }
+    .gform_validation_errors {
+        
+        .gform_submission_error  {
+            
+        }
+    }
+    form {
+        .gform_body {
+            .gform_fields {
+                
+                .gfield {
+                    
+                    label {
+                        
+                    }
+                    input {
+                    
+                    }
+                    &_error {
+                        label {
+                            
+                        }
+                        input {
+                            
+                        }
+                        .validation_message  {
+                            
+                        }
+                    }
+                }
+                .gfield_contains_required  {
+
+                }
+            }
+        }
+    }
+}
+  
+body img.gform_ajax_spinner, .gform_required_legend {
+    display: none !important;
+}

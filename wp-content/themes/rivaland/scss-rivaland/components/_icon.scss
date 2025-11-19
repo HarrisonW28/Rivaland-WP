@@ -1,0 +1,78 @@
+// ============================================
+// ICON COMPONENT
+// ============================================
+// Standardized icon component for consistent icon usage
+//
+// Usage:
+// <svg class="icon icon-arrow" width="19" height="16" viewBox="0 0 19 16" fill="none">
+//     <path d="..." stroke="currentColor"/>
+// </svg>
+
+.icon {
+    display: inline-block;
+    flex-shrink: 0;
+    color: currentColor;
+    transition: color $transition-base, transform $transition-base, filter $transition-base;
+    
+    // Arrow icon (right - default)
+    &-arrow {
+        width: $icon-size-sm;
+        height: $spacing-sm;
+        
+        // Left arrow variant
+        &--left {
+            transform: rotate(180deg);
+        }
+        
+        // Up arrow variant
+        &--up {
+            transform: rotate(-90deg);
+        }
+        
+        // Down arrow variant
+        &--down {
+            transform: rotate(90deg);
+        }
+    }
+    
+    // Close/X icon
+    &-close {
+        width: $icon-size-md;
+        height: $icon-size-md;
+    }
+    
+    // Plus icon
+    &-plus {
+        width: $icon-size-md;
+        height: $icon-size-md;
+    }
+    
+    // Minus icon
+    &-minus {
+        width: $icon-size-md;
+        height: $icon-size-md;
+    }
+    
+    // Size variants
+    &--sm {
+        width: $icon-size-sm;
+        height: $icon-size-sm;
+    }
+    
+    &--md {
+        width: $icon-size-md;
+        height: $icon-size-md;
+    }
+    
+    &--lg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+// Legacy class support (for gradual migration)
+.button-arrow {
+    @extend .icon;
+    @extend .icon-arrow;
+}
+

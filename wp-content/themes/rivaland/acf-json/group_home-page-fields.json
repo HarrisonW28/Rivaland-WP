@@ -1,0 +1,549 @@
+{
+    "key": "group_home_page_fields",
+    "title": "Home Page Fields",
+    "fields": [
+        {
+            "key": "field_home_hero_section",
+            "label": "Hero Section",
+            "name": "hero_section",
+            "type": "group",
+            "instructions": "Hero section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_home_hero_variant",
+                    "label": "Hero Variant",
+                    "name": "hero_variant",
+                    "type": "select",
+                    "instructions": "Choose the hero layout variant",
+                    "required": 0,
+                    "choices": {
+                        "home": "Home",
+                        "about": "About",
+                        "services": "Services"
+                    },
+                    "default_value": "home",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_home_hero_color_scheme",
+                    "label": "Color Scheme",
+                    "name": "hero_color_scheme",
+                    "type": "select",
+                    "instructions": "Choose the color scheme",
+                    "required": 0,
+                    "choices": {
+                        "light": "Light",
+                        "dark": "Dark"
+                    },
+                    "default_value": "dark",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_home_hero_title",
+                    "label": "Hero Title",
+                    "name": "hero_title",
+                    "type": "textarea",
+                    "instructions": "Main heading text (use line breaks for multi-line)",
+                    "required": 0,
+                    "rows": 3,
+                    "default_value": "Specialist land promotion\nservices to help you gain\nplanning consent",
+                    "placeholder": "Enter hero title"
+                },
+                {
+                    "key": "field_home_hero_highlight",
+                    "label": "Highlight Text",
+                    "name": "hero_highlight",
+                    "type": "text",
+                    "instructions": "Text to highlight within the title",
+                    "required": 0,
+                    "default_value": "planning consent",
+                    "placeholder": "planning consent"
+                },
+                {
+                    "key": "field_home_hero_background_image",
+                    "label": "Background Image",
+                    "name": "hero_background_image",
+                    "type": "image",
+                    "instructions": "Hero background image (if not set, uses default header.jpg)",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_home_hero_variant",
+                                "operator": "==",
+                                "value": "home"
+                            }
+                        ]
+                    ],
+                    "return_format": "array",
+                    "preview_size": "large",
+                    "library": "all"
+                }
+            ]
+        },
+        {
+            "key": "field_home_intro_section",
+            "label": "Intro Section",
+            "name": "intro_section",
+            "type": "group",
+            "instructions": "Intro section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_home_intro_text",
+                    "label": "Intro Text",
+                    "name": "intro_text",
+                    "type": "textarea",
+                    "instructions": "Introduction paragraph",
+                    "required": 0,
+                    "rows": 3,
+                    "default_value": "Riva Land is a privately owned, specialist land promoter. We're experts at promoting land through the planning system, fully committed to a transparent, inclusive process that optimises land value."
+                },
+                {
+                    "key": "field_home_intro_variant",
+                    "label": "Intro Variant",
+                    "name": "intro_variant",
+                    "type": "select",
+                    "instructions": "Choose the intro variant",
+                    "required": 0,
+                    "choices": {
+                        "default": "Default",
+                        "about": "About"
+                    },
+                    "default_value": "default",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_home_intro_color_scheme",
+                    "label": "Color Scheme",
+                    "name": "intro_color_scheme",
+                    "type": "select",
+                    "instructions": "Choose the color scheme",
+                    "required": 0,
+                    "choices": {
+                        "light": "Light",
+                        "dark": "Dark"
+                    },
+                    "default_value": "light",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                }
+            ]
+        },
+        {
+            "key": "field_home_accordion_section",
+            "label": "Accordion Section",
+            "name": "accordion_section",
+            "type": "group",
+            "instructions": "Accordion section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_home_accordion_type",
+                    "label": "Accordion Type",
+                    "name": "accordion_type",
+                    "type": "select",
+                    "instructions": "Choose the accordion type",
+                    "required": 0,
+                    "choices": {
+                        "services": "Services",
+                        "page": "Page"
+                    },
+                    "default_value": "services",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_home_accordion_eyebrow",
+                    "label": "Eyebrow Text",
+                    "name": "eyebrow",
+                    "type": "text",
+                    "instructions": "Eyebrow text above button",
+                    "required": 0,
+                    "default_value": "Meeting all demands within the development market",
+                    "placeholder": "Meeting all demands within the development market"
+                },
+                {
+                    "key": "field_home_accordion_button_text",
+                    "label": "Button Text",
+                    "name": "button_text",
+                    "type": "text",
+                    "instructions": "Button text",
+                    "required": 0,
+                    "default_value": "What we offer",
+                    "placeholder": "What we offer"
+                },
+                {
+                    "key": "field_home_accordion_button_url",
+                    "label": "Button URL",
+                    "name": "button_url",
+                    "type": "url",
+                    "instructions": "Button link URL",
+                    "required": 0,
+                    "default_value": ""
+                },
+                {
+                    "key": "field_home_accordion_items",
+                    "label": "Accordion Items",
+                    "name": "items",
+                    "type": "repeater",
+                    "instructions": "Add accordion items",
+                    "required": 0,
+                    "min": 0,
+                    "max": 0,
+                    "layout": "block",
+                    "button_label": "Add Accordion Item",
+                    "sub_fields": [
+                        {
+                            "key": "field_home_accordion_item_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "instructions": "Accordion item title",
+                            "required": 1,
+                            "default_value": "",
+                            "placeholder": "Consultancy"
+                        },
+                        {
+                            "key": "field_home_accordion_item_content",
+                            "label": "Content",
+                            "name": "content",
+                            "type": "wysiwyg",
+                            "instructions": "Accordion item content",
+                            "required": 1,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_home_accordion_item_link_text",
+                            "label": "Link Text",
+                            "name": "link_text",
+                            "type": "text",
+                            "instructions": "Link button text",
+                            "required": 0,
+                            "default_value": "Discover more",
+                            "placeholder": "Discover more"
+                        },
+                        {
+                            "key": "field_home_accordion_item_link_url",
+                            "label": "Link URL",
+                            "name": "link_url",
+                            "type": "url",
+                            "instructions": "Link button URL",
+                            "required": 0,
+                            "default_value": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_home_feature_section",
+            "label": "Feature Section",
+            "name": "feature_section",
+            "type": "group",
+            "instructions": "Feature section (50/50 image text block) settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_home_feature_eyebrow",
+                    "label": "Eyebrow",
+                    "name": "eyebrow",
+                    "type": "text",
+                    "instructions": "Eyebrow text",
+                    "required": 0,
+                    "default_value": "Unrivalled expertise",
+                    "placeholder": "Unrivalled expertise"
+                },
+                {
+                    "key": "field_home_feature_description",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "wysiwyg",
+                    "instructions": "Feature description text",
+                    "required": 0,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
+                },
+                {
+                    "key": "field_home_feature_button_text",
+                    "label": "Button Text",
+                    "name": "button_text",
+                    "type": "text",
+                    "instructions": "Button text",
+                    "required": 0,
+                    "default_value": "More about us",
+                    "placeholder": "More about us"
+                },
+                {
+                    "key": "field_home_feature_button_url",
+                    "label": "Button URL",
+                    "name": "button_url",
+                    "type": "url",
+                    "instructions": "Button link URL",
+                    "required": 0,
+                    "default_value": ""
+                },
+                {
+                    "key": "field_home_feature_image",
+                    "label": "Image",
+                    "name": "image",
+                    "type": "image",
+                    "instructions": "Feature image",
+                    "required": 0,
+                    "return_format": "array",
+                    "preview_size": "large",
+                    "library": "all"
+                },
+                {
+                    "key": "field_home_feature_image_position",
+                    "label": "Image Position",
+                    "name": "image_position",
+                    "type": "select",
+                    "instructions": "Choose image position",
+                    "required": 0,
+                    "choices": {
+                        "left": "Left",
+                        "right": "Right"
+                    },
+                    "default_value": "left",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_home_feature_variant",
+                    "label": "Variant",
+                    "name": "variant",
+                    "type": "select",
+                    "instructions": "Choose the feature variant",
+                    "required": 0,
+                    "choices": {
+                        "default": "Default",
+                        "team": "Team"
+                    },
+                    "default_value": "default",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                }
+            ]
+        },
+        {
+            "key": "field_home_projects_section",
+            "label": "Projects Section",
+            "name": "projects_section",
+            "type": "group",
+            "instructions": "Projects section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_home_projects_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "Section title",
+                    "required": 0,
+                    "default_value": "Projects",
+                    "placeholder": "Projects"
+                },
+                {
+                    "key": "field_home_projects_button_text",
+                    "label": "Button Text",
+                    "name": "button_text",
+                    "type": "text",
+                    "instructions": "Button text",
+                    "required": 0,
+                    "default_value": "View all projects",
+                    "placeholder": "View all projects"
+                },
+                {
+                    "key": "field_home_projects_button_url",
+                    "label": "Button URL",
+                    "name": "button_url",
+                    "type": "url",
+                    "instructions": "Button link URL",
+                    "required": 0,
+                    "default_value": ""
+                },
+                {
+                    "key": "field_home_projects_items",
+                    "label": "Projects",
+                    "name": "projects",
+                    "type": "repeater",
+                    "instructions": "Add projects (or leave empty to use recent project posts)",
+                    "required": 0,
+                    "min": 0,
+                    "max": 0,
+                    "layout": "block",
+                    "button_label": "Add Project",
+                    "sub_fields": [
+                        {
+                            "key": "field_home_projects_item_meta",
+                            "label": "Meta",
+                            "name": "meta",
+                            "type": "text",
+                            "instructions": "Project meta (e.g., 'Residential')",
+                            "required": 0,
+                            "default_value": "",
+                            "placeholder": "Residential"
+                        },
+                        {
+                            "key": "field_home_projects_item_location",
+                            "label": "Location",
+                            "name": "location",
+                            "type": "textarea",
+                            "instructions": "Project location (use line breaks)",
+                            "required": 0,
+                            "rows": 2,
+                            "default_value": "",
+                            "placeholder": "Woodcote,\nSouth Oxfordshire"
+                        },
+                        {
+                            "key": "field_home_projects_item_status",
+                            "label": "Status",
+                            "name": "status",
+                            "type": "text",
+                            "instructions": "Project status",
+                            "required": 0,
+                            "default_value": "",
+                            "placeholder": "Application submitted"
+                        },
+                        {
+                            "key": "field_home_projects_item_url",
+                            "label": "URL",
+                            "name": "url",
+                            "type": "url",
+                            "instructions": "Project link URL",
+                            "required": 0,
+                            "default_value": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_home_news_section",
+            "label": "News Section",
+            "name": "news_section",
+            "type": "group",
+            "instructions": "News section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_home_news_items",
+                    "label": "News Items",
+                    "name": "news_items",
+                    "type": "repeater",
+                    "instructions": "Add news items (or leave empty to use recent blog posts)",
+                    "required": 0,
+                    "min": 0,
+                    "max": 0,
+                    "layout": "block",
+                    "button_label": "Add News Item",
+                    "sub_fields": [
+                        {
+                            "key": "field_home_news_item_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "instructions": "News item title",
+                            "required": 1,
+                            "default_value": "",
+                            "placeholder": "Planning land for future generations"
+                        },
+                        {
+                            "key": "field_home_news_item_eyebrow",
+                            "label": "Eyebrow",
+                            "name": "eyebrow",
+                            "type": "text",
+                            "instructions": "Eyebrow text",
+                            "required": 0,
+                            "default_value": "Project news",
+                            "placeholder": "Project news"
+                        },
+                        {
+                            "key": "field_home_news_item_image",
+                            "label": "Image",
+                            "name": "image",
+                            "type": "image",
+                            "instructions": "News item image",
+                            "required": 0,
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all"
+                        },
+                        {
+                            "key": "field_home_news_item_url",
+                            "label": "URL",
+                            "name": "url",
+                            "type": "url",
+                            "instructions": "News item link URL",
+                            "required": 0,
+                            "default_value": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-home.php"
+            }
+        ],
+        [
+            {
+                "param": "page_type",
+                "operator": "==",
+                "value": "front_page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for the Home page template",
+    "show_in_rest": 0
+}
+

@@ -1,0 +1,123 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    margin-top: 64px;
+    border-top: 1px solid #E4E7EC;
+
+    .page-numbers:not(.prev):not(.next) {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-radius: 4px;
+        margin: 0 4px;
+        transition: all .5s ease;
+
+        &.current {
+            background: #007bff33;
+        }
+
+        &:hover{
+            background: #007bff20;
+        }
+    }
+
+    .next, .prev {
+        display: flex;
+        align-content: center;
+
+        svg {
+            margin-left: 8px;
+        }
+
+        @media only screen and (max-width: 767px) {
+            span {
+                display: none;
+            }
+        }
+    }
+
+    .prev {
+        svg {
+            margin-right: 8px;
+            margin-left: 0;
+        }
+    }
+
+    .disabled {
+        pointer-events: none;
+        opacity: .5;
+    }
+}
+
+
+.searchandfilter {
+    > ul{
+        > li[data-sf-field-input-type="select"]{
+            padding: 0 !important;
+            
+            h4{
+
+            }
+
+            select{
+
+            }
+
+            label{
+                position: relative;
+
+                &::after{
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    width: 30px;
+                    height: 30px;
+                    transform: translateY(-50%);
+                    background-image: url(../assets/select.svg);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: contain;
+                    pointer-events: none;
+                }
+            }
+        }
+
+        > li[data-sf-field-input-type="radio"] {
+            padding: 0 !important;
+
+            ul {
+                display: flex;
+                align-items: flex-end;
+
+                @media only screen and (min-width: 768px){
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+            }
+
+            li {
+                padding: 0;
+                flex-shrink: 0;
+
+                input {
+
+                }
+
+                label {
+                    transition: all .5s ease;
+                    cursor: pointer;
+                }
+
+                input:checked + label {
+
+                }
+            }
+        }
+    }
+}

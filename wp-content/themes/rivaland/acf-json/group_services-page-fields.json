@@ -1,0 +1,279 @@
+{
+    "key": "group_services_page_fields",
+    "title": "Services Page Fields",
+    "fields": [
+        {
+            "key": "field_services_hero_section",
+            "label": "Hero Section",
+            "name": "hero_section",
+            "type": "group",
+            "instructions": "Hero section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_services_hero_variant",
+                    "label": "Hero Variant",
+                    "name": "hero_variant",
+                    "type": "select",
+                    "instructions": "Choose the hero layout variant",
+                    "required": 0,
+                    "choices": {
+                        "home": "Home",
+                        "about": "About",
+                        "services": "Services"
+                    },
+                    "default_value": "services",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_services_hero_color_scheme",
+                    "label": "Color Scheme",
+                    "name": "hero_color_scheme",
+                    "type": "select",
+                    "instructions": "Choose the color scheme",
+                    "required": 0,
+                    "choices": {
+                        "light": "Light",
+                        "dark": "Dark"
+                    },
+                    "default_value": "dark",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_services_hero_title",
+                    "label": "Hero Title",
+                    "name": "hero_title",
+                    "type": "text",
+                    "instructions": "Main heading text",
+                    "required": 0,
+                    "default_value": "What we do",
+                    "placeholder": "What we do"
+                },
+                {
+                    "key": "field_services_hero_image",
+                    "label": "Hero Image",
+                    "name": "hero_image",
+                    "type": "image",
+                    "instructions": "Image displayed below hero content",
+                    "required": 0,
+                    "return_format": "array",
+                    "preview_size": "large",
+                    "library": "all"
+                },
+                {
+                    "key": "field_services_hero_background_image",
+                    "label": "Background Image",
+                    "name": "hero_background_image",
+                    "type": "image",
+                    "instructions": "Hero background image (optional - services hero typically uses solid color background)",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_services_hero_variant",
+                                "operator": "==",
+                                "value": "services"
+                            }
+                        ]
+                    ],
+                    "return_format": "array",
+                    "preview_size": "large",
+                    "library": "all"
+                }
+            ]
+        },
+        {
+            "key": "field_services_intro_section",
+            "label": "Intro Section",
+            "name": "intro_section",
+            "type": "group",
+            "instructions": "Intro section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_services_intro_text",
+                    "label": "Intro Text",
+                    "name": "intro_text",
+                    "type": "textarea",
+                    "instructions": "Introduction paragraph",
+                    "required": 0,
+                    "rows": 3,
+                    "default_value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam semper interdum lacinia. Vestibulum pretium ante ut ligula fermentum rhoncus eget id neque. Pellentesque sit amet est a lectus convallis maximus in et felis."
+                },
+                {
+                    "key": "field_services_intro_variant",
+                    "label": "Intro Variant",
+                    "name": "intro_variant",
+                    "type": "select",
+                    "instructions": "Choose the intro variant",
+                    "required": 0,
+                    "choices": {
+                        "default": "Default",
+                        "about": "About",
+                        "services": "Services"
+                    },
+                    "default_value": "services",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_services_intro_color_scheme",
+                    "label": "Color Scheme",
+                    "name": "intro_color_scheme",
+                    "type": "select",
+                    "instructions": "Choose the color scheme",
+                    "required": 0,
+                    "choices": {
+                        "light": "Light",
+                        "dark": "Dark"
+                    },
+                    "default_value": "dark",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                }
+            ]
+        },
+        {
+            "key": "field_services_accordion_section",
+            "label": "Services Accordion Section",
+            "name": "accordion_section",
+            "type": "group",
+            "instructions": "Services accordion section (full page type)",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_services_accordion_type",
+                    "label": "Accordion Type",
+                    "name": "accordion_type",
+                    "type": "select",
+                    "instructions": "Choose the accordion type",
+                    "required": 0,
+                    "choices": {
+                        "services": "Services",
+                        "page": "Page"
+                    },
+                    "default_value": "page",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_services_accordion_items",
+                    "label": "Service Items",
+                    "name": "items",
+                    "type": "repeater",
+                    "instructions": "Add service items",
+                    "required": 0,
+                    "min": 0,
+                    "max": 0,
+                    "layout": "block",
+                    "button_label": "Add Service",
+                    "sub_fields": [
+                        {
+                            "key": "field_services_accordion_item_title",
+                            "label": "Service Title",
+                            "name": "title",
+                            "type": "text",
+                            "instructions": "Service name (e.g., Consultancy, Acquisition, Planning)",
+                            "required": 1,
+                            "default_value": "",
+                            "placeholder": "Consultancy"
+                        },
+                        {
+                            "key": "field_services_accordion_item_preview",
+                            "label": "Preview Text",
+                            "name": "preview_text",
+                            "type": "wysiwyg",
+                            "instructions": "Short preview text (shown when collapsed)",
+                            "required": 1,
+                            "tabs": "all",
+                            "toolbar": "basic",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_services_accordion_item_content",
+                            "label": "Full Content",
+                            "name": "content",
+                            "type": "wysiwyg",
+                            "instructions": "Full service description (shown when expanded)",
+                            "required": 1,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_services_accordion_item_image",
+                            "label": "Service Image",
+                            "name": "image",
+                            "type": "image",
+                            "instructions": "Image for this service",
+                            "required": 0,
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "library": "all"
+                        },
+                        {
+                            "key": "field_services_accordion_item_button_text",
+                            "label": "Button Text",
+                            "name": "button_text",
+                            "type": "text",
+                            "instructions": "Button text (e.g., Enquire about Consultancy)",
+                            "required": 0,
+                            "default_value": "",
+                            "placeholder": "Enquire about Consultancy"
+                        },
+                        {
+                            "key": "field_services_accordion_item_button_url",
+                            "label": "Button URL",
+                            "name": "button_url",
+                            "type": "url",
+                            "instructions": "Button link URL",
+                            "required": 0,
+                            "default_value": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-services.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for the Services page template",
+    "show_in_rest": 0
+}
+

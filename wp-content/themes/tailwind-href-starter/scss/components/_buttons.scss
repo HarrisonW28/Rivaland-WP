@@ -1,0 +1,36 @@
+.btn {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 16px 24px;
+    background-color: #007bff;
+    border-radius: 4px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    line-height: 1.1;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    border: 1px solid #007bff;
+
+    &:hover {
+        background-color: #fff;
+        color: #007bff; 
+    }
+  
+    &.secondary {
+        background-color: #fff;
+        color: #007bff; 
+
+        &:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    }
+  
+    &.disabled {
+      display: none;
+    }
+}
+  

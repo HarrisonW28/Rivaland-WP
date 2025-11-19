@@ -1,0 +1,159 @@
+// ============================================
+// INTRO VARIANTS
+// ============================================
+// Variant styles for intro component
+// Usage: <section class="intro intro--standard intro--light">
+//        <section class="intro intro--about intro--dark">
+//
+// TYPE VARIANTS (layout/structure):
+// - intro--standard: Default centered intro with max-width
+// - intro--about: Full-width intro with centered text
+//
+// COLOR VARIANTS (can be combined with type):
+// - intro--light: Light color scheme
+// - intro--dark: Dark color scheme
+
+// ============================================
+// TYPE VARIANTS
+// ============================================
+
+// Standard type (default - centered with max-width)
+.intro--standard {
+    max-width: 64vw;
+    margin: $spacing-5xl auto $spacing-3xl;
+    padding: $spacing-5xl $spacing-5xl;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-light;
+}
+
+// About type (full-width with centered text)
+.intro--about {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 80px auto 40px;
+    padding: 80px;
+    font-size: $font-size-3xl; // 28px
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    
+    @media (min-width: $breakpoint-desktop) {
+        p {
+            width: 1059px !important;
+            max-width: 1059px !important;
+            min-width: 1059px !important;
+            margin: 0;
+        }
+    }
+    
+    @media (max-width: 1023px) {
+        p {
+            width: auto !important;
+            max-width: 100% !important;
+            margin: 0;
+        }
+    }
+    
+    // Mobile (≤768px) - match home page padding and set font size to 16px
+    @media (max-width: $breakpoint-tablet) {
+        padding: $spacing-3xl $spacing-md; // Same as home page: 40px 20px
+        font-size: $font-size-base; // 16px
+        margin: 0 auto;
+    }
+}
+
+// Services type (full-width with 90% max-width content)
+.intro--services {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0;
+    padding: $spacing-5xl;
+    font-size: $font-size-3xl; // 28px
+    font-weight: $font-weight-light;
+    
+    p {
+        max-width: 90%;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    
+    // Mobile (≤768px) - set font size to 24px
+    @media (max-width: $breakpoint-tablet) {
+        font-size: $font-size-2xl; // 24px on mobile
+        padding: $spacing-3xl $spacing-md; // Match base intro mobile padding
+    }
+}
+
+// ============================================
+// COLOR VARIANTS (can be combined with type variants)
+// ============================================
+
+// Light color scheme
+.intro--light {
+    // Standard type with light colors
+    &.intro--standard {
+        background: $color-white;
+        color: $color-primary;
+    }
+    
+    // About type with light colors
+    &.intro--about {
+        color: $color-accent-teal;
+    }
+    
+    // Services type with light colors
+    &.intro--services {
+        background: $color-white;
+        color: $color-primary;
+    }
+}
+
+// Dark color scheme
+.intro--dark {
+    position: relative;
+    
+    // On 1920px+, extend background to fill whitespace
+    @media (min-width: 1920px) {
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: $color-primary;
+            z-index: -1;
+        }
+    }
+    
+    // Standard type with dark colors
+    &.intro--standard {
+        background: $color-primary;
+        color: $color-white;
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: $spacing-5xl;
+        font-size: $font-size-3xl; // 28px
+        
+        // Keep content centered with max-width
+        p {
+            max-width: 64vw;
+            margin: 0 auto;
+        }
+    }
+    
+    // About type with dark colors
+    &.intro--about {
+        color: $color-white;
+        background: $color-primary;
+    }
+    
+    // Services type with dark colors
+    &.intro--services {
+        background: $color-primary;
+        color: $color-white;
+    }
+}
+

@@ -1,0 +1,159 @@
+{
+    "key": "group_projects_page_fields",
+    "title": "Projects Page Fields",
+    "fields": [
+        {
+            "key": "field_projects_hero_section",
+            "label": "Hero Section",
+            "name": "hero_section",
+            "type": "group",
+            "instructions": "Hero section settings (optional - page may not have hero)",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_projects_hero_variant",
+                    "label": "Hero Variant",
+                    "name": "hero_variant",
+                    "type": "select",
+                    "instructions": "Choose the hero layout variant",
+                    "required": 0,
+                    "choices": {
+                        "home": "Home",
+                        "about": "About",
+                        "services": "Services"
+                    },
+                    "default_value": "home",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_projects_hero_color_scheme",
+                    "label": "Color Scheme",
+                    "name": "hero_color_scheme",
+                    "type": "select",
+                    "instructions": "Choose the color scheme",
+                    "required": 0,
+                    "choices": {
+                        "light": "Light",
+                        "dark": "Dark"
+                    },
+                    "default_value": "dark",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_projects_hero_title",
+                    "label": "Hero Title",
+                    "name": "hero_title",
+                    "type": "text",
+                    "instructions": "Main heading text (optional)",
+                    "required": 0,
+                    "default_value": "",
+                    "placeholder": ""
+                }
+            ]
+        },
+        {
+            "key": "field_projects_page_section",
+            "label": "Projects Page Section",
+            "name": "projects_page_section",
+            "type": "group",
+            "instructions": "Projects page content settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_projects_page_title",
+                    "label": "Page Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "Page title (displayed in left sidebar)",
+                    "required": 0,
+                    "default_value": "Projects",
+                    "placeholder": "Projects"
+                },
+                {
+                    "key": "field_projects_page_description",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "textarea",
+                    "instructions": "Page description text (displayed below title)",
+                    "required": 0,
+                    "rows": 3,
+                    "default_value": "A brief overview of some of the projects we are currently involved in promoting and some of our recent success stories.",
+                    "placeholder": "A brief overview of some of the projects we are currently involved in promoting and some of our recent success stories."
+                },
+                {
+                    "key": "field_projects_page_filter_placeholder",
+                    "label": "Filter Input Placeholder",
+                    "name": "filter_placeholder",
+                    "type": "text",
+                    "instructions": "Placeholder text for filter search input",
+                    "required": 0,
+                    "default_value": "Filter results",
+                    "placeholder": "Filter results"
+                },
+                {
+                    "key": "field_projects_page_filter_options",
+                    "label": "Filter Options",
+                    "name": "filter_options",
+                    "type": "repeater",
+                    "instructions": "Add filter button options (e.g., Residential, Commercial, Mixed Use). These will be used for filtering projects.",
+                    "required": 0,
+                    "min": 0,
+                    "max": 0,
+                    "layout": "block",
+                    "button_label": "Add Filter Option",
+                    "sub_fields": [
+                        {
+                            "key": "field_projects_filter_option_label",
+                            "label": "Filter Label",
+                            "name": "label",
+                            "type": "text",
+                            "instructions": "Filter button label (e.g., Residential, Commercial)",
+                            "required": 1,
+                            "default_value": "",
+                            "placeholder": "Residential"
+                        },
+                        {
+                            "key": "field_projects_filter_option_value",
+                            "label": "Filter Value",
+                            "name": "value",
+                            "type": "text",
+                            "instructions": "Filter value (slug) - should match project category slugs (e.g., residential, commercial, mixed-use)",
+                            "required": 1,
+                            "default_value": "",
+                            "placeholder": "residential"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-projects.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for the Projects page template",
+    "show_in_rest": 0
+}
+

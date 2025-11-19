@@ -1,0 +1,151 @@
+{
+    "key": "group_testimonials_block",
+    "title": "Testimonials Block",
+    "fields": [
+        {
+            "key": "field_testimonials_heading",
+            "label": "Section Heading",
+            "name": "testimonials_heading",
+            "type": "text",
+            "instructions": "Optional heading for testimonials section",
+            "required": 0,
+            "default_value": "",
+            "placeholder": "Testimonials"
+        },
+        {
+            "key": "field_testimonials_variant",
+            "label": "Color Variant",
+            "name": "testimonials_variant",
+            "type": "select",
+            "instructions": "Choose the color scheme variant",
+            "required": 0,
+            "choices": {
+                "light": "Light (Default)",
+                "dark": "Dark"
+            },
+            "default_value": "light",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_testimonials_items",
+            "label": "Testimonials",
+            "name": "testimonials_items",
+            "type": "repeater",
+            "instructions": "Add testimonials",
+            "required": 1,
+            "min": 1,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Add Testimonial",
+            "sub_fields": [
+                {
+                    "key": "field_testimonial_quote",
+                    "label": "Quote",
+                    "name": "quote",
+                    "type": "textarea",
+                    "instructions": "Testimonial quote text",
+                    "required": 1,
+                    "rows": 4,
+                    "default_value": "",
+                    "placeholder": "Enter testimonial quote"
+                },
+                {
+                    "key": "field_testimonial_author",
+                    "label": "Author Name",
+                    "name": "author",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "default_value": "",
+                    "placeholder": "Author name"
+                },
+                {
+                    "key": "field_testimonial_company",
+                    "label": "Company",
+                    "name": "company",
+                    "type": "text",
+                    "instructions": "Company or organization name",
+                    "required": 0,
+                    "default_value": "",
+                    "placeholder": "Company name"
+                },
+                {
+                    "key": "field_testimonial_image",
+                    "label": "Author Image",
+                    "name": "image",
+                    "type": "image",
+                    "instructions": "Optional author photo",
+                    "required": 0,
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all"
+                }
+            ]
+        },
+        {
+            "key": "field_testimonials_autoplay",
+            "label": "Autoplay",
+            "name": "testimonials_autoplay",
+            "type": "true_false",
+            "instructions": "Automatically advance testimonials",
+            "required": 0,
+            "message": "Enable autoplay",
+            "default_value": 1,
+            "ui": 1
+        },
+        {
+            "key": "field_testimonials_autoplay_speed",
+            "label": "Autoplay Speed (seconds)",
+            "name": "testimonials_autoplay_speed",
+            "type": "number",
+            "instructions": "Time between testimonial changes",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_testimonials_autoplay",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "default_value": 5,
+            "placeholder": 5,
+            "min": 2,
+            "max": 10,
+            "step": 1
+        },
+        {
+            "key": "field_testimonials_class",
+            "label": "Additional CSS Classes",
+            "name": "testimonials_class",
+            "type": "text",
+            "instructions": "Add custom CSS classes (space-separated)",
+            "required": 0,
+            "placeholder": "custom-class another-class"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/testimonials-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Testimonials section block with slider functionality",
+    "show_in_rest": 0
+}
+

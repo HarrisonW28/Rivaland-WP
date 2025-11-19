@@ -1,0 +1,78 @@
+name: Update WordPress plugins
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Runs weekly, every Sunday at midnight
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      MYSQL_DATABASE: wp
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: gd, mbstring, mysqli, zip
+      - name: Install WP-CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          mv wp-cli.phar /usr/local/bin/wp
+      - name: Start MySQL
+        run: sudo systemctl start mysql.service
+      - name: Create MySQL database
+        run: >
+          mysql --user=root --password=root -e "
+          CREATE DATABASE \`$MYSQL_DATABASE\` ;
+          CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;
+          GRANT ALL ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%' ;
+          FLUSH PRIVILEGES ;
+          "
+      - name: Configure WordPress
+        run: >
+          wp config create
+          --allow-root
+          --dbname=$MYSQL_DATABASE
+          --dbuser=$MYSQL_USER
+          --dbpass=$MYSQL_PASSWORD
+          --force
+      - name: Install WordPress
+        run: >
+          wp core install
+          --allow-root
+          --url=localhost
+          --title=WP
+          --admin_user=admin
+          --admin_email=example@example.com
+          --admin_password=password
+          --skip-email
+      - name: Update WordPress
+        run: >
+          wp core update
+      - name: Define License Constants
+        run: |
+          wp config set ACF_PRO_LICENSE '${{ secrets.ACF_PRO_LICENSE_KEY }}' --type=constant --add --allow-root
+          wp config set GF_LICENSE_KEY '${{ secrets.GRAVITY_FORMS_LICENSE_KEY }}' --type=constant --add --allow-root
+      - name: Enable Plugins
+        run: >
+          wp plugin activate
+          --allow-root
+          --all
+      - name: Update Plugins
+        run: >
+          wp plugin update
+          --allow-root
+          --all
+      - name: Update ACF Pro
+        run: |
+          echo '{ "http-basic": { "connect.advancedcustomfields.com": { "username": "b3JkZXJfaWQ9MTg3MjQ0fHR5cGU9ZGV2ZWxvcGVyfGRhdGU9MjAyMC0wMi0yMSAwODo1NzoxMw==", "password": "https://example.com"}}}' > auth.json
+          composer config allow-plugins.composer/installers true
+          composer install --no-progress --prefer-dist      
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3

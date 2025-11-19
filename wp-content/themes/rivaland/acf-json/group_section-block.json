@@ -1,0 +1,96 @@
+{
+    "key": "group_section_block",
+    "title": "Section Block",
+    "fields": [
+        {
+            "key": "field_section_type",
+            "label": "Section Type",
+            "name": "section_type",
+            "type": "select",
+            "instructions": "Choose the section type for styling",
+            "required": 1,
+            "choices": {
+                "intro": "Intro",
+                "services": "Services",
+                "projects": "Projects",
+                "news": "News",
+                "feature": "Feature",
+                "testimonial": "Testimonial",
+                "default": "Default"
+            },
+            "default_value": "default",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_section_variant",
+            "label": "Color Variant",
+            "name": "section_variant",
+            "type": "select",
+            "instructions": "Choose the color scheme variant",
+            "required": 0,
+            "choices": {
+                "light": "Light (Default)",
+                "dark": "Dark"
+            },
+            "default_value": "light",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_section_id",
+            "label": "Section ID",
+            "name": "section_id",
+            "type": "text",
+            "instructions": "Optional HTML ID attribute (for anchors)",
+            "required": 0,
+            "placeholder": "section-id"
+        },
+        {
+            "key": "field_section_class",
+            "label": "Additional CSS Classes",
+            "name": "section_class",
+            "type": "text",
+            "instructions": "Add custom CSS classes (space-separated)",
+            "required": 0,
+            "placeholder": "custom-class another-class"
+        },
+        {
+            "key": "field_section_content",
+            "label": "Section Content",
+            "name": "section_content",
+            "type": "wysiwyg",
+            "instructions": "Section content (can include other blocks)",
+            "required": 0,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/section-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Section wrapper block for consistent page sections",
+    "show_in_rest": 0
+}
+

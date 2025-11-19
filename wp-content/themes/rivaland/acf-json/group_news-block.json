@@ -1,0 +1,252 @@
+{
+    "key": "group_news_block",
+    "title": "News Block",
+    "fields": [
+        {
+            "key": "field_news_heading",
+            "label": "Section Heading",
+            "name": "news_heading",
+            "type": "text",
+            "instructions": "Main heading for the news section",
+            "required": 0,
+            "default_value": "News",
+            "placeholder": "News"
+        },
+        {
+            "key": "field_news_description",
+            "label": "Description",
+            "name": "news_description",
+            "type": "wysiwyg",
+            "instructions": "Optional description text",
+            "required": 0,
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_news_button",
+            "label": "View All Button",
+            "name": "news_button",
+            "type": "group",
+            "instructions": "Optional button to view all news",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_news_button_text",
+                    "label": "Button Text",
+                    "name": "text",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "default_value": "View all news",
+                    "placeholder": "View all news"
+                },
+                {
+                    "key": "field_news_button_url",
+                    "label": "Button URL",
+                    "name": "url",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "default_value": ""
+                },
+                {
+                    "key": "field_news_button_variant",
+                    "label": "Button Variant",
+                    "name": "variant",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "choices": {
+                        "primary": "Primary (White background, teal border)",
+                        "secondary": "Secondary (Transparent, white border)",
+                        "outline": "Outline (Transparent, white border)",
+                        "ghost": "Ghost (Transparent, minimal styling)"
+                    },
+                    "default_value": "primary",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_news_button_size",
+                    "label": "Button Size",
+                    "name": "size",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "choices": {
+                        "sm": "Small",
+                        "md": "Medium (Default)",
+                        "lg": "Large"
+                    },
+                    "default_value": "md",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_news_button_show_icon",
+                    "label": "Show Arrow Icon",
+                    "name": "show_icon",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "message": "Show arrow icon",
+                    "default_value": 1,
+                    "ui": 1
+                }
+            ]
+        },
+        {
+            "key": "field_news_items",
+            "label": "News Items",
+            "name": "news_items",
+            "type": "repeater",
+            "instructions": "Add news items to display",
+            "required": 1,
+            "min": 1,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Add News Item",
+            "sub_fields": [
+                {
+                    "key": "field_news_item_image",
+                    "label": "News Image",
+                    "name": "image",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 1,
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_news_item_eyebrow",
+                    "label": "Eyebrow",
+                    "name": "eyebrow",
+                    "type": "group",
+                    "instructions": "Category or date",
+                    "required": 0,
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_news_item_eyebrow_text",
+                            "label": "Eyebrow Text",
+                            "name": "text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "default_value": "",
+                            "placeholder": "News"
+                        },
+                        {
+                            "key": "field_news_item_eyebrow_variant",
+                            "label": "Eyebrow Variant",
+                            "name": "variant",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "choices": {
+                                "primary": "Primary (Teal color)",
+                                "secondary": "Secondary",
+                                "light": "Light",
+                                "dark": "Dark"
+                            },
+                            "default_value": "primary",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 1,
+                            "ajax": 0,
+                            "return_format": "value"
+                        }
+                    ]
+                },
+                {
+                    "key": "field_news_item_title",
+                    "label": "Title",
+                    "name": "title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "default_value": "",
+                    "placeholder": "News title"
+                },
+                {
+                    "key": "field_news_item_text",
+                    "label": "Excerpt",
+                    "name": "text",
+                    "type": "textarea",
+                    "instructions": "Short excerpt or description",
+                    "required": 0,
+                    "rows": 3,
+                    "placeholder": "News excerpt..."
+                },
+                {
+                    "key": "field_news_item_link",
+                    "label": "Link",
+                    "name": "link",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "layout": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_news_item_link_url",
+                            "label": "Link URL",
+                            "name": "url",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 1,
+                            "default_value": ""
+                        },
+                        {
+                            "key": "field_news_item_link_text",
+                            "label": "Link Text",
+                            "name": "text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "default_value": "Read more",
+                            "placeholder": "Read more"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "field_news_class",
+            "label": "Additional CSS Classes",
+            "name": "news_class",
+            "type": "text",
+            "instructions": "Add custom CSS classes (space-separated)",
+            "required": 0,
+            "placeholder": "custom-class another-class"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/news-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "News section block for displaying news items",
+    "show_in_rest": 0
+}
+

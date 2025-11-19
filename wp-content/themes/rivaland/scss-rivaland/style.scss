@@ -1,0 +1,69 @@
+// ============================================
+// MAIN STYLESHEET - NAVIGATION GUIDE
+// ============================================
+// This file imports all partials in the correct order
+// Following the 7-1 pattern adapted for this project
+//
+// QUICK NAVIGATION:
+// ──────────────────────────────────────────────────────────────
+// 📁 ABSTRACT STYLES (Variables, Mixins)
+//    → scss/abstracts/_variables.scss  - Colors, spacing, typography
+//    → scss/abstracts/_mixins.scss      - Reusable mixins (buttons, etc.)
+//
+// 📁 BASE STYLES (Resets, Global)
+//    → scss/base/_base.scss             - Global resets, body, images
+//
+// 📁 LAYOUT STYLES (Major Sections)
+//    → scss/layout/_hero.scss           - Hero section with background
+//    → scss/layout/_navigation.scss     - Navbar and menu
+//    → scss/layout/_footer.scss         - Footer section
+//
+// 📁 COMPONENT STYLES (Reusable UI)
+//    → scss/components/_intro.scss      - Intro text section
+//    → scss/components/_services.scss   - Services accordion
+//    → scss/components/_feature.scss    - Feature image/text section
+//    → scss/components/_projects.scss   - Projects list
+//    → scss/components/_news.scss       - News cards
+//
+// 📁 COMPONENT VARIANTS (Modifier classes)
+//    → scss/variants/_hero-variants.scss      - Hero variants (--dark, --services)
+//    → scss/variants/_intro-variants.scss    - Intro variants (--about)
+//    → scss/variants/_feature-variants.scss  - Feature variants (--team)
+//    → scss/variants/_testimonial-variants.scss - Testimonial variants
+//
+//
+// IMPORTANT: Edit SCSS files, NOT style.css (it's auto-generated)
+// ──────────────────────────────────────────────────────────────
+
+// 1. Abstracts (variables and mixins - must come first)
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// 2. Base styles
+@import 'base/base';
+
+// 3. Layout (major structural components)
+@import 'layout/hero';
+@import 'layout/navigation';
+@import 'layout/footer';
+@import 'layout/about';
+
+// 4. Components (reusable UI components)
+// Core standardized components (import first)
+@import 'components/button';
+@import 'components/card';
+@import 'components/icon';
+@import 'components/accordion';
+// Feature-specific components
+@import 'components/intro';
+@import 'components/feature';
+@import 'components/projects';
+@import 'components/news';
+@import 'components/approach';
+
+// 5. Component Variants (modifier classes for components)
+@import 'variants/hero-variants';
+@import 'variants/intro-variants';
+@import 'variants/feature-variants';
+@import 'variants/testimonial-variants';
+@import 'variants/accordion-variants';

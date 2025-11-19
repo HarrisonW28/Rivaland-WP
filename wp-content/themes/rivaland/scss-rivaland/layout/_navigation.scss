@@ -1,0 +1,1005 @@
+// ============================================
+// NAVIGATION
+// ============================================
+
+.nav {
+    width: 100%;
+    padding: 68px $spacing-5xl;
+    position: relative;
+    z-index: $z-nav;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    // White navbar variant (for projects page)
+    &--white {
+        background: $color-white;
+        
+        .logo {
+            color: $color-primary; // This will make ALAND black via currentColor
+            
+            img,
+            svg {
+                // ALAND paths use currentColor (will be $color-primary/black)
+                // RIV paths have explicit fill="#7DCAD8" (will stay teal)
+                height: $spacing-lg !important;
+                width: auto !important;
+                max-width: none !important;
+                display: block;
+            }
+        }
+        
+        .menu-toggle span {
+            background: $color-primary;
+        }
+        
+        .nav-links a {
+            color: rgba(32, 42, 68, 0.85); // Dark text
+            
+            &:hover {
+                color: $color-primary;
+            }
+            
+            &.active {
+                color: $color-accent-teal; // Teal for active
+                
+                &::after {
+                    background-color: $color-accent-teal;
+                }
+            }
+        }
+        
+        .contact-btn {
+            color: $color-primary;
+            border-color: $color-primary;
+            
+            &:hover {
+                background: $color-primary;
+                color: $color-white;
+            }
+        }
+        
+        // Mobile menu with white background for white navbar
+        @media (max-width: $breakpoint-desktop) {
+            .contact-btn {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: $breakpoint-tablet) {
+            .nav-links {
+                background: $color-white; // White mobile menu to match navbar
+                
+                a {
+                    color: rgba(32, 42, 68, 0.85); // Dark text in mobile menu
+                    
+                    &:hover {
+                        color: $color-primary;
+                    }
+                    
+                    &.active {
+                        color: $color-accent-teal; // Teal for active
+                    }
+                }
+            }
+            
+            .mobile-divider {
+                background: $color-border; // Light border for white background
+            }
+        }
+    }
+}
+
+.logo {
+    color: $color-white;
+    font-size: $font-size-xl;
+    letter-spacing: 3px;
+    font-weight: $font-weight-semibold;
+    display: flex;
+    align-items: center;
+
+    img,
+    svg {
+        height: $spacing-lg !important;
+        width: auto !important;
+        max-width: none !important;
+        display: block;
+    }
+    
+    a {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: $spacing-xs;
+    z-index: $z-menu-toggle;
+    position: relative;
+    width: 25px;
+    height: 25px;
+
+    span {
+        width: 25px;
+        height: 2px;
+        background: $color-white;
+        transition: all $transition-base;
+        display: block;
+    }
+
+    &.active {
+        span {
+            display: none;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 19px;
+            height: 19px;
+            background-image: url("data:image/svg+xml,%3Csvg width='19' height='19' viewBox='0 0 19 19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.974236 16.562L17.5362 -8.04087e-08L18.1019 0.565685L0.565685 18.1019L0.974236 16.562Z' fill='%237DCAD8'/%3E%3Cpath d='M1.53993 0.974236L18.1019 17.5362L17.5363 18.1019L3.66322e-06 0.565685L1.53993 0.974236Z' fill='%237DCAD8'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: block;
+        }
+    }
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: $spacing-3xl;
+
+    .mobile-logo,
+    .mobile-divider,
+    .mobile-contact {
+        display: none;
+    }
+
+    a {
+        color: rgba(255, 255, 255, 0.85);
+        text-decoration: none;
+        font-size: $font-size-md; // 18px
+        line-height: $line-height-button;
+        transition: $transition-fast;
+        position: relative;
+
+        &:hover {
+            color: $color-white;
+        }
+
+        &.active {
+            color: #7DCAD8;
+            
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 2px;
+                background-color: #7DCAD8;
+            }
+        }
+    }
+}
+
+.contact-btn {
+    padding: $spacing-10 $spacing-xl;
+    border: 1px solid $color-white;
+    color: $color-white;
+    text-decoration: none;
+    font-size: $font-size-sm;
+    border-radius: $border-radius-sm;
+    transition: $transition-base;
+
+    &:hover {
+        background: $color-white;
+        color: $color-primary-dark;
+    }
+}
+
+.arrow {
+    margin-left: $spacing-xs;
+    display: inline-flex;
+    align-items: center;
+    width: 19px;
+    height: 16px;
+    flex-shrink: 0;
+    
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Tablet (≤1024px) - iPad Mini, iPad Air, etc.
+@media (max-width: $breakpoint-desktop) {
+    .nav {
+        padding: $spacing-3xl $spacing-3xl;
+        // Ensure proper flexbox alignment
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .logo {
+        // Ensure logo stays left-aligned
+        order: 0 !important;
+        flex: 0 0 auto !important;
+        margin-right: auto !important;
+        text-align: left !important;
+        
+        img,
+        svg {
+            height: $spacing-lg !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+    
+    // Ensure white navbar logo is also consistent
+    .nav--white .logo {
+        order: 0 !important;
+        flex: 0 0 auto !important;
+        margin-right: auto !important;
+        text-align: left !important;
+        
+        img,
+        svg {
+            height: $spacing-lg !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+    
+    // On iPad Mini (768px), use mobile menu (hamburger)
+    // On larger tablets (769px+), show nav links inline
+    @media (min-width: $breakpoint-tablet + 1) {
+        // Ensure nav links are visible on larger tablets (769px+)
+        .nav-links {
+            display: flex !important;
+            position: static !important;
+            background: transparent !important;
+            flex-direction: row !important;
+            padding: 0 !important;
+            gap: 30px !important;
+            height: auto !important;
+            width: auto !important;
+            overflow: visible !important;
+            top: auto !important;
+            transition: none !important;
+            order: 1 !important;
+            flex: 0 0 auto !important;
+            margin: 0 auto !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+
+            > li:not(.mobile-contact):not(.mobile-divider):not(.mobile-logo) {
+                border-bottom: none !important;
+            }
+
+            a {
+                font-size: $font-size-md !important;
+                padding: 0 !important;
+                color: rgba(255, 255, 255, 0.85) !important;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+        }
+        
+        // Hide mobile menu elements on larger tablets
+        .mobile-divider,
+        .mobile-contact,
+        .mobile-logo {
+            display: none !important;
+        }
+        
+        // Hide menu toggle on larger tablets (769px+)
+        .menu-toggle {
+            display: none !important;
+        }
+    }
+    
+    // Hide contact button on tablet and mobile
+    .contact-btn {
+        display: none !important;
+    }
+    
+    // Override any services page rules that might show contact button
+    .hero--services .nav .contact-btn,
+    .hero--services .contact-btn {
+        display: none !important;
+    }
+}
+
+// Tablet Landscape (769px - 1024px) - iPad Air, etc.
+// Use hamburger menu for all tablets with scaled font sizes
+@media (min-width: $breakpoint-tablet + 1) and (max-width: $breakpoint-desktop) {
+    .nav {
+        padding: $spacing-3xl $spacing-4xl;
+        // Ensure proper flexbox alignment for all tablets
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .logo {
+        // Ensure logo stays left-aligned, not centered
+        order: 0 !important;
+        flex: 0 0 auto !important;
+        margin-right: $spacing-4xl !important; // Add padding between logo and hamburger menu
+        text-align: left !important;
+        
+        img,
+        svg {
+            height: $spacing-lg !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+    
+    // Ensure white navbar logo is also consistent
+    .nav--white .logo {
+        order: 0 !important;
+        flex: 0 0 auto !important;
+        margin-right: auto !important;
+        text-align: left !important;
+        
+        img,
+        svg {
+            height: $spacing-lg !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+
+    // Ensure top logo is always visible on tablets
+    .logo {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: $z-menu-toggle-active !important;
+    }
+
+    // Menu open state for tablets
+    .nav {
+        &.menu-open {
+            position: relative !important;
+            z-index: $z-menu-open !important;
+
+            .nav-links {
+                top: 0 !important;
+                opacity: 1 !important;
+                transition: top $transition-slow, opacity 0.3s ease 0.2s !important;
+                
+                > li:not(.mobile-contact):not(.mobile-divider):not(.mobile-logo) {
+                    opacity: 1 !important;
+                    transition: opacity 0.3s ease 0.2s !important;
+                }
+                
+                // Ensure mobile-contact, mobile-divider, and mobile-logo are always visible when menu is open
+                .mobile-contact,
+                .mobile-divider,
+                .mobile-logo {
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                }
+            }
+        }
+        
+        // When closing, fade out content first, then slide up
+        &:not(.menu-open) .nav-links {
+            transition: top $transition-slow 0.2s, opacity 0.2s ease !important;
+            
+            > li:not(.mobile-contact):not(.mobile-divider):not(.mobile-logo) {
+                opacity: 0 !important;
+                transition: opacity 0.2s ease !important;
+            }
+        }
+    }
+    
+    // Lock body scrolling when menu is open on tablet
+    body.menu-open {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    // Show hamburger menu on tablets
+    .menu-toggle {
+        display: flex !important;
+        order: 2 !important;
+        position: relative !important;
+        z-index: $z-menu-toggle-active !important;
+    }
+
+    // Hide nav links by default on tablets (shown in mobile menu when hamburger is clicked)
+    // Scaled font sizes for tablets (smaller than mobile, larger than desktop)
+    .nav-links {
+        display: flex !important;
+        position: fixed !important;
+        top: -100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: #1f2d47 !important;
+        flex-direction: column !important;
+        padding: 150px 60px 0 !important;
+        gap: 5px !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        height: 100vh !important;
+        z-index: 1000 !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        opacity: 0 !important;
+        transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s, opacity 0.3s ease 0.2s !important;
+        
+        // Hide content until menu has moved past nav bar
+        // Fade out immediately when closing, then slide up
+        // Exclude mobile-contact, mobile-divider, and mobile-logo from opacity transition
+        > li:not(.mobile-contact):not(.mobile-divider):not(.mobile-logo) {
+            opacity: 0 !important;
+            transition: opacity 0.2s ease !important;
+            border-bottom: none !important;
+        }
+
+        // Menu items styling for tablets: Roboto Light, 34px font size, 56px line height
+        a {
+            font-family: "Roboto", sans-serif !important;
+            font-size: 34px !important;
+            font-weight: 300 !important;
+            line-height: 56px !important;
+            padding: $spacing-xs 0 !important;
+            display: block !important;
+            color: $color-white !important;
+            text-decoration: none !important;
+        }
+    }
+
+    // Show mobile menu elements on tablets
+    .mobile-divider {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        height: 1px !important;
+        background: #02635E !important;
+        margin: 0 !important;
+            padding: 0 !important;
+        margin-top: auto !important;
+        margin-bottom: 0 !important;
+        // Span edge to edge - break out of parent padding
+        position: relative !important;
+        left: -60px !important; // Offset parent's left padding (60px)
+        width: calc(100% + 120px) !important; // Add both left and right padding (60px each)
+        max-width: 100vw !important;
+    }
+    
+    .mobile-contact {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        padding: 20px 0 0 0 !important;
+        margin-bottom: 0 !important;
+        position: relative !important;
+        z-index: 1 !important;
+        margin-right: 0 !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    // Ensure contact button and arrow are visible - match mobile styles
+    .mobile-contact .contact-btn-mobile {
+        opacity: 1 !important;
+        visibility: visible !important;
+        font-family: "Roboto", sans-serif !important;
+        font-size: 24px !important;
+        font-weight: 400 !important;
+        color: #9CB7B2 !important;
+        text-decoration: none !important;
+        display: flex !important; // Use flexbox
+        align-items: center !important;
+        justify-content: space-between !important; // Push arrow to far right
+        position: relative !important;
+        width: 100% !important;
+        white-space: nowrap !important;
+        padding-right: 0 !important; // No padding, arrow will be at edge
+        
+        .contact-text {
+            flex: 0 0 auto !important; // Don't grow or shrink
+            color: #9CB7B2 !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        .contact-arrow {
+            position: absolute !important;
+            right: 60px !important; // Align with nav-links padding (60px)
+            top: 50% !important;
+            transform: translateY(-50%) !important; // Center vertically
+            display: inline-flex !important;
+            align-items: center !important;
+            z-index: 10 !important;
+            flex: 0 0 auto !important;
+            visibility: visible !important;
+            max-width: calc(100% - 120px) !important; // Account for 60px padding on each side
+            opacity: 1 !important;
+    }
+
+        .button-arrow {
+            opacity: 1 !important;
+            visibility: visible !important;
+            // Set arrow color to match contact text #9CB7B2
+            filter: brightness(0) saturate(100%) invert(67%) sepia(8%) saturate(1000%) hue-rotate(130deg) brightness(95%) contrast(85%) !important;
+        }
+    }
+    
+    // Override button-arrow size for tablets - make it bigger and align with menu toggle
+    .mobile-contact .contact-btn-mobile .contact-arrow .button-arrow,
+    .contact-btn-mobile .contact-arrow .button-arrow {
+        width: 32px !important; // Bigger size
+        height: 32px !important; // Bigger size
+        flex-shrink: 0 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        // Set arrow color to match contact text #9CB7B2
+        filter: brightness(0) saturate(100%) invert(67%) sepia(8%) saturate(1000%) hue-rotate(130deg) brightness(95%) contrast(85%) !important;
+    }
+    
+    .mobile-logo {
+        display: none !important; // Hidden by default, shown when menu is open
+        padding: 0 !important;
+        margin: 0 !important;
+        margin-top: 87px !important; // Exactly 87px space from mobile-contact above
+        position: relative !important;
+        left: -60px !important; // Offset parent's left padding (60px)
+        width: calc(100% + 120px) !important; // Add both left and right padding (60px each)
+        max-width: 100vw !important;
+        z-index: $z-base !important;
+        // Ensure logo is always visible (not affected by opacity transitions)
+        opacity: 1 !important;
+    }
+
+    // Show mobile logo when menu is open
+    .nav.menu-open .nav-links .mobile-logo {
+        display: block !important;
+        opacity: 1 !important;
+    }
+
+    // Mobile logo image - fill width on tablets (accounting for padding)
+    .mobile-logo-img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        opacity: 0.4 !important;
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    // Hide contact button on ALL tablets (including iPad Mini and iPad Air)
+    .contact-btn {
+        display: none !important;
+    }
+    
+    // Override any services page rules that might show contact button
+    .hero--services .nav .contact-btn,
+    .hero--services .contact-btn {
+        display: none !important;
+    }
+}
+
+// Mobile Landscape Orientation (but not tablet landscape - 769px+)
+@media (max-width: $breakpoint-desktop) and (orientation: landscape) and (max-width: $breakpoint-tablet) {
+    .nav {
+        // Ensure proper flexbox alignment
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .logo {
+        // Ensure logo stays left-aligned
+        order: 0 !important;
+        flex: 0 0 auto !important;
+        margin-right: auto !important;
+        text-align: left !important;
+        
+        img,
+        svg {
+            height: $spacing-lg !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+    
+    // Ensure white navbar logo is also consistent
+    .nav--white .logo {
+        order: 0 !important;
+        flex: 0 0 auto !important;
+        margin-right: auto !important;
+        text-align: left !important;
+        
+        img,
+        svg {
+            height: $spacing-lg !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+    
+    .menu-toggle {
+        display: none !important;
+    }
+
+    .nav-links {
+        display: flex !important;
+        position: static !important;
+        background: transparent !important;
+        flex-direction: row !important;
+        padding: 0 !important;
+        gap: 30px !important;
+        height: auto !important;
+        width: auto !important;
+        overflow: visible !important;
+        top: auto !important;
+        transition: none !important;
+        order: 1 !important;
+        flex: 0 0 auto !important;
+        margin: 0 auto !important;
+
+        > li:not(.mobile-contact):not(.mobile-divider):not(.mobile-logo) {
+            border-bottom: none !important;
+        }
+
+        a {
+            font-size: $font-size-md !important;
+            padding: 0 !important;
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+    }
+
+    .mobile-divider,
+    .mobile-contact,
+    .mobile-logo {
+        display: none !important;
+    }
+
+    // Hide contact button on mobile landscape
+    .contact-btn {
+        display: none !important;
+    }
+    
+    // Override any services page rules
+    .hero--services .nav .contact-btn,
+    .hero--services .contact-btn {
+        display: none !important;
+    }
+}
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .nav {
+        padding: $spacing-lg $spacing-3xl;
+        // Ensure proper flexbox alignment on mobile
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+
+        &.menu-open {
+            position: relative;
+            z-index: $z-menu-open;
+
+            .nav-links {
+                top: 0;
+                opacity: 1;
+                transition: top $transition-slow, opacity 0.3s ease 0.2s;
+                
+                > * {
+                    opacity: 1;
+                    transition: opacity 0.3s ease 0.2s;
+                }
+            }
+        }
+        
+        // When closing, fade out content first, then slide up
+        &:not(.menu-open) .nav-links {
+            transition: top $transition-slow 0.2s, opacity 0.2s ease;
+            
+            > * {
+                transition: opacity 0.2s ease;
+            }
+        }
+    }
+
+    body.menu-open {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .menu-toggle {
+        display: flex;
+        order: 2;
+        position: relative;
+        z-index: $z-menu-toggle-active;
+    }
+
+    .contact-btn {
+        display: none !important;
+    }
+
+    .nav-links {
+        display: flex;
+        position: fixed;
+        top: -100%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $color-primary-footer;
+        flex-direction: column;
+        padding: 150px 30px 0;
+        gap: 5px;
+        width: 100%;
+        max-width: 100vw;
+        height: 100vh;
+        z-index: $z-menu;
+        overflow-y: auto;
+        overflow-x: hidden;
+        opacity: 0;
+        transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.3s, opacity 0.3s ease 0.2s;
+        
+        // Hide content until menu has moved past nav bar (logo + hamburger ~80px)
+        // Fade out immediately when closing, then slide up
+        > * {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        > li:not(.mobile-contact):not(.mobile-divider):not(.mobile-logo) {
+            border-bottom: none;
+        }
+
+        // Menu items styling for mobile: Roboto Light, 34px font size, 56px line height
+        a {
+            font-family: "Roboto", sans-serif;
+            font-size: 34px;
+            font-weight: 300;
+            line-height: 56px;
+            padding: $spacing-xs 0;
+            display: block;
+            color: $color-white;
+            text-decoration: none;
+        }
+
+        .mobile-logo {
+            display: none;
+        }
+        
+        .mobile-divider {
+            display: block; // Show divider in mobile menu
+        }
+        
+        .mobile-contact {
+            display: block; // Show contact button in mobile menu
+        }
+    }
+
+    .mobile-divider {
+        height: 1px;
+        background: #02635E;
+        margin: 0;
+        padding: 0;
+        margin-top: auto;
+        margin-bottom: 0;
+        // Span edge to edge - break out of parent padding
+        position: relative;
+        left: -30px; // Offset parent's left padding
+        width: calc(100% + 60px); // Add both left and right padding (30px each)
+        max-width: 100vw;
+    }
+    
+    // White navbar mobile menu divider
+    .nav--white .mobile-divider {
+        background: #02635E; // Same color for white background
+    }
+
+    .mobile-contact {
+        padding: 20px 0 0 0;
+        margin-bottom: 0;
+        position: relative;
+        z-index: 1;
+        margin-right: 0;
+        overflow: hidden;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    // White navbar mobile menu contact button
+    .nav--white .mobile-contact {
+        .contact-btn-mobile {
+            color: $color-primary;
+            border-color: $color-primary;
+            
+            .contact-arrow .button-arrow {
+                filter: brightness(0) !important; // Black arrow for light mode
+            }
+            
+            &:hover {
+                background: $color-primary;
+                color: $color-white;
+                
+                .button-arrow {
+                    filter: brightness(0) invert(1) !important; // White arrow on hover
+                }
+            }
+        }
+    }
+
+    .mobile-contact .contact-btn-mobile {
+        font-family: "Roboto", sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        color: #9CB7B2;
+        text-decoration: none;
+        display: flex; // Use flexbox
+        align-items: center;
+        justify-content: space-between; // Push arrow to far right
+        position: relative;
+        width: 100%;
+        white-space: nowrap;
+        padding-right: 0; // No padding, arrow will be at edge
+
+        .contact-text {
+            flex: 0 0 auto; // Don't grow or shrink
+            color: #9CB7B2;
+        }
+
+        .contact-arrow {
+            position: absolute;
+            right: $spacing-3xl; // Align with nav padding (40px) to match menu toggle position
+            top: 50%;
+            transform: translateY(-50%); // Center vertically
+            display: inline-flex !important;
+            align-items: center;
+            z-index: 10;
+            flex: 0 0 auto;
+            visibility: visible !important;
+            max-width: calc(100% - #{$spacing-3xl * 2});
+        }
+    }
+
+    // Override button-arrow size - make it bigger and align with menu toggle
+    .mobile-contact .contact-btn-mobile .contact-arrow .button-arrow,
+    .contact-btn-mobile .contact-arrow .button-arrow {
+        width: 32px !important; // Bigger size
+        height: 32px !important; // Bigger size
+        flex-shrink: 0 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        // Set arrow color to match contact text #9CB7B2
+        // Filter to convert to #9CB7B2 (teal color)
+        filter: brightness(0) saturate(100%) invert(67%) sepia(8%) saturate(1000%) hue-rotate(130deg) brightness(95%) contrast(85%) !important;
+    }
+
+    @media (max-width: $breakpoint-tablet) {
+        .nav-links {
+            .mobile-logo {
+                display: none; // Hidden by default
+                padding: 0;
+                margin: 0;
+                margin-top: 87px; // Exactly 87px space from mobile-contact above
+                position: relative;
+                left: -30px; // Offset parent's left padding (30px)
+                width: calc(100% + 60px); // Add both left and right padding (30px each)
+                max-width: 100vw;
+                z-index: $z-base;
+            }
+        }
+        
+        // Show mobile-logo only when menu is open
+        .nav.menu-open .nav-links .mobile-logo {
+            display: block;
+        }
+
+        .mobile-logo-img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            opacity: 0.4;
+            display: block;
+            padding: 0;
+            margin: 0 auto;
+        }
+        
+        // White navbar mobile logo styling
+        .nav--white .mobile-logo-img {
+            opacity: 0.4; // Keep opacity for white background
+            // ALAND paths are already #202A44 (black), RIV is #7DCAD8 (teal) in SVG
+        }
+    }
+
+    .logo {
+        order: 1;
+        position: relative;
+        z-index: $z-menu-toggle-active;
+
+        img,
+        svg {
+            height: $spacing-md !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+    
+    // Ensure white navbar logo is also consistent on mobile
+    .nav--white .logo {
+        img,
+        svg {
+            height: $spacing-md !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+}
+
+// Small Mobile (≤480px)
+@media (max-width: $breakpoint-mobile) {
+    .nav {
+        padding: 30px 32px;
+    }
+    
+    .logo {
+        img,
+        svg {
+            height: $spacing-md !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+    
+    // Ensure white navbar logo is also consistent on small mobile
+    .nav--white .logo {
+        img,
+        svg {
+            height: $spacing-md !important;
+            width: auto !important;
+            max-width: none !important;
+        }
+    }
+}
+
+

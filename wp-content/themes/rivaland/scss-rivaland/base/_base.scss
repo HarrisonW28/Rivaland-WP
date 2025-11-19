@@ -1,0 +1,72 @@
+// ============================================
+// BASE STYLES
+// ============================================
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: $font-family;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+body {
+    background: $color-white;
+    color: $color-text;
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+}
+
+img {
+    @include responsive-image;
+}
+
+button,
+a,
+.accordion-toggle {
+    @include touch-target;
+}
+
+main {
+    background: $color-white;
+    
+    // Desktop (≥1025px) - constrain content width
+    @media (min-width: $breakpoint-desktop + 1) {
+        max-width: 1440px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    // For viewport 1920px+, keep same constraint
+    @media (min-width: 1920px) {
+        max-width: 1440px;
+        margin: 0 auto;
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+    }
+    
+    * {
+        max-width: 100%;
+    }
+}
+

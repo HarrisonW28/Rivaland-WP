@@ -1,0 +1,293 @@
+// ============================================
+// FOOTER
+// ============================================
+
+.site-footer {
+    background: $color-primary; // #202A44
+    color: $color-white;
+    padding-top: $spacing-4xl;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: $z-base;
+    }
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; // Reduced contact column to sit more centrally
+    gap: $spacing-3xl;
+    margin-bottom: $spacing-3xl;
+    padding: 0 $spacing-5xl;
+    position: relative;
+    z-index: 1;
+    justify-items: start; // Left-align all grid items (including footer-links)
+}
+
+.footer-contact,
+.footer-address {
+    p {
+        margin: 0 0 $spacing-xs 0;
+        color: $color-white;
+        font-size: $font-size-md;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0; // Remove gap so links sit on lines
+    text-align: left; // Left-align privacy/terms links
+    margin-left: $spacing-2xl; // Push links further to the right on desktop
+    justify-self: start; // Ensure it respects the margin
+
+    a {
+        color: $color-white;
+        text-decoration: none;
+        font-size: $font-size-md;
+        transition: opacity $transition-fast;
+        line-height: 1.6; // Match body line-height (same as address/contact)
+        min-height: auto; // Override touch-target min-height
+        min-width: auto; // Override touch-target min-width
+        display: inline; // Override touch-target display: inline-flex
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}
+
+.footer-divider {
+    height: 1px;
+    background: $color-accent-teal;
+    margin: $spacing-3xl 0;
+    position: relative;
+    z-index: 1;
+}
+
+.footer-bottom {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: $spacing-3xl;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+    padding: 0 $spacing-5xl;
+    
+    @media (min-width: $breakpoint-desktop) {
+        gap: $spacing-md;
+        grid-template-columns: 2fr 0.5fr 1fr;
+    }
+}
+
+.footer-copyright {
+    white-space: nowrap;
+}
+
+.footer-copyright,
+.footer-credit {
+    p {
+        margin: 0;
+        color: $color-accent-teal-light;
+        font-size: $font-size-base;
+    }
+}
+
+.footer-logo {
+    margin-top: $spacing-5xl;
+    opacity: 0.2; // Reduced from 0.3 to lighten
+    pointer-events: none;
+    z-index: $z-base;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        opacity: 0.25; // Reduced from 0.4 to lighten
+    }
+}
+
+// ============================================
+// TYPE VARIANTS
+// ============================================
+
+// Standard type (default - regular footer layout)
+.site-footer--standard {
+    // Uses base .site-footer styles
+}
+
+// ============================================
+// COLOR VARIANTS (can be combined with type variants)
+// ============================================
+
+.site-footer {
+    // Dark color scheme (default)
+    &--dark {
+        // Standard type with dark colors
+        &.site-footer--standard {
+        background: $color-primary;
+        color: $color-white;
+        
+        .footer-contact,
+        .footer-address p {
+            color: $color-white;
+        }
+        
+        .footer-links a {
+            color: $color-white;
+        }
+        
+        .footer-divider {
+            background: $color-accent-teal;
+        }
+        
+        .footer-copyright,
+        .footer-credit p {
+            color: $color-accent-teal-light;
+        }
+        }
+    }
+    
+    // Light color scheme
+    &--light {
+        // Standard type with light colors
+        &.site-footer--standard {
+        background: $color-white;
+        color: $color-primary;
+        
+        &::before {
+            display: none; // Remove dark overlay
+        }
+        
+        .footer-contact,
+        .footer-address p {
+            color: $color-primary;
+        }
+        
+        .footer-links a {
+            color: $color-primary;
+            
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+        
+        .footer-divider {
+            background: $color-border;
+        }
+        
+        .footer-copyright,
+        .footer-credit p {
+            color: $color-text-secondary;
+        }
+        
+        .footer-logo {
+            opacity: 0.2;
+            
+            img {
+                filter: brightness(0); // Make logo dark
+            }
+        }
+        }
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Tablet (≤1024px)
+@media (max-width: $breakpoint-desktop) {
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        grid-template-columns: 1fr 1fr;
+
+        > div:empty {
+            display: none;
+        }
+    }
+}
+
+// Tablet Landscape (768px - 1024px)
+@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    .footer-top {
+        grid-template-columns: 1.5fr 1fr 1fr; // Reduced first column to move address left
+        padding: 0 $spacing-4xl;
+    }
+
+    .footer-bottom {
+        grid-template-columns: 2fr 1fr 1fr;
+        padding: 0 $spacing-4xl;
+
+        > div:empty {
+            display: block;
+        }
+    }
+}
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .site-footer {
+        padding-top: $spacing-3xl;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0 $spacing-md;
+    }
+
+    .footer-links {
+        margin-left: 0; // Remove desktop margin on mobile
+    }
+
+    .footer-divider {
+        margin: 30px $spacing-md;
+    }
+
+    .footer-bottom {
+        grid-template-columns: 1fr;
+        gap: $spacing-md;
+        padding: 0 $spacing-md;
+
+        > div:empty {
+            display: none;
+        }
+    }
+
+    .footer-copyright {
+        white-space: normal;
+
+        p,
+        .footer-credit p {
+            font-size: $font-size-xs;
+        }
+    }
+
+    .footer-logo {
+        margin-top: $spacing-3xl;
+        padding: 0 $spacing-md;
+
+        img {
+            width: 100%;
+        }
+    }
+}
+

@@ -1,0 +1,49 @@
+node_modules
+.htaccess
+wp-config.php
+package-lock.json
+auth.json
+db.php
+wp-content/db.php
+debug.log
+wflogs
+
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+
+# MySQL
+*.sql
+*.sql.gz
+*.dump
+
+# PostgreSQL
+*.psql
+*.dump
+
+# MongoDB
+*.wt
+*.data
+mongod.lock
+diagnostic.data/
+journal/
+
+# Redis
+*.rdb
+*.aof
+appendonly.aof
+
+# General database files
+*.bak
+*.dmp
+*.log
+*.mdb
+*.ldf
+*.frm
+*.ibd
+*.MYD
+*.MYI
+*.pid

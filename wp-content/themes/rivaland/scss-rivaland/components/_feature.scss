@@ -1,0 +1,294 @@
+// ============================================
+// FEATURE SECTION
+// ============================================
+
+.feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+    align-items: stretch;
+    border-top: 1px solid $color-border;
+    position: relative;
+    
+        // On 1920px+, extend border to full width
+        @media (min-width: 1920px) {
+            border-top: none; // Hide regular border, use ::before for full-width
+            
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100vw;
+                height: 1px;
+                background: $color-border;
+                z-index: 0;
+            }
+            
+            // Hide base border for dark mode (dark mode has its own border)
+            &.feature--dark::before {
+                display: none;
+            }
+        }
+}
+
+.feature__image,
+.feature-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-5xl;
+    grid-column: 1; // Image in column 1 (left) by default
+    grid-row: 1; // Ensure it's in row 1
+
+    img {
+        max-width: 522px;
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+}
+
+.feature__copy,
+.feature-copy {
+    padding: $spacing-3xl;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    grid-column: 2; // Text (eyebrow + copy) in column 2 (right) by default
+    grid-row: 1; // Ensure it's in row 1
+
+    > p:not(.feature-eyebrow):not(.feature__eyebrow) {
+        margin-bottom: $spacing-lg;
+        color: $color-accent-teal;
+        font-size: $font-size-base;
+        line-height: 1.6;
+        max-width: 410px;
+    }
+
+    .link-button {
+        color: $color-black;
+        text-decoration: none;
+        font-family: Roboto;
+        font-weight: $font-weight-light;
+        font-size: $font-size-md;
+        line-height: $line-height-button;
+        letter-spacing: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid $color-accent-teal-light;
+        background: $color-white;
+        padding: $spacing-12 $spacing-md;
+        transition: color $transition-base;
+        max-width: $button-width-sm;
+        box-sizing: border-box;
+        @include button-hover-effect;
+    }
+}
+
+.feature__eyebrow,
+.feature-eyebrow {
+    font-size: $font-size-2xl;
+    color: $color-primary;
+    margin-bottom: $spacing-lg;
+    font-weight: $font-weight-normal;
+}
+
+// Dark/Light Variants
+.feature {
+    // Light variant (default)
+    &--light {
+        background: $color-white;
+        border-top-color: $color-border;
+        
+        .feature__copy,
+        .feature-copy {
+            background: $color-white;
+            
+            > p:not(.feature-eyebrow):not(.feature__eyebrow) {
+                color: $color-accent-teal;
+            }
+            
+            .link-button {
+                background: $color-white;
+                border-color: $color-accent-teal-light;
+                color: $color-black;
+            }
+        }
+        
+        .feature__eyebrow,
+        .feature-eyebrow {
+            color: $color-primary;
+        }
+    }
+    
+    // Dark variant
+    &--dark {
+        background: $color-primary;
+        border-top-color: $color-white-opacity-20;
+        position: relative;
+        
+        // On 1920px+, extend background to fill whitespace
+        @media (min-width: 1920px) {
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100vw;
+                height: 100%;
+                background: $color-primary;
+                z-index: -1;
+            }
+            
+            // Extend border to full width (border-top already removed above)
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100vw;
+                height: 1px;
+                background: $color-white-opacity-20;
+                z-index: 0;
+            }
+        }
+        
+        .feature__copy,
+        .feature-copy {
+            background: $color-primary;
+            
+            > p:not(.feature-eyebrow):not(.feature__eyebrow) {
+                color: $color-white-opacity-85;
+            }
+            
+            .link-button {
+                background: $color-primary;
+                border-color: $color-white-opacity-30;
+                color: $color-white;
+                
+                &:hover {
+                    background: $color-white;
+                    color: $color-primary;
+                }
+            }
+        }
+        
+        .feature__eyebrow,
+        .feature-eyebrow {
+            color: $color-white;
+        }
+    }
+    
+    // Services variant - image on right, copy on left
+    &--services {
+        .feature__image,
+        .feature-image {
+            grid-column: 2; // Image on right for services
+        }
+        
+        .feature__copy,
+        .feature-copy {
+            grid-column: 1; // Copy on left for services
+        }
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Tablet (≤1024px)
+@media (max-width: $breakpoint-desktop) {
+    .feature {
+        grid-template-columns: 1fr;
+
+        &__image,
+        &-image {
+            padding: $spacing-4xl $spacing-3xl;
+        }
+
+        &__copy,
+        &-copy {
+            padding: $spacing-4xl $spacing-3xl;
+        }
+    }
+}
+
+// Tablet Landscape (768px - 1024px)
+@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    .feature {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .feature {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto; // Two rows: one for image, one for copy
+        padding: 0;
+        
+        &__image,
+        &-image {
+            padding: $spacing-3xl 40px; // Top/bottom: 40px, left/right: 40px
+            grid-column: 1 !important;
+            grid-row: 1 !important;
+            width: 100%;
+            
+            img {
+                max-width: 100%; // Fit full width
+                width: 100%;
+                height: auto;
+                object-fit: cover; // Cover the full width
+            }
+        }
+
+        &__copy,
+        &-copy {
+            padding: 0 40px; // Top/bottom: 0, left/right: 40px
+            grid-column: 1 !important;
+            grid-row: 2 !important;
+            width: 100%;
+        }
+        
+        // Hide link-button on mobile/iPad Mini
+        .link-button {
+            display: none !important;
+        }
+    }
+    
+    // Services variant - image on right, copy on left (on desktop)
+    // On mobile, show image first, then copy
+    .feature--services {
+        .feature__image,
+        .feature-image {
+            grid-column: 1 !important;
+            grid-row: 1 !important;
+        }
+        
+        .feature__copy,
+        .feature-copy {
+            grid-column: 1 !important;
+            grid-row: 2 !important;
+        }
+    }
+}
+
+// Small Mobile (≤480px)
+@media (max-width: $breakpoint-mobile) {
+    .feature__eyebrow,
+    .feature-eyebrow {
+        font-size: $font-size-xl; // 22px on small mobile too
+    }
+}
+

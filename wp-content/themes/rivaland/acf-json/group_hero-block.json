@@ -1,0 +1,133 @@
+{
+    "key": "group_hero_block",
+    "title": "Hero Block",
+    "fields": [
+        {
+            "key": "field_hero_type",
+            "label": "Hero Type",
+            "name": "hero_type",
+            "type": "select",
+            "instructions": "Choose the hero layout type",
+            "required": 1,
+            "choices": {
+                "home": "Home (Full-height with image background)",
+                "about": "About (Fixed height with diagonal triangle)",
+                "services": "Services (Hero with content + image below)"
+            },
+            "default_value": "home",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_hero_color_scheme",
+            "label": "Color Scheme",
+            "name": "hero_color_scheme",
+            "type": "select",
+            "instructions": "Choose the color scheme variant",
+            "required": 0,
+            "choices": {
+                "light": "Light",
+                "dark": "Dark (Default)"
+            },
+            "default_value": "dark",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_hero_white_navbar",
+            "label": "Use White Navbar",
+            "name": "hero_white_navbar",
+            "type": "true_false",
+            "instructions": "Use white navbar variant (for light backgrounds)",
+            "required": 0,
+            "message": "Use white navbar",
+            "default_value": 0,
+            "ui": 1
+        },
+        {
+            "key": "field_hero_title",
+            "label": "Hero Title",
+            "name": "hero_title",
+            "type": "textarea",
+            "instructions": "Main heading text (use line breaks for multi-line)",
+            "required": 1,
+            "rows": 3,
+            "default_value": "",
+            "placeholder": "Enter hero title"
+        },
+        {
+            "key": "field_hero_highlight",
+            "label": "Highlight Text",
+            "name": "hero_highlight",
+            "type": "text",
+            "instructions": "Text to highlight within the title (will be wrapped in span.highlight)",
+            "required": 0,
+            "placeholder": "planning consent"
+        },
+        {
+            "key": "field_hero_background",
+            "label": "Background Image",
+            "name": "hero_background",
+            "type": "image",
+            "instructions": "Background image for home hero type",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_hero_type",
+                        "operator": "==",
+                        "value": "home"
+                    }
+                ]
+            ],
+            "return_format": "array",
+            "preview_size": "large",
+            "library": "all"
+        },
+        {
+            "key": "field_hero_image",
+            "label": "Hero Image",
+            "name": "hero_image",
+            "type": "image",
+            "instructions": "Image displayed below hero content (for services type)",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_hero_type",
+                        "operator": "==",
+                        "value": "services"
+                    }
+                ]
+            ],
+            "return_format": "array",
+            "preview_size": "large",
+            "library": "all"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/hero-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Hero section block with type and color scheme variants",
+    "show_in_rest": 0
+}
+

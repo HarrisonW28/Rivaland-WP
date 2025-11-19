@@ -1,0 +1,295 @@
+// ============================================
+// NEWS SECTION
+// ============================================
+
+.news {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; // Make all news cards equal height
+    gap: $spacing-md;
+    padding: $spacing-5xl;
+    border-top: 1px solid $color-border;
+    position: relative;
+    
+    // On 1920px+, extend border to full width
+    @media (min-width: 1920px) {
+        border-top: none; // Hide regular border, use ::before for full-width
+        
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background: $color-border;
+            z-index: 0;
+        }
+    }
+}
+
+.news-card {
+    border: 1px solid $color-border-light;
+    background: $color-white;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: all $transition-base;
+    overflow: hidden;
+    width: 630px;
+    height: 630px;
+    min-height: 630px; // Ensure minimum height for equal sizing
+    position: relative;
+
+    &:hover {
+        background: $color-primary;
+        transform: translateY(-4px);
+
+        .news-eyebrow,
+        .news-title,
+        .news-arrow {
+            color: $color-white;
+        }
+    }
+
+    img {
+        width: 590px;
+        height: 400px;
+        object-fit: cover;
+        display: block;
+        margin: 10px auto;
+    }
+}
+
+.news-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    flex: 1;
+}
+
+.news-eyebrow {
+    font-size: $font-size-xs;
+    color: $color-accent-teal;
+    margin: 0;
+    font-weight: $font-weight-normal;
+}
+
+.news-title {
+    font-size: 28px;
+    color: $color-primary-light;
+    margin: 0;
+    font-weight: $font-weight-normal;
+}
+
+.news-arrow {
+    position: absolute;
+    bottom: $spacing-md;
+    right: $spacing-md;
+    width: $font-size-xl;
+    height: $font-size-xl;
+    color: $color-text-secondary;
+    transition: color $transition-base;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// Desktop (≥1025px) - News arrow size and eyebrow dimensions
+@media (min-width: $breakpoint-desktop + 1) {
+    .news-arrow {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .news-eyebrow {
+        width: 522px;
+        height: 52px;
+        max-width: 522px;
+        max-height: 52px;
+    }
+}
+
+// ============================================
+// TYPE VARIANTS
+// ============================================
+
+// Standard type (default - regular news layout)
+.news--standard {
+    // Uses base .news styles
+}
+
+// ============================================
+// COLOR VARIANTS (can be combined with type variants)
+// ============================================
+
+.news {
+    // Light color scheme
+    &--light {
+        // Standard type with light colors
+        &.news--standard {
+        background: $color-white;
+        border-top-color: $color-border;
+        
+        .news-card {
+            background: $color-white;
+            border-color: $color-border-light;
+            
+            &:hover {
+                background: $color-primary;
+                
+                .news-eyebrow,
+                .news-title,
+                .news-arrow {
+                    color: $color-white;
+                }
+            }
+        }
+        
+        .news-eyebrow {
+            color: $color-accent-teal;
+        }
+        
+        .news-title {
+            color: $color-primary-light;
+        }
+        
+        .news-arrow {
+            color: $color-text-secondary;
+        }
+        }
+    }
+    
+    // Dark color scheme
+    &--dark {
+        // Standard type with dark colors
+        &.news--standard {
+        background: $color-primary;
+        border-top-color: rgba(255, 255, 255, 0.2);
+        
+        .news-card {
+            background: $color-primary;
+            border-color: rgba(255, 255, 255, 0.2);
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+                
+                .news-eyebrow,
+                .news-title,
+                .news-arrow {
+                    color: $color-white;
+                }
+            }
+        }
+        
+        .news-eyebrow {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .news-title {
+            color: $color-white;
+        }
+        
+        .news-arrow {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        }
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Tablet (≤1024px)
+@media (max-width: $breakpoint-desktop) {
+    .news {
+        grid-template-columns: 1fr;
+        padding: $spacing-4xl $spacing-3xl;
+    }
+}
+
+// Tablet Landscape (768px - 1024px)
+@media (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    .news {
+        grid-template-columns: 1fr 1fr;
+        padding: $spacing-4xl $spacing-4xl;
+    }
+}
+
+// Tablet (769px - 1024px) - Exclude iPad Mini at 768px
+@media (min-width: $breakpoint-tablet + 1) and (max-width: $breakpoint-desktop) {
+    .news-card {
+        img {
+            margin: 20px; // 20px margin on all sides for tablet (not iPad Mini)
+            width: calc(100% - 40px); // Fit within news-content, accounting for 20px margin on each side
+            height: auto;
+            max-width: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .news {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: $spacing-3xl 40px; // Top/bottom: 40px, left/right: 40px
+        gap: $spacing-md;
+    }
+
+    .news-card {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-height: 400px; // Ensure equal minimum height on mobile
+
+        img {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            margin: 0; // Remove all margin on mobile/iPad Mini
+        }
+    }
+
+    .news-content {
+        padding: 20px; // 20px on all sides
+        position: relative; // Allow absolute positioning of arrow
+        flex: 1; // Take remaining space
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news-title {
+        margin-bottom: $spacing-md; // Add margin to create space for arrow
+    }
+
+    .news-arrow {
+        position: static; // Remove absolute positioning on mobile
+        display: flex; // Display as flex for SVG
+        margin-top: $spacing-md; // Add top margin for spacing
+        align-self: flex-end; // Align to the right
+        width: $font-size-xl;
+        height: $font-size-xl;
+    }
+
+    .news-eyebrow {
+        font-size: $font-size-xs;
+    }
+
+    .news-title {
+        font-size: $font-size-2xl; // 24px on mobile
+    }
+}
+

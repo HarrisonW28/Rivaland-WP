@@ -1,0 +1,301 @@
+{
+    "key": "group_contact_page_fields",
+    "title": "Contact Page Fields",
+    "fields": [
+        {
+            "key": "field_contact_hero_section",
+            "label": "Hero Section",
+            "name": "hero_section",
+            "type": "group",
+            "instructions": "Hero section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_contact_hero_variant",
+                    "label": "Hero Variant",
+                    "name": "hero_variant",
+                    "type": "select",
+                    "instructions": "Choose the hero layout variant",
+                    "required": 0,
+                    "choices": {
+                        "home": "Home",
+                        "about": "About",
+                        "services": "Services"
+                    },
+                    "default_value": "home",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_contact_hero_color_scheme",
+                    "label": "Color Scheme",
+                    "name": "hero_color_scheme",
+                    "type": "select",
+                    "instructions": "Choose the color scheme",
+                    "required": 0,
+                    "choices": {
+                        "light": "Light",
+                        "dark": "Dark"
+                    },
+                    "default_value": "dark",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_contact_hero_title",
+                    "label": "Hero Title",
+                    "name": "hero_title",
+                    "type": "textarea",
+                    "instructions": "Main heading text (use line breaks for multi-line)",
+                    "required": 0,
+                    "rows": 2,
+                    "default_value": "Contact\nus",
+                    "placeholder": "Contact\nus"
+                },
+                {
+                    "key": "field_contact_hero_highlight",
+                    "label": "Highlight Text",
+                    "name": "hero_highlight",
+                    "type": "text",
+                    "instructions": "Text to highlight within the title",
+                    "required": 0,
+                    "default_value": "us",
+                    "placeholder": "us"
+                }
+            ]
+        },
+        {
+            "key": "field_contact_intro_section",
+            "label": "Intro Section",
+            "name": "intro_section",
+            "type": "group",
+            "instructions": "Intro section settings",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_contact_intro_text",
+                    "label": "Intro Text",
+                    "name": "intro_text",
+                    "type": "textarea",
+                    "instructions": "Introduction paragraph",
+                    "required": 0,
+                    "rows": 3,
+                    "default_value": "If you have an enquiry and would like to get in touch, please complete this form. Alternatively you can speak to a member of the team by calling 01564 123456 or email your enquiry to info@rivaland.co.uk."
+                },
+                {
+                    "key": "field_contact_intro_variant",
+                    "label": "Intro Variant",
+                    "name": "intro_variant",
+                    "type": "select",
+                    "instructions": "Choose the intro variant",
+                    "required": 0,
+                    "choices": {
+                        "default": "Default",
+                        "about": "About"
+                    },
+                    "default_value": "default",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_contact_intro_color_scheme",
+                    "label": "Color Scheme",
+                    "name": "intro_color_scheme",
+                    "type": "select",
+                    "instructions": "Choose the color scheme",
+                    "required": 0,
+                    "choices": {
+                        "light": "Light",
+                        "dark": "Dark"
+                    },
+                    "default_value": "light",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                }
+            ]
+        },
+        {
+            "key": "field_contact_info_section",
+            "label": "Contact Information Section",
+            "name": "contact_info",
+            "type": "group",
+            "instructions": "Contact information and form section",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_contact_info_eyebrow",
+                    "label": "Eyebrow Text",
+                    "name": "eyebrow",
+                    "type": "text",
+                    "instructions": "Eyebrow text above form",
+                    "required": 0,
+                    "default_value": "Get in touch",
+                    "placeholder": "Get in touch"
+                },
+                {
+                    "key": "field_contact_info_form_shortcode",
+                    "label": "Contact Form Shortcode",
+                    "name": "contact_form",
+                    "type": "text",
+                    "instructions": "Contact Form 7 shortcode (e.g., [contact-form-7 id=\"123\"]) or leave empty to use default form",
+                    "required": 0,
+                    "default_value": "",
+                    "placeholder": "[contact-form-7 id=\"123\"]"
+                },
+                {
+                    "key": "field_contact_info_telephone",
+                    "label": "Telephone",
+                    "name": "telephone",
+                    "type": "text",
+                    "instructions": "Telephone number (displayed in intro text)",
+                    "required": 0,
+                    "default_value": "01564 123456",
+                    "placeholder": "01564 123456"
+                },
+                {
+                    "key": "field_contact_info_email",
+                    "label": "Email",
+                    "name": "email",
+                    "type": "email",
+                    "instructions": "Email address (displayed in intro text)",
+                    "required": 0,
+                    "default_value": "info@rivaland.co.uk",
+                    "placeholder": "info@rivaland.co.uk"
+                }
+            ]
+        },
+        {
+            "key": "field_contact_feature_section",
+            "label": "Feature Section",
+            "name": "feature_section",
+            "type": "group",
+            "instructions": "Feature section (contact information display)",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_contact_feature_eyebrow",
+                    "label": "Eyebrow",
+                    "name": "eyebrow",
+                    "type": "text",
+                    "instructions": "Eyebrow text",
+                    "required": 0,
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_contact_feature_description",
+                    "label": "Description",
+                    "name": "description",
+                    "type": "wysiwyg",
+                    "instructions": "Feature description text",
+                    "required": 0,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0
+                },
+                {
+                    "key": "field_contact_feature_button_text",
+                    "label": "Button Text",
+                    "name": "button_text",
+                    "type": "text",
+                    "instructions": "Button text",
+                    "required": 0,
+                    "default_value": "",
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_contact_feature_button_url",
+                    "label": "Button URL",
+                    "name": "button_url",
+                    "type": "url",
+                    "instructions": "Button link URL",
+                    "required": 0,
+                    "default_value": ""
+                },
+                {
+                    "key": "field_contact_feature_image",
+                    "label": "Image",
+                    "name": "image",
+                    "type": "image",
+                    "instructions": "Feature image",
+                    "required": 0,
+                    "return_format": "array",
+                    "preview_size": "large",
+                    "library": "all"
+                },
+                {
+                    "key": "field_contact_feature_image_position",
+                    "label": "Image Position",
+                    "name": "image_position",
+                    "type": "select",
+                    "instructions": "Choose image position",
+                    "required": 0,
+                    "choices": {
+                        "left": "Left",
+                        "right": "Right"
+                    },
+                    "default_value": "left",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_contact_feature_variant",
+                    "label": "Variant",
+                    "name": "variant",
+                    "type": "select",
+                    "instructions": "Choose the feature variant",
+                    "required": 0,
+                    "choices": {
+                        "default": "Default",
+                        "team": "Team"
+                    },
+                    "default_value": "default",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-contact.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Fields for the Contact page template",
+    "show_in_rest": 0
+}
+

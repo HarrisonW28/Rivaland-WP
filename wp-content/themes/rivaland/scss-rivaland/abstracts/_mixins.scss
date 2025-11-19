@@ -1,0 +1,37 @@
+// ============================================
+// MIXINS
+// ============================================
+
+@mixin button-hover-effect($bg-color: #202A44) {
+    transition: background-color $transition-base, 
+                color $transition-base, 
+                transform $transition-base,
+                box-shadow $transition-base;
+
+    &:hover {
+        background-color: $bg-color;
+        color: $color-white;
+        transform: translateY(-2px); // Subtle lift effect
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // Subtle shadow for depth
+
+        .button-arrow {
+            filter: brightness(0) invert(1);
+            transform: translateX(4px); // Arrow slides slightly right
+        }
+    }
+}
+
+@mixin touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin responsive-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+

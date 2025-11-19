@@ -1,0 +1,284 @@
+// ============================================
+// FEATURE VARIANTS
+// ============================================
+// Variant styles for feature component
+// Usage: <section class="feature feature--standard feature--light">
+//        <section class="feature feature--team feature--dark">
+//
+// TYPE VARIANTS (layout/structure):
+// - feature--standard: Default feature with image and text
+// - feature--team: Team feature with circular headshot image
+//
+// COLOR VARIANTS (can be combined with type):
+// - feature--light: Light color scheme
+// - feature--dark: Dark color scheme
+
+// ============================================
+// TYPE VARIANTS
+// ============================================
+
+// Standard type (default - regular feature layout)
+.feature--standard {
+    // Uses base .feature styles
+}
+
+// Team type (circular image, team-specific styling)
+.feature--team {
+    background: $color-white;
+    border-top: 1px solid $color-border;
+    
+    .feature__image,
+    .feature-image {
+        background: $color-white;
+        padding: $spacing-5xl;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        img {
+            max-width: 522px;
+            max-height: 522px;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+    }
+    
+    .feature__copy,
+    .feature-copy {
+        background: $color-white;
+        padding: $spacing-5xl;
+        padding-left: $spacing-2xl;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        .team-heading {
+            font-size: $font-size-4xl;
+            font-weight: $font-weight-normal;
+            color: $color-primary;
+            margin: 0 0 $spacing-lg 0;
+        }
+        
+        > p {
+            color: $color-text;
+            font-size: $font-size-base;
+            line-height: 26px;
+            margin-bottom: $spacing-lg;
+            max-width: none;
+        }
+        
+        .feature__eyebrow,
+        .feature-eyebrow {
+            color: $color-primary;
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-normal;
+            margin-bottom: $spacing-lg;
+        }
+        
+        .team-button {
+            background: $color-white;
+            color: $color-text;
+            border: 1px solid $color-border-light;
+            padding: $spacing-12 $spacing-md;
+            max-width: $button-width-sm;
+            
+            .button-arrow {
+                filter: brightness(0);
+                transform: rotate(-45deg);
+                transition: filter $transition-base, transform $transition-base;
+            }
+            
+            @include button-hover-effect(#202A44);
+            
+            &:hover {
+                background-color: #202A44;
+                color: $color-white;
+                
+                .button-arrow {
+                    filter: brightness(0) invert(1) !important; // Make arrow white on hover
+                    transform: translateX(4px) rotate(-45deg);
+                }
+            }
+        }
+    }
+}
+
+// ============================================
+// COLOR VARIANTS (can be combined with type variants)
+// ============================================
+
+// Light color scheme
+.feature--light {
+    // Standard type with light colors
+    &.feature--standard {
+        background: $color-white;
+        border-top-color: $color-border;
+        
+        .feature__copy,
+        .feature-copy {
+            background: $color-white;
+            
+            > p:not(.feature-eyebrow):not(.feature__eyebrow) {
+                color: $color-accent-teal;
+            }
+            
+            .link-button {
+                background: $color-white;
+                border-color: $color-accent-teal-light;
+                color: $color-black;
+            }
+        }
+        
+        .feature__eyebrow,
+        .feature-eyebrow {
+            color: $color-primary;
+        }
+    }
+    
+    // Team type with light colors
+    &.feature--team {
+        background: $color-white;
+        border-top-color: $color-border;
+        
+        .feature__image,
+        .feature-image {
+            background: $color-white;
+        }
+        
+        .feature__copy,
+        .feature-copy {
+            background: $color-white;
+            
+            .team-heading {
+                color: $color-primary;
+            }
+            
+            > p {
+                color: $color-text;
+            }
+            
+            .feature__eyebrow,
+            .feature-eyebrow {
+                color: $color-primary;
+            }
+            
+            .team-button {
+                background: $color-white;
+                color: $color-text;
+                border-color: $color-border-light;
+            }
+        }
+    }
+}
+
+// Dark color scheme
+.feature--dark {
+    position: relative;
+    
+    // On 1920px+, extend background to fill whitespace
+    @media (min-width: 1920px) {
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: $color-primary;
+            z-index: -1;
+        }
+        
+        // Extend border to full width
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+    }
+    
+    // Standard type with dark colors
+    &.feature--standard {
+        background: $color-primary;
+        border-top-color: rgba(255, 255, 255, 0.2);
+        
+        .feature__copy,
+        .feature-copy {
+            background: $color-primary;
+            
+            > p:not(.feature-eyebrow):not(.feature__eyebrow) {
+                color: rgba(255, 255, 255, 0.85);
+            }
+            
+            .link-button {
+                background: $color-primary;
+                border-color: rgba(255, 255, 255, 0.3);
+                color: $color-white;
+                
+                &:hover {
+                    background: $color-white;
+                    color: $color-primary;
+                }
+            }
+        }
+        
+        .feature__eyebrow,
+        .feature-eyebrow {
+            color: $color-white;
+        }
+    }
+    
+    // Team type with dark colors
+    &.feature--team {
+        background: $color-primary;
+        border-top-color: rgba(255, 255, 255, 0.2);
+        
+        .feature__image,
+        .feature-image {
+            background: $color-primary;
+        }
+        
+        .feature__copy,
+        .feature-copy {
+            background: $color-primary;
+            
+            .team-heading {
+                color: $color-white;
+            }
+            
+            > p {
+                color: rgba(255, 255, 255, 0.85);
+            }
+            
+            .feature__eyebrow,
+            .feature-eyebrow {
+                color: $color-white;
+            }
+            
+            .team-button {
+                background: $color-primary;
+                color: $color-white;
+                border-color: rgba(255, 255, 255, 0.3);
+                
+                &:hover {
+                    background: $color-white;
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+}
+
+// Legacy class for backwards compatibility
+.team-feature {
+    @extend .feature--team;
+}
+

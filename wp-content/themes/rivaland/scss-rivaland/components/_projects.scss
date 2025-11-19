@@ -1,0 +1,1590 @@
+// ============================================
+// PROJECTS SECTION
+// ============================================
+@use "sass:color";
+
+.projects {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0;
+    padding: 0;
+    background: $color-white;
+    border-top: 1px solid $color-border;
+    align-items: stretch;
+    position: relative;
+    
+    // Desktop (≥1025px) - Use fixed width for left column, fill remaining space for right
+    @media (min-width: $breakpoint-desktop + 1) {
+        grid-template-columns: 405px 1fr; // Fixed 405px for left, fill remaining for right
+    }
+    
+    // On 1920px+, extend border to full width
+    @media (min-width: 1920px) {
+        border-top: none; // Hide regular border, use ::before for full-width
+        
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background: $color-border;
+            z-index: 0;
+        }
+    }
+}
+
+.projects-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $spacing-5xl;
+    width: 405px;
+    max-width: 405px;
+    flex: 0 0 405px;
+    border-right: 1px solid $color-border;
+
+    h2 {
+        font-size: $font-size-8xl;
+        font-weight: $font-weight-normal;
+        color: $color-primary-light;
+        margin: 0;
+    }
+}
+
+.projects-button {
+    color: #202A44;
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 38px;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid $color-accent-teal-light;
+    background: $color-white;
+    padding: 0 22px;
+    height: 57px;
+    width: 305px;
+    max-width: 305px;
+    box-sizing: border-box;
+    transition: color $transition-base;
+    @include button-hover-effect;
+    
+    .button-arrow {
+        margin-left: auto;
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+    }
+}
+
+.projects-index__list {
+    border: 1px solid $color-border-light;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $color-border-light;
+    height: 100%;
+    width: 100%; // Fill available grid column width
+    box-sizing: border-box;
+}
+
+.project-card {
+    display: flex;
+    align-items: center;
+    padding: $spacing-50;
+    padding-left: $spacing-6xl;
+    border-bottom: 1px solid $color-border-light;
+    transition: background $transition-base;
+    cursor: pointer;
+    flex: 1; // Make all cards equal height
+    min-height: 0; // Allow flex shrinking
+    position: relative;
+    gap: 0;
+
+    // Base hover - but NOT for index cards
+    &:hover:not(.project-card--index) {
+        background: $color-primary;
+
+        .project-card__meta,
+        .project-card__location,
+        .project-card__arrow {
+            color: $color-white;
+        }
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.project-card__info {
+    display: flex;
+    flex-direction: column;
+        gap: $spacing-6;
+    position: relative;
+    box-sizing: border-box;
+    text-align: left; // Ensure left alignment
+}
+
+.project-card__meta {
+    color: $color-text-secondary;
+    font-size: $font-size-md;
+    font-weight: $font-weight-normal;
+    margin: 0;
+    text-align: left; // Ensure left alignment
+}
+
+.project-status {
+    color: $color-accent-teal;
+}
+
+.project-card__location {
+    font-size: $font-size-3xl;
+    color: $color-primary-light;
+    margin: 0;
+    text-align: left; // Ensure left alignment
+    
+    br {
+        display: none; // Hide line breaks on desktop
+    }
+    font-weight: $font-weight-normal;
+}
+
+.project-card__arrow {
+    color: $color-text-secondary;
+    width: $font-size-7xl;
+    height: $font-size-7xl;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: auto;
+    margin-right: 40px; // Consistent margin across all designs
+    
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// ============================================
+// TYPE VARIANTS
+// ============================================
+
+// Standard type (default - regular projects layout)
+.projects--standard {
+    // Uses base .projects styles
+}
+
+// ============================================
+// COLOR VARIANTS (can be combined with type variants)
+// ============================================
+
+.projects {
+    // Light color scheme
+    &--light {
+        // Standard type with light colors
+        &.projects--standard {
+        background: $color-white;
+        border-top-color: $color-border;
+        
+        .projects-left h2 {
+            color: $color-primary-light;
+        }
+        
+        .projects-button {
+            background: $color-white;
+            border-color: $color-accent-teal-light;
+            color: $color-black;
+        }
+        
+        .projects-index__list {
+            border-color: $color-border-light;
+        }
+        
+        .project-card {
+            border-bottom-color: $color-border-light;
+            
+            &:hover {
+                background: $color-primary;
+                
+                .project-meta,
+                .project-location,
+                .project-card__arrow {
+                    color: $color-white;
+                }
+            }
+        }
+        
+        .project-card__meta {
+            color: $color-text-secondary;
+        }
+        
+        .project-card__location {
+            color: $color-primary-light;
+        }
+        
+        .project-card__arrow {
+            color: $color-text-secondary;
+        }
+        }
+    }
+    
+    // Dark color scheme
+    &--dark {
+        // Standard type with dark colors
+        &.projects--standard {
+        background: $color-primary;
+        border-top-color: $color-white-opacity-20;
+        
+        .projects-left h2 {
+            color: $color-white;
+        }
+        
+        .projects-button {
+            background: $color-primary;
+            border-color: $color-white-opacity-30;
+            color: $color-white;
+            
+            &:hover {
+                background: $color-white;
+                color: $color-primary;
+            }
+        }
+        
+        .projects-index__list {
+            border-color: $color-white-opacity-20;
+        }
+        
+        .project-card {
+            border-bottom-color: $color-white-opacity-20;
+            
+            &:hover {
+                background: $color-white-opacity-10;
+                
+                .project-meta,
+                .project-location,
+                .project-card__arrow {
+                    color: $color-white;
+                }
+            }
+        }
+        
+        .project-card__meta {
+            color: $color-white-opacity-70;
+        }
+        
+        .project-card__location {
+            color: $color-white;
+        }
+        
+        .project-card__arrow {
+            color: $color-white-opacity-70;
+        }
+        }
+    }
+}
+
+// Desktop (≥1025px) - Project card info dimensions
+@media (min-width: $breakpoint-desktop + 1) {
+    .project-card {
+        padding: 72px 80px 53px 72px;
+        
+        .project-card__info {
+            width: 847px;
+            height: 115px;
+            max-width: 847px;
+            max-height: 115px;
+            text-align: left;
+        }
+        
+        .project-card__meta {
+            text-align: left;
+        }
+        
+        .project-card__location {
+            text-align: left;
+        }
+        
+        .project-card__arrow {
+            position: absolute;
+            left: calc(72px + 847px); // Left padding (72px) + info width (847px)
+            top: 50%;
+            transform: translateY(-50%);
+            margin-right: 40px; // Consistent margin across all designs
+        }
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Tablet (≤1024px)
+@media (max-width: $breakpoint-desktop) {
+    .projects {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+
+        &-left {
+            padding: $spacing-4xl $spacing-3xl;
+            order: 1;
+            
+            .projects-button {
+                display: none; // Hide original button, will be moved and shown as projects-button-mobile via JavaScript
+            }
+        }
+    }
+    
+    .project-list {
+        order: 2;
+    }
+    
+    // Show mobile button on tablet (including iPad Mini)
+    .projects-button-mobile {
+        order: 3;
+        display: flex !important;
+        width: calc(100% - 40px - 40px); // Subtract left and right padding (40px each)
+        max-width: 100%;
+        margin: $spacing-lg 40px $spacing-3xl 40px; // Top, right, bottom, left - match projects-left padding
+        padding: $spacing-md;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid $color-accent-teal-light;
+        background: $color-white;
+        color: $color-black;
+        text-decoration: none;
+        font-family: Roboto;
+        font-weight: $font-weight-light;
+        font-size: $font-size-md;
+        line-height: $line-height-button;
+        @include button-hover-effect;
+    }
+}
+
+// Tablet Landscape (769px - 1024px) - Exclude iPad Mini at 768px
+@media (min-width: $breakpoint-tablet + 1) and (max-width: $breakpoint-desktop) {
+    .projects {
+        grid-template-columns: 1fr 2fr;
+        display: grid; // Override flex for larger tablets
+    }
+    
+    .projects-left {
+        .projects-button {
+            display: flex !important; // Show original button on tablet (not iPad Mini)
+        }
+    }
+    
+    // Hide mobile button on tablet (not iPad Mini)
+    .projects-button-mobile {
+        display: none !important;
+    }
+    
+    .project-card {
+        .project-card__info {
+            text-align: left;
+        }
+        
+        .project-card__meta {
+            text-align: left;
+        }
+        
+        .project-card__location {
+            text-align: left;
+        }
+        
+        .project-card__arrow {
+            transform: translateY(50%); // Transform for tablet (not iPad Mini)
+        }
+    }
+}
+
+// iPad Air (820px - 1180px)
+@media (min-width: 820px) and (max-width: 1180px) {
+    .project-card {
+        display: flex;
+        align-items: flex-start;
+        padding: 50px;
+        border-bottom: 1px solid #e0e5eb;
+        transition: background 0.3s ease;
+        cursor: pointer;
+        flex: 1;
+        min-height: 0;
+        position: relative;
+        gap: 0;
+    }
+}
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .projects {
+        display: flex;
+        flex-direction: column;
+
+        &-left {
+            padding: 65px 40px 34px 40px; // Top: 65px, Left/Right: 40px, Bottom: 34px
+            order: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            height: auto; // Fit to content height
+            min-height: auto; // Remove any min-height constraints
+            justify-content: flex-start; // Align to top instead of space-between
+            flex: none; // Remove flex: 0 0 405px on mobile
+            width: auto; // Remove fixed width
+            max-width: 100%; // Allow full width on mobile
+            border-right: none; // Remove border on mobile
+
+            h2 {
+                font-size: $spacing-34; // 34px as specified
+                margin: 0; // Remove all margins and padding
+                padding: 0; // Remove any padding
+                order: 1;
+            }
+
+            .projects-button {
+                display: none; // Hide original button in projects-left, will be moved and shown after project-list via JavaScript
+            }
+        }
+    }
+
+    .project-list {
+        order: 2;
+        border: none;
+        border-top: 1px solid $color-border;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .projects-index__list {
+        order: 2;
+        border: none;
+        border-top: 1px solid $color-border;
+    }
+
+    .project-card {
+        padding: $spacing-md;
+        padding-left: 40px; // Match projects-left left padding (40px)
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $spacing-md;
+        
+        .project-card__info {
+            width: 100%;
+        }
+        
+        .project-card__location {
+            br {
+                display: block; // Show line breaks on mobile
+            }
+        }
+        
+        .project-card__arrow {
+            color: #7a8796;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(50%);
+            margin-left: auto;
+            margin-right: 40px;
+        }
+        
+        &:last-child {
+            border-bottom: 1px solid $color-border-light;
+        }
+    }
+
+    // Style for button when moved after project-list (MOBILE ONLY)
+    .projects-button-mobile {
+        order: 3;
+        display: flex !important;
+        width: calc(100% - 40px - 40px); // Subtract left and right padding (40px each)
+        max-width: 100%;
+        margin: $spacing-lg 40px $spacing-3xl 40px; // Top, right, bottom, left - match projects-left padding
+        padding: $spacing-md;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid $color-accent-teal-light;
+        background: $color-white;
+        color: $color-black;
+        text-decoration: none;
+        font-family: Roboto;
+        font-weight: $font-weight-light;
+        font-size: $font-size-md;
+        line-height: $line-height-button;
+        @include button-hover-effect;
+    }
+    
+    // Dark background for projects section on services page (MOBILE ONLY)
+    .projects--services {
+        background: $color-primary;
+        border-top-color: $color-white-opacity-20;
+        
+        .projects-left {
+            h2 {
+                color: $color-white;
+            }
+        }
+        
+        .projects-button-mobile {
+            background: $color-primary;
+            border-color: $color-white-opacity-30;
+            color: $color-white;
+            
+            &:hover {
+                background: $color-white;
+                color: $color-primary;
+            }
+        }
+        
+        .projects-index__list {
+            border-top-color: $color-white-opacity-20;
+        }
+        
+        .project-card {
+            border-bottom-color: $color-white-opacity-20;
+            
+            &:hover {
+                background: $color-white-opacity-10;
+                
+                .project-card__meta,
+                .project-card__location,
+                .project-card__arrow {
+                    color: $color-white;
+                }
+            }
+            
+            &:last-child {
+                border-bottom-color: $color-white-opacity-20;
+            }
+        }
+        
+        .project-card__meta {
+            color: $color-white-opacity-70;
+        }
+        
+        .project-status {
+            color: $color-accent-teal; // Keep status color for visibility
+        }
+        
+        .project-card__location {
+            color: $color-white;
+        }
+        
+        .project-card__arrow {
+            color: $color-white-opacity-70;
+        }
+    }
+}
+
+// Small Mobile (≤480px)
+@media (max-width: $breakpoint-mobile) {
+    .projects-left h2 {
+        font-size: 34px; // 34px on small mobile too
+    }
+}
+
+// ============================================
+// PROJECTS INDEX COMPONENT (New layout for projects page)
+// ============================================
+
+.projects-index {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    background: $color-accent-teal-opacity-05; // Teal background on all screen sizes
+    min-height: 100vh;
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    
+    // Desktop: adjust layout
+    @media (min-width: 1025px) {
+        grid-template-columns: 40% 60%; // Left section at 40%, right 60%
+        margin: 0 clamp(20px, 5vw, 80px) clamp(40px, 5vw, 80px); // Responsive margins with bottom margin
+        max-width: calc(100vw - clamp(40px, 10vw, 160px)); // Prevent overflow, account for margins
+        width: 100%;
+        align-items: start; // Prevent columns from overlapping
+    }
+    
+    // On 1920px+, constrain to 1440px like main content
+    @media (min-width: 1920px) {
+        max-width: 1440px;
+        margin: 0 auto clamp(40px, 5vw, 80px); // Center with bottom margin
+    }
+}
+
+.projects-index-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: clamp(20px, 4vw, 80px);
+    gap: $spacing-3xl;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0; // Allow flex shrinking
+
+    h2 {
+        font-size: $font-size-8xl;
+        font-weight: 300; // Light font weight
+        color: $color-primary-light;
+        margin: 0 0 $spacing-lg 0; // Add spacing after title
+    }
+
+    .projects-index-description {
+        font-size: $font-size-2xl; // 24px
+        color: $color-text-secondary;
+        line-height: $line-height-base;
+        margin: 0 0 $spacing-2xl 0;
+    }
+
+    .projects-filters {
+        display: flex;
+        flex-direction: row; // Horizontal layout on desktop
+        gap: $spacing-sm;
+        flex-wrap: wrap; // Allow wrapping if needed to prevent overflow
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .projects-index__filter-input-wrapper {
+        display: none; // Hidden on desktop, shown on mobile
+        position: relative;
+        width: 100%;
+    }
+
+    .projects-index__filter-input {
+        width: 100%;
+        padding: $spacing-12 $spacing-md;
+        padding-right: 48px; // Space for clear button
+        border: 1px solid $color-border;
+        background: $color-white;
+        color: $color-primary-light;
+        font-size: $font-size-md;
+        font-weight: $font-weight-light;
+        font-family: Roboto;
+        border-radius: 0;
+        -webkit-appearance: none;
+        appearance: none;
+
+        &::placeholder {
+            color: $color-text-secondary;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $color-primary;
+        }
+    }
+
+    .projects-index__filter-clear {
+        position: absolute;
+        right: $spacing-md;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: $spacing-4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $color-text-secondary;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity $transition-base;
+
+        &.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        &:hover {
+            color: $color-primary;
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .projects-index__filters-buttons {
+        display: flex;
+        flex-direction: row; // Horizontal layout on desktop
+        gap: $spacing-sm;
+        flex-wrap: nowrap; // Force all buttons on same line
+    }
+
+    .projects-index__filter {
+        background: $color-white;
+        border: 1px solid $color-border;
+        color: $color-primary-light;
+        font-size: clamp(14px, 1.5vw, 16px); // Responsive font size
+        font-weight: $font-weight-light;
+        padding: $spacing-12 clamp(12px, 2vw, 20px); // Responsive padding
+        cursor: pointer;
+        transition: all $transition-base;
+        text-align: center; // Center text in horizontal buttons
+        font-family: Roboto;
+        white-space: nowrap; // Prevent text wrapping
+        flex: 1 1 auto; // Allow buttons to grow/shrink
+        min-width: 0; // Allow shrinking below content size
+
+        &:hover {
+            background: $color-primary;
+            color: $color-white;
+            border-color: $color-primary;
+        }
+
+        &.active {
+            background: $color-primary;
+            color: $color-white;
+            border-color: $color-primary;
+        }
+    }
+
+    .projects-accent-line {
+        display: none; // Hide accent line on desktop to match image
+    }
+    
+    // Filter dropdown (mobile only)
+    .projects-index__filter-dropdown-wrapper {
+        display: none; // Hidden on desktop
+        position: relative;
+        width: 100%;
+    }
+    
+    .projects-index__filter-dropdown-toggle {
+        width: 100%;
+        padding: $spacing-12 $spacing-md;
+        border: 1px solid $color-border;
+        background: $color-white;
+        color: $color-primary-light;
+        font-size: $font-size-md;
+        font-weight: $font-weight-light;
+        font-family: Roboto;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all $transition-base;
+        
+        &:hover {
+            background: $color-primary;
+            color: $color-white;
+            border-color: $color-primary;
+            
+            .filter-dropdown-arrow {
+                color: $color-white;
+            }
+        }
+        
+        .filter-dropdown-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .filter-dropdown-arrow {
+            width: 16px;
+            height: 16px;
+            color: currentColor;
+            transition: transform $transition-base;
+        }
+        
+        &.active {
+            background: $color-primary;
+            color: $color-white;
+            border-color: $color-primary;
+            
+            .filter-dropdown-arrow {
+                transform: rotate(180deg);
+                color: $color-white;
+            }
+        }
+    }
+    
+    .projects-index__filter-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%; // Match the width of the toggle button
+        background: $color-white;
+        border: 1px solid $color-border;
+        border-top: none;
+        z-index: 10;
+        flex-direction: column;
+        margin-top: 0;
+        
+        &.open {
+            display: flex;
+        }
+    }
+    
+    .projects-index__filter-dropdown-item {
+        padding: $spacing-12 $spacing-md;
+        padding-left: 48px; // Space for checkmark
+        border: none;
+        background: $color-white;
+        color: $color-primary-light;
+        font-size: $font-size-md;
+        font-weight: $font-weight-light;
+        font-family: Roboto;
+        text-align: left;
+        cursor: pointer;
+        transition: all $transition-base;
+        border-bottom: 1px solid $color-border;
+        position: relative; // For checkmark positioning
+        
+        &:last-child {
+            border-bottom: none;
+        }
+        
+        // Checkmark indicator (always visible, but styled differently when active)
+        &::before {
+            content: "";
+            position: absolute;
+            left: $spacing-md;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            border: 2px solid $color-border;
+            background: $color-white;
+            transition: all $transition-base;
+        }
+        
+        // Checkmark icon (hidden by default)
+        &::after {
+            content: "";
+            position: absolute;
+            left: $spacing-md + 9px; // Center horizontally: 20px (spacing-md) + 9px (half of 18px checkbox - half of checkmark width)
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(45deg); // Center both horizontally and vertically
+            width: 5px;
+            height: 10px;
+            border-right: 2px solid $color-white;
+            border-bottom: 2px solid $color-white;
+            opacity: 0; // Hidden when not active
+            transition: opacity $transition-base;
+            z-index: 1; // Above the checkbox
+        }
+        
+        &:hover {
+            background: $color-accent-teal-opacity-10; // Light teal on hover
+        }
+        
+        &.active {
+            background: $color-white;
+            color: $color-primary-light;
+            
+            // Show checkmark when active
+            &::before {
+                background: $color-primary;
+                border-color: $color-primary;
+                opacity: 1;
+            }
+            
+            &::after {
+                opacity: 1; // Show checkmark icon
+            }
+        }
+    }
+}
+
+.projects-index-right {
+    background: transparent; // Inherit background from parent
+    padding: clamp(20px, 4vw, 80px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; // Prevent overflow
+    box-sizing: border-box; // Include padding in width
+    width: 100%;
+    max-width: 100%;
+    min-width: 0; // Allow flex shrinking
+    
+    // Desktop: Ensure cards fit within container
+    @media (min-width: 1025px) {
+        box-sizing: border-box;
+        min-width: 0; // Allow flex shrinking
+    }
+}
+
+.projects-index-right .projects-index__list {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vw, 40px); // Responsive gap
+    width: 100%; // Ensure it fits within parent
+    max-width: 100%; // Prevent overflow
+    box-sizing: border-box;
+    min-width: 0; // Allow flex shrinking
+    align-items: flex-start; // Prevent cards from stretching to fill height
+    
+    // Desktop: Ensure consistent spacing between cards
+    @media (min-width: 1025px) {
+        gap: clamp(30px, 4vw, 40px); // Responsive gap on desktop
+        width: 100%;
+        max-width: 100%;
+        align-items: flex-start; // Keep cards at natural height, don't stretch
+    }
+    
+    // Reset gap on mobile (handled in mobile media query)
+    @media (max-width: $breakpoint-tablet) {
+        gap: 0;
+    }
+}
+
+.project-card--index {
+    display: grid;
+    grid-template-columns: minmax(0, auto) 1fr; // Allow image to size based on content, but prevent overflow
+    gap: clamp(12px, 2vw, 20px); // Reduced gap for image padding
+    padding: 0;
+    border: none;
+    align-items: center;
+    cursor: pointer;
+    transition: background $transition-base, color $transition-base; // Smooth transitions
+    background: $color-white !important; // Force white background by default - override base .project-card
+    position: relative; // For absolute positioning of arrow
+    width: 100%; // Ensure card fits within container
+    max-width: 100%; // Prevent overflow
+    box-sizing: border-box; // Include padding in width
+    min-width: 0; // Allow grid item shrinking
+    
+    // Note: Active state is now handled by JavaScript and CSS rule below
+    // This ensures active cards show green background with white text
+    
+    // Force default text colors (merged duplicate rules)
+    .project-card__meta {
+        color: $color-text-secondary !important;
+    }
+    
+    .project-status {
+        color: $color-accent-teal !important;
+    }
+    
+    .project-card__location {
+        color: $color-primary-light !important;
+    }
+    
+    .project-card__arrow {
+        color: $color-text-secondary !important;
+    }
+    
+    // Explicitly override base .project-card:hover when NOT hovered
+    // This ensures the base hover styles don't apply by default
+    // Merge focus and focus-visible states with same styles
+    &:not(:hover):not(:focus):not(:focus-visible),
+    &:focus,
+    &:focus-visible {
+        background: $color-white !important; // Override any inherited hover styles from base .project-card
+        
+        .project-card__meta {
+            color: $color-text-secondary !important; // Override base .project-card:hover
+        }
+        
+        .project-status {
+            color: $color-accent-teal !important;
+        }
+        
+        .project-card__location {
+            color: $color-primary-light !important; // Override base .project-card:hover
+        }
+        
+        .project-card__arrow {
+            color: $color-text-secondary !important; // Override base .project-card:hover
+        }
+    }
+    
+    // Focus-specific styles
+    &:focus,
+    &:focus-visible {
+        outline: none;
+        
+        &:focus-visible {
+            outline: 2px solid $color-primary;
+            outline-offset: 2px;
+        }
+    }
+
+    // Default state - explicitly set white background when NOT hovered
+    // This must come before hover rule to ensure proper cascade
+    & {
+        background: $color-white !important;
+    }
+    
+    // Active and hover states - green background with white text (merged duplicate rules)
+    &.active,
+    &:hover:not(:focus):not(:focus-visible):not(.active) {
+        background: $color-accent-teal !important; // Change background to teal on hover/active
+        
+        // Update text colors for better contrast
+        .project-card__meta {
+            color: $color-white-opacity-80 !important;
+        }
+        
+        .project-status {
+            color: $color-white-opacity-90 !important;
+        }
+        
+        .project-card__location {
+            color: $color-white !important;
+        }
+        
+        .project-card__arrow {
+            color: $color-white !important;
+        }
+    }
+    
+    // Desktop: Add padding and set equal spacing
+    @media (min-width: 1025px) {
+        padding: clamp(24px, 3vw, 40px); // Responsive padding that scales
+        max-width: 100%; // Remove fixed max-width, use 100% to fit container
+        width: 100%; // Responsive width
+        min-height: clamp(300px, 25vw, 350px); // Responsive min-height
+        max-height: clamp(350px, 30vw, 400px); // Max height to prevent stretching while allowing some content growth
+        height: auto; // Allow height to grow if needed, but don't force it
+        align-self: flex-start; // Don't stretch to fill parent height
+        align-items: stretch; // Stretch items to fill card height - this makes image fill card height
+        box-sizing: border-box; // Include padding in width calculation
+        
+        .project-card-image {
+            // Fill card height while maintaining square aspect ratio
+            height: 100% !important; // Fill card height (stretches with align-items: stretch)
+            aspect-ratio: 1 / 1 !important; // Square: width = height - force with !important
+            width: auto !important; // Width automatically equals height (square) - override base width
+            max-width: 100%; // Prevent overflow beyond column
+            align-self: stretch; // Ensure it stretches to fill card height
+            // Override the base width: clamp(120px, 15vw, 200px) with auto
+            // The grid column is 'auto', so it will size to fit the image width
+            // Since height is 100% of card and aspect-ratio is 1:1, width = height
+        }
+    }
+
+    .project-card-image {
+        min-width: 0; // Allow shrinking
+        flex-shrink: 0;
+        overflow: hidden;
+        border-radius: $border-radius-md;
+        display: block; // Use block for better aspect-ratio control
+        aspect-ratio: 1 / 1; // Make image square
+        width: clamp(120px, 15vw, 200px); // Responsive base width for mobile/tablet
+        height: auto; // Height determined by width (square)
+        position: relative; // For absolute positioning of img
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    .project-card-content {
+        display: flex;
+        flex-direction: column; // Stack content vertically
+        gap: clamp(8px, 1.5vw, 16px); // Responsive gap
+        flex: 1;
+        position: relative; // For arrow positioning
+        min-height: 100%; // Take full height
+        min-width: 0; // Allow flex item shrinking
+        overflow: hidden; // Prevent content overflow
+    }
+
+    .project-card__info {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md; // Gap between meta and location
+    }
+
+    .project-card__meta {
+        color: $color-text-secondary !important; // Force default color
+        font-size: clamp(14px, 1.5vw, 16px); // Responsive font size
+        font-weight: $font-weight-normal;
+        margin: 0;
+        word-wrap: break-word; // Prevent text overflow
+        overflow-wrap: break-word;
+        transition: color $transition-base; // Smooth color transition
+    }
+
+    .project-status {
+        color: $color-accent-teal !important; // Force default color
+        transition: color $transition-base; // Smooth color transition
+    }
+
+    .project-card__location {
+        font-size: clamp(18px, 2vw, 28px); // Responsive font size - reduced min to allow better fit
+        color: $color-primary-light !important; // Force default color
+        margin: 0;
+        font-weight: $font-weight-normal;
+        word-wrap: break-word; // Allow words to break if needed
+        overflow-wrap: break-word; // Allow words to break if needed
+        line-height: 1.3; // Tighter line height for better fit
+        transition: color $transition-base; // Smooth color transition
+        white-space: normal; // Allow text to wrap to multiple lines
+        hyphens: auto; // Allow hyphenation for long words
+        
+        br {
+            display: block;
+        }
+    }
+    
+    // Desktop: Ensure text fits and wraps properly
+    @media (min-width: 1025px) {
+        .project-card-content {
+            .project-card__location {
+                // Use smaller font size range to ensure text fits
+                font-size: clamp(18px, 2vw, 26px);
+                // Text will wrap to next line if it doesn't fit
+                max-width: 100%;
+            }
+        }
+    }
+
+    .project-card__arrow {
+        color: $color-text-secondary !important; // Force default color
+        width: clamp(40px, 4vw, 48px); // Responsive arrow size
+        height: clamp(40px, 4vw, 48px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        /* background: rgba(0, 0, 0, 0.05); */
+        border-radius: 50%;
+        position: absolute;
+        bottom: clamp(16px, 2vw, 24px); // Responsive positioning
+        right: clamp(16px, 2vw, 24px);
+        transition: color $transition-base; // Smooth color transition
+        
+        svg {
+            width: clamp(16px, 1.5vw, 19px); // Responsive SVG size
+            height: clamp(14px, 1.5vw, 16px);
+        }
+    }
+}
+
+// Responsive styles for projects-index
+// Tablet (769px - 1024px): Copy desktop layout but scaled down
+@media (min-width: $breakpoint-tablet + 1) and (max-width: $breakpoint-desktop) {
+    .projects-index {
+        grid-template-columns: 40% 60%; // Same as desktop: left 40%, right 60%
+        margin: 0 clamp(15px, 3vw, 60px) clamp(30px, 4vw, 60px); // Scaled down margins with bottom margin
+        background: $color-accent-teal-opacity-05; // Teal background like desktop
+        max-width: calc(100vw - clamp(30px, 6vw, 120px)); // Scaled down from desktop
+        align-items: start; // Prevent columns from overlapping
+    }
+
+    .projects-index-left {
+        padding: clamp(15px, 3vw, 60px); // Scaled down padding from desktop
+        gap: clamp(20px, 2.5vw, 32px); // Scaled down gap from desktop
+        
+        h2 {
+            font-size: clamp(36px, 5vw, 48px); // Scaled down from desktop
+            font-weight: 300;
+        }
+        
+        .projects-index-description {
+            font-size: clamp(18px, 2vw, 22px); // Scaled down from desktop
+        }
+        
+        .projects-filters {
+            flex-direction: row; // Horizontal like desktop
+            gap: $spacing-sm; // Same gap as desktop
+        }
+        
+        .projects-index__filters-buttons {
+            flex-direction: row; // Horizontal like desktop
+            gap: $spacing-sm; // Same gap as desktop
+        }
+        
+        .projects-index__filter {
+            text-align: center; // Center align like desktop
+        }
+        
+        .projects-accent-line {
+            display: none; // Hide accent line like desktop
+        }
+    }
+
+    .projects-index-right {
+        padding: clamp(15px, 3vw, 60px); // Scaled down padding from desktop
+        overflow: hidden; // Prevent cards from overflowing into left column
+        
+        .projects-index__list {
+            gap: clamp(20px, 2.5vw, 35px); // Scaled down gap from desktop
+            align-items: flex-start; // Prevent cards from stretching
+        }
+    }
+    
+    // Tablet: Ensure cards fit like desktop with scaled dimensions
+    .project-card--index {
+        padding: clamp(18px, 2.5vw, 32px); // Scaled down padding from desktop
+        max-width: 100%;
+        width: 100%;
+        min-height: clamp(250px, 20vw, 300px); // Scaled down min-height from desktop
+        max-height: clamp(300px, 25vw, 350px); // Scaled down max-height from desktop
+        height: auto;
+        align-self: flex-start;
+        align-items: stretch;
+        box-sizing: border-box;
+        
+        .project-card-image {
+            // Fill card height while maintaining square aspect ratio (like desktop)
+            height: 100% !important;
+            aspect-ratio: 1 / 1 !important;
+            width: auto !important;
+            max-width: 100%;
+            align-self: stretch;
+        }
+        
+        .project-card-content {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1.2vw, 14px); // Scaled down gap from desktop
+            flex: 1;
+            position: relative;
+            min-height: 100%;
+            min-width: 0;
+            overflow: hidden;
+        }
+        
+        .project-card__info {
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-md; // Same gap as desktop
+        }
+        
+        .project-card__meta {
+            font-size: clamp(13px, 1.3vw, 15px); // Scaled down from desktop
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .project-card__location {
+            font-size: clamp(16px, 1.8vw, 24px); // Scaled down from desktop
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.3;
+            white-space: normal;
+            hyphens: auto;
+        }
+    }
+}
+
+// Mobile (≤768px): Single column layout
+@media (max-width: $breakpoint-tablet) {
+    .projects-index {
+        background: rgba(2, 99, 94, 0.05); // Ensure teal background on mobile
+        min-height: auto; // Remove whitespace on mobile
+    }
+    
+    .projects-index-left { // Remove all padding on mobile
+        padding-top: $spacing-3xl; // Add top padding above h2 only (40px)
+        padding-bottom: $spacing-md; // Add bottom padding to prevent overlap
+        gap: $spacing-sm; // Reduced gap between elements (16px)
+        min-height: auto; // Remove any min-height
+        height: auto; // Allow natural height to contain filter
+        position: relative; // Ensure proper positioning
+        z-index: 10; // Ensure filter is above cards
+
+        h2 {
+            font-size: $spacing-34; // 34px on mobile
+            font-weight: 300; // Light font weight
+            margin: 0; // Remove all margin
+            padding-top: 0; // No additional padding on h2 itself
+        }
+
+        .projects-index-description {
+            display: none; // Hide description on mobile
+        }
+
+        .projects-filters {
+            gap: 0; // Remove gap
+            margin: 0; // Remove margin
+            margin-bottom: 0; // Remove bottom margin/gap
+        }
+
+        .projects-index__filter-input-wrapper {
+            display: none; // Hide filter input on mobile (use dropdown instead)
+        }
+
+        .projects-index__filters-buttons {
+            display: none; // Hide filter buttons on mobile
+        }
+        
+        .projects-index__filter-dropdown-wrapper {
+            display: flex; // Use flex to position filter and clear button side by side
+            align-items: flex-start; // Align to top so dropdown aligns properly
+            gap: $spacing-sm; // Gap between filter button and clear button
+            margin: 0; // Remove margin
+            position: relative; // For dropdown positioning
+        }
+        
+        .projects-index__filter-dropdown-toggle {
+            flex: 1; // Take remaining space
+            min-width: 0; // Allow shrinking
+            position: relative; // For dropdown positioning context
+        }
+        
+        .projects-index__filter-dropdown {
+            position: absolute; // Position relative to wrapper
+            top: 100%; // Below the buttons
+            left: 0; // Align to left of wrapper
+            // Match toggle button width: wrapper width minus clear button (40px) and gap (16px)
+            width: calc(100% - 38px - #{$spacing-sm}); // Clear button width (40px) + gap (16px)
+            max-width: calc(100% - 38px - #{$spacing-sm}); // Ensure it doesn't exceed
+            right: auto; // Remove right positioning
+            box-sizing: border-box; // Include border in width calculation
+        }
+        
+        .projects-index__filter-clear-mobile {
+            display: flex; // Always visible
+            width: 40px; // Fixed width to match filter button height
+            min-width: 40px; // Minimum width
+            height: 100%; // Match filter button height exactly
+            padding: 0; // No padding, just the icon
+            border: 1px solid $color-border;
+            background: $color-white;
+            color: $color-primary-light;
+            border-radius: 0; // Square, no border radius
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background $transition-base, color $transition-base, border-color $transition-base, opacity $transition-base;
+            opacity: 0.4; // Greyed out by default
+            box-sizing: border-box; // Include border in height calculation
+            
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+            
+            // Active state (when filters are selected)
+            &.visible {
+                opacity: 1; // Fully visible when filters are active
+                cursor: pointer;
+                
+                &:hover {
+                    background: $color-primary;
+                    color: $color-white;
+                    border-color: $color-primary;
+                }
+            }
+            
+            // Disabled state (no filters selected)
+            &:not(.visible) {
+                opacity: 0.4;
+                cursor: not-allowed;
+                
+                &:hover {
+                    background: $color-white;
+                    color: $color-primary-light;
+                    border-color: $color-border;
+                }
+            }
+        }
+        
+        .projects-accent-line {
+            display: none !important; // Hide accent line on mobile
+        }
+        
+        // Remove all margins from child elements
+        * {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        
+        // Add minimal gap via flex gap only
+        > * + * {
+            margin-top: $spacing-sm; // Small gap between direct children only
+        }
+    }
+
+    .projects-index-right {
+        padding: $spacing-md 0 $spacing-md $spacing-sm; // Minimal left padding, no right padding
+        position: relative; // For scrollbar positioning
+        margin-top: 0; // Ensure no gap that could cause overlap
+        z-index: 1; // Below the filter section
+    }
+
+    .projects-index-right .projects-index__list {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md; // Add gap between cards on mobile (20px)
+        overflow-y: scroll; // Always show scrollbar (not auto-hide)
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        height: 550px; // Fixed height to show one card at a time
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        width: 90%; // 90% width of container
+        max-width: 90%; // Allow 90% width
+        margin: 0 auto; // Center the list
+        padding: 0 $spacing-md 0 0; // Right padding for content spacing, scrollbar outside
+        
+        // Custom scrollbar styling - always visible
+        scrollbar-width: thin; // Firefox: thin scrollbar (always visible)
+        scrollbar-color: $color-accent-teal $color-accent-teal-opacity-10; // Firefox: thumb color and visible track color
+        
+        // Webkit scrollbar styling (Chrome, Safari, Edge) - always visible
+        &::-webkit-scrollbar {
+            width: 8px; // Scrollbar width
+            -webkit-appearance: none; // Remove default styling
+        }
+        
+        &::-webkit-scrollbar-track {
+            background: $color-accent-teal-opacity-10; // Visible track background
+            border-radius: $border-radius-md;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: $color-accent-teal; // Teal color for thumb
+            border-radius: $border-radius-md; // Rounded corners
+            -webkit-appearance: none; // Remove default styling
+        }
+        
+        &::-webkit-scrollbar-thumb:hover {
+            background: color.adjust($color-accent-teal, $lightness: -5%); // Slightly darker teal on hover
+        }
+        
+        &::-webkit-scrollbar-thumb:active {
+            background: color.adjust($color-accent-teal, $lightness: -10%); // Even darker when dragging
+        }
+    }
+
+    .project-card--index {
+        // Override base grid display with flex for mobile
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        border: none;
+        background: $color-white !important; // White background for cards on mobile
+        flex-shrink: 0; // Prevent cards from shrinking
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        width: 100% !important; // 100% of parent (which is 90% of container)
+        min-width: 0 !important; // Allow shrinking
+        max-width: 100% !important; // Ensure it doesn't exceed parent
+        min-height: 550px !important; // Force minimum height
+        height: 550px !important; // Fixed height to fit one card
+        max-height: 550px !important; // Prevent exceeding 550px
+        position: relative; // For arrow positioning
+        box-sizing: border-box;
+        margin: 0 auto; // Center the card
+        overflow: visible; // Allow content to be visible
+        align-items: stretch; // Stretch children to full width
+
+        .project-card-image {
+            width: calc(100% - #{$spacing-md * 2}); // Subtract padding from width
+            height: 200px !important; // Fixed image height
+            margin: $spacing-md $spacing-md $spacing-sm $spacing-md; // Top and sides: 20px, bottom: 16px
+            border-radius: $border-radius-md; // Add border radius
+            display: block; // Ensure image container displays on mobile
+            overflow: hidden; // Ensure image doesn't overflow
+            flex-shrink: 0; // Don't shrink image
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block; // Ensure image displays
+            }
+        }
+
+        .project-card-content {
+            display: flex !important; // Ensure flex display
+            flex-direction: column; // Stack vertically: meta, location
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: $spacing-sm $spacing-md $spacing-4xl $spacing-md !important; // Top: 16px, sides: 20px, bottom: 60px for arrow
+            gap: $spacing-sm; // Reduced gap to 16px
+            flex: 1 1 auto; // Take remaining space
+            position: relative; // For arrow positioning
+            min-height: 0; // Allow content to shrink if needed
+            overflow: visible !important; // Allow content to be visible
+            width: 100%; // Full width
+            box-sizing: border-box;
+        }
+
+        .project-card__info {
+            width: 100%;
+            display: flex !important;
+            flex-direction: column;
+            gap: $spacing-sm; // Reduced gap to 16px between meta and location
+            flex-shrink: 0; // Prevent shrinking
+            visibility: visible !important; // Ensure visibility
+        }
+
+        .project-card__meta {
+            display: block !important;
+            visibility: visible !important;
+            font-size: $font-size-xs !important; // 14px for mobile
+            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            color: $color-text-secondary !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        .project-card__location {
+            display: block !important;
+            visibility: visible !important;
+            font-size: $font-size-lg !important; // 20px for mobile
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            color: $color-primary-light !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        .project-card__arrow {
+            display: flex !important;
+            visibility: visible !important;
+            position: absolute; // Position absolutely
+            bottom: $spacing-md; // Bottom right - 20px from bottom
+            right: $spacing-md; // 20px from right
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            z-index: 1; // Ensure arrow is above content
+        }
+    }
+}
+

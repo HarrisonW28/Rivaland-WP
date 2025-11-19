@@ -1,0 +1,223 @@
+{
+    "key": "group_feature_block",
+    "title": "Feature Block",
+    "fields": [
+        {
+            "key": "field_feature_type",
+            "label": "Feature Type",
+            "name": "feature_type",
+            "type": "select",
+            "instructions": "Choose the feature layout type",
+            "required": 1,
+            "choices": {
+                "standard": "Standard (Default feature with image and text)",
+                "team": "Team (Circular headshot image)"
+            },
+            "default_value": "standard",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_feature_variant",
+            "label": "Color Variant",
+            "name": "feature_variant",
+            "type": "select",
+            "instructions": "Choose the color scheme variant",
+            "required": 0,
+            "choices": {
+                "light": "Light (Default)",
+                "dark": "Dark"
+            },
+            "default_value": "light",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_feature_eyebrow",
+            "label": "Eyebrow",
+            "name": "feature_eyebrow",
+            "type": "group",
+            "instructions": "Optional label/category text",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_feature_eyebrow_text",
+                    "label": "Eyebrow Text",
+                    "name": "text",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "default_value": "",
+                    "placeholder": "ESG"
+                },
+                {
+                    "key": "field_feature_eyebrow_variant",
+                    "label": "Eyebrow Variant",
+                    "name": "variant",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "choices": {
+                        "primary": "Primary (Teal color)",
+                        "secondary": "Secondary",
+                        "light": "Light",
+                        "dark": "Dark"
+                    },
+                    "default_value": "primary",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                }
+            ]
+        },
+        {
+            "key": "field_feature_title",
+            "label": "Feature Title",
+            "name": "feature_title",
+            "type": "text",
+            "instructions": "Main heading for the feature",
+            "required": 0,
+            "placeholder": "Feature title"
+        },
+        {
+            "key": "field_feature_description",
+            "label": "Description",
+            "name": "feature_description",
+            "type": "wysiwyg",
+            "instructions": "Feature description content",
+            "required": 1,
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_feature_image",
+            "label": "Feature Image",
+            "name": "feature_image",
+            "type": "image",
+            "instructions": "Main image for the feature",
+            "required": 1,
+            "return_format": "array",
+            "preview_size": "large",
+            "library": "all"
+        },
+        {
+            "key": "field_feature_button",
+            "label": "Button",
+            "name": "feature_button",
+            "type": "group",
+            "instructions": "Optional button for the feature",
+            "required": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_feature_button_text",
+                    "label": "Button Text",
+                    "name": "text",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "default_value": "Learn more",
+                    "placeholder": "Learn more"
+                },
+                {
+                    "key": "field_feature_button_url",
+                    "label": "Button URL",
+                    "name": "url",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 1,
+                    "default_value": ""
+                },
+                {
+                    "key": "field_feature_button_variant",
+                    "label": "Button Variant",
+                    "name": "variant",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "choices": {
+                        "primary": "Primary (White background, teal border)",
+                        "secondary": "Secondary (Transparent, white border)",
+                        "outline": "Outline (Transparent, white border)",
+                        "ghost": "Ghost (Transparent, minimal styling)"
+                    },
+                    "default_value": "primary",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_feature_button_size",
+                    "label": "Button Size",
+                    "name": "size",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "choices": {
+                        "sm": "Small",
+                        "md": "Medium (Default)",
+                        "lg": "Large"
+                    },
+                    "default_value": "md",
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "return_format": "value"
+                },
+                {
+                    "key": "field_feature_button_show_icon",
+                    "label": "Show Arrow Icon",
+                    "name": "show_icon",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "message": "Show arrow icon",
+                    "default_value": 1,
+                    "ui": 1
+                }
+            ]
+        },
+        {
+            "key": "field_feature_class",
+            "label": "Additional CSS Classes",
+            "name": "feature_class",
+            "type": "text",
+            "instructions": "Add custom CSS classes (space-separated)",
+            "required": 0,
+            "placeholder": "custom-class another-class"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/feature-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Feature section block with type and variant options",
+    "show_in_rest": 0
+}
+

@@ -1,0 +1,933 @@
+// ============================================
+// ACCORDION VARIANTS
+// ============================================
+// Variant styles for accordion component
+// Usage: <section class="accordion accordion--services">
+//        <section class="accordion accordion--page accordion--dark">
+
+// ============================================
+// TYPE VARIANTS
+// ============================================
+
+// Services variant (2-column layout with card on left, accordion on right)
+.accordion--services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: $color-white;
+    position: relative;
+    border-top: 1px solid $color-border;
+    
+    // On 1920px+, extend border to full width
+    @media (min-width: 1920px) {
+        border-top: none;
+        
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background: $color-border;
+            z-index: 0;
+        }
+        
+        &.accordion--dark::before {
+            display: none;
+        }
+    }
+    
+    // has-active-accordion class is no longer needed as default is space-between
+    // Keeping for backwards compatibility if needed
+    &.has-active-accordion {
+        .accordion--services__card {
+            justify-content: space-between;
+        }
+    }
+    
+    // Left column with card
+    &__left {
+        border-right: 1px solid $color-border;
+        display: flex;
+        align-items: stretch;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    
+    // Right column with accordion
+    &__right {
+        display: flex;
+        align-items: stretch;
+    }
+    
+    // Card in left column
+    &__card {
+        background: transparent;
+        padding: $spacing-3xl;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: $spacing-3xl;
+        border-top: 1px solid $color-border;
+        border-right: 1px solid $color-border;
+        border-bottom: 1px solid $color-border;
+        padding-right: $spacing-4xl;
+        min-height: 200px;
+        width: 100%;
+        height: 100%;
+        transition: justify-content $transition-accordion;
+        box-sizing: border-box;
+        overflow: hidden;
+        
+        .eyebrow {
+            text-transform: none;
+            font-size: $font-size-2xl;
+            color: $color-primary;
+            line-height: 1.5;
+            font-weight: $font-weight-normal;
+            width: 305px;
+            max-width: 305px;
+        }
+        
+        .button {
+            width: $button-width-sm;
+        }
+    }
+    
+    // Button offset class (for desktop positioning)
+    .link-button-offset {
+        margin-left: $spacing-3xl;
+    }
+    
+    // Accordion list in right column
+    .accordion {
+        display: flex;
+        flex-direction: column;
+        background: transparent;
+        border-top: 1px solid $color-border;
+        border-bottom: 1px solid $color-border;
+        min-height: 100%;
+    }
+    
+    // Button inside accordion content (for services variant)
+    .accordion__content .accordion--services__button {
+        color: $color-black;
+        text-decoration: none;
+        font-family: $font-family;
+        font-weight: $font-weight-light;
+        font-size: $font-size-md;
+        line-height: $line-height-button;
+        letter-spacing: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid $color-accent-teal-light;
+        background: $color-white;
+        padding: $spacing-12 $spacing-md;
+        transition: color $transition-base;
+        max-width: $button-width-sm;
+        box-sizing: border-box;
+        @include button-hover-effect;
+    }
+}
+
+// Page variant (full-width dark layout for services page)
+.accordion--page {
+    display: grid;
+    grid-template-columns: calc(10% + 30px) 1fr;
+    gap: 0;
+    background: $color-primary;
+    border-top: 1px solid $color-white-opacity-20;
+    
+    // On 1920px+, hide regular border to prevent overlap
+    @media (min-width: 1920px) {
+        border-top: none;
+    }
+    
+    &__left {
+        background: transparent;
+    }
+    
+    &__right {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        border-left: 1px solid $color-white-opacity-20;
+    }
+    
+    .accordion {
+        background: transparent;
+        border-top: 1px solid $color-white-opacity-20;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .accordion__item {
+        background: transparent !important;
+        border-bottom: 1px solid $color-white-opacity-20;
+        
+        &:last-child {
+            border-bottom: none;
+        }
+        
+        &.active {
+            .accordion__header {
+                background: transparent !important;
+            }
+            
+            .accordion__content {
+                max-height: 2000px;
+                padding: $spacing-lg $spacing-5xl $spacing-lg;
+                background: transparent !important;
+            }
+        }
+    }
+    
+    .accordion__header {
+        padding: $spacing-lg $spacing-5xl;
+        background: transparent !important;
+        
+        p {
+            color: $color-white;
+        }
+        
+        &:hover {
+            background: $color-white-opacity-05 !important;
+        }
+    }
+    
+    .accordion__toggle {
+        color: $color-white;
+    }
+    
+    .accordion__content {
+        padding: 0 $spacing-5xl;
+        background: transparent !important;
+        
+        > p {
+            color: $color-white-opacity-85;
+        }
+    }
+    
+    // Content wrapper for page variant
+    &__content-wrapper {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: $spacing-5xl;
+        align-items: start;
+    }
+    
+    &__content-text {
+        p {
+            color: $color-white-opacity-85;
+            font-size: $font-size-base;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .service-text-preview {
+            display: block;
+        }
+        
+        .service-text-full {
+            display: block;
+        }
+        
+        .service-read-more {
+            display: none; // Hidden on desktop
+        }
+    }
+    
+    &__content-image {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-lg;
+        align-items: flex-start;
+        
+        img {
+            width: $image-size-md;
+            height: $image-size-md;
+            max-width: $image-size-md;
+            max-height: $image-size-md;
+            object-fit: cover;
+            border-radius: $border-radius-md;
+            display: block;
+        }
+    }
+    
+    &__button {
+        color: $color-white;
+        text-decoration: none;
+        font-family: $font-family;
+        font-weight: $font-weight-light;
+        font-size: $font-size-md;
+        line-height: $line-height-button;
+        letter-spacing: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid $color-white-opacity-30;
+        background: transparent;
+        padding: $spacing-12 $spacing-md;
+        transition: all $transition-base;
+        width: $button-width-md;
+        max-width: $button-width-md;
+        box-sizing: border-box;
+        
+        &.accordion--page__button-mobile {
+            display: none !important;
+        }
+        
+        &.accordion--page__button-desktop {
+            display: flex !important;
+        }
+        
+        &:hover {
+            background: $color-white;
+            color: $color-primary;
+            
+            .icon-arrow {
+                filter: brightness(0);
+            }
+        }
+        
+        .icon-arrow {
+            width: $icon-size-sm;
+            height: $spacing-sm;
+            flex-shrink: 0;
+            transition: filter $transition-base;
+            filter: brightness(0) invert(1);
+        }
+    }
+}
+
+// ============================================
+// COLOR VARIANTS
+// ============================================
+
+.accordion--dark {
+    position: relative;
+    
+    // On 1920px+, extend background to fill whitespace
+    @media (min-width: 1920px) {
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: $color-primary;
+            z-index: -1;
+        }
+        
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background: $color-white-opacity-20;
+            z-index: 0;
+        }
+    }
+    
+    &.accordion--services {
+        background: $color-primary;
+        border-top-color: $color-white-opacity-20;
+        
+        @media (min-width: 1920px) {
+            border-top: none;
+        }
+        
+        .accordion--services__left {
+            border-right-color: $color-white-opacity-20;
+        }
+        
+        .accordion--services__card {
+            border-color: $color-white-opacity-20;
+            
+            .eyebrow {
+                color: $color-white;
+            }
+            
+            .button {
+                background: $color-primary;
+                border-color: $color-white-opacity-30;
+                color: $color-white;
+                
+                &:hover {
+                    background: $color-white;
+                    color: $color-primary;
+                }
+            }
+        }
+        
+        .accordion__item {
+            border-bottom-color: $color-white-opacity-20;
+            background: transparent !important;
+            
+            .accordion__header {
+                background: transparent !important;
+                p {
+                    color: $color-white;
+                }
+                
+                &:hover {
+                    background: $color-white-opacity-10 !important;
+                    
+                    p {
+                        color: $color-white;
+                    }
+                    
+                    .accordion__toggle {
+                        color: $color-white;
+                    }
+                }
+            }
+            
+            &.active .accordion__header {
+                background: $color-white-opacity-15 !important;
+                
+                p {
+                    color: $color-white;
+                }
+            }
+            
+            &:not(.active) .accordion__header {
+                background: transparent !important;
+            }
+        }
+        
+        .accordion__content {
+            background: transparent !important;
+            
+            p {
+                color: $color-white-opacity-85;
+            }
+        }
+        
+        .accordion__toggle {
+            color: $color-white;
+            
+            &:hover {
+                color: $color-white;
+            }
+        }
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Tablet (≤1024px) - iPad Mini, iPad Air, etc.
+@media (max-width: $breakpoint-desktop) {
+    .accordion--services {
+        grid-template-columns: 1fr 1fr;
+        
+        &__card {
+            // On tablet, ensure button comes right after eyebrow
+            justify-content: flex-start !important;
+            gap: $spacing-lg !important;
+            // Ensure card contains button properly
+            position: relative !important;
+            overflow: visible !important;
+            
+            .eyebrow {
+                order: 1 !important;
+                margin-bottom: 0 !important;
+            }
+            
+            .button {
+                order: 2 !important;
+                margin-top: 0 !important;
+                align-self: flex-start !important;
+                // Ensure button is visible and inside card
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: relative !important;
+                // Remove any mobile classes that might affect positioning
+                width: $button-width-sm !important;
+                max-width: $button-width-sm !important;
+            }
+            
+            // Ensure button with mobile class is reset on tablet
+            .button.link-button-mobile {
+                order: 2 !important;
+                margin: 0 !important;
+                width: $button-width-sm !important;
+                max-width: $button-width-sm !important;
+            }
+        }
+    }
+    
+    // Show mobile button on tablet (including iPad Mini at 768px)
+    .link-button-mobile {
+        order: 3;
+        display: flex !important;
+        width: calc(100% - 40px - 40px); // Subtract left and right padding (40px each)
+        max-width: 100%;
+        margin: $spacing-lg 40px $spacing-3xl 40px; // Top, right, bottom, left - match 40px padding
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid $color-accent-teal-light;
+        background: $color-white;
+        color: $color-black;
+        text-decoration: none;
+        font-family: $font-family;
+        font-weight: $font-weight-light;
+        font-size: $font-size-md;
+        line-height: $line-height-button;
+        @include button-hover-effect;
+    }
+    
+    .accordion--page {
+        grid-template-columns: calc(10% + 30px) 1fr !important;
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+        
+        @media (min-width: 1920px) {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        
+        &__left {
+            display: block !important;
+        }
+        
+        &__right {
+            border-left: 1px solid $color-white-opacity-20 !important;
+            width: 100%;
+        }
+        
+        .accordion__header {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: $spacing-10 $spacing-3xl;
+        }
+        
+        .accordion__content {
+            padding: 0 !important;
+            overflow: hidden;
+            
+            .accordion__item:not(.active) & {
+                max-height: 0 !important;
+            }
+            
+            .accordion__item.active & {
+                padding: 0 !important;
+                max-height: 2000px !important;
+            }
+        }
+        
+        &__content-wrapper {
+            display: none;
+        }
+        
+        .accordion__item.active &__content-wrapper {
+            display: flex !important;
+            flex-direction: column;
+            gap: $spacing-lg;
+            padding: 0 $spacing-3xl;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+        }
+        
+        &__content-image {
+            order: 1;
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-lg;
+            align-items: center;
+            width: 100%;
+            
+            img {
+                width: $button-width-sm;
+                height: 300px;
+                max-width: $button-width-sm;
+                max-height: 300px;
+                object-fit: cover;
+            }
+            
+            .accordion--page__button-desktop {
+                display: none !important;
+            }
+        }
+        
+        &__content-text {
+            order: 2;
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            
+            .service-text-preview {
+                display: block;
+                width: 100%;
+            }
+            
+            .service-text-full {
+                display: none;
+                
+                &.expanded {
+                    display: block;
+                }
+            }
+            
+            .service-read-more {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: transparent;
+                border: none;
+                color: #7DCAD8;
+                padding: 0;
+                font-family: $font-family;
+                font-weight: $font-weight-light;
+                font-size: $font-size-md;
+                line-height: $line-height-button;
+                text-decoration: none;
+                margin-top: $spacing-md;
+                width: 100%;
+                max-width: 100%;
+                transition: all $transition-base;
+                order: 2;
+                
+                &:hover {
+                    opacity: 0.7;
+                }
+                
+                .read-more-text {
+                    flex: 1;
+                    text-align: left;
+                    color: #7DCAD8;
+                }
+                
+                .read-more-icon {
+                    font-size: $font-size-2xl;
+                    line-height: 1;
+                    transition: transform $transition-base;
+                    flex-shrink: 0;
+                    margin-left: $spacing-sm;
+                    color: #7DCAD8;
+                }
+                
+                &.expanded {
+                    .read-more-icon {
+                        transform: rotate(45deg);
+                    }
+                }
+            }
+            
+            .accordion--page__button-mobile {
+                display: flex !important;
+                order: 3;
+                width: 100%;
+                max-width: 100%;
+                margin-top: $spacing-md;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+// Tablet Landscape (769px - 1024px) - Exclude iPad Mini at 768px
+@media (min-width: $breakpoint-tablet + 1) and (max-width: $breakpoint-desktop) {
+    .accordion--services {
+        &__card {
+            // Use same animation as desktop - button at bottom
+            justify-content: space-between !important;
+            gap: $spacing-3xl !important;
+            transition: justify-content $transition-accordion !important;
+            overflow: hidden !important;
+            
+            .eyebrow {
+                order: 1 !important;
+                margin-bottom: 0 !important;
+            }
+            
+            .button {
+                order: 2 !important;
+                align-self: flex-start !important;
+                margin-top: auto !important; // Push button to bottom
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: relative !important;
+                width: $button-width-sm !important;
+                max-width: $button-width-sm !important;
+            }
+        }
+    }
+}
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    .accordion--services {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: 1fr;
+        
+        &__left {
+            order: 1;
+            border-right: none;
+        }
+        
+        &__right {
+            order: 2;
+        }
+        
+        &__card {
+            padding: 0 40px; // Left/right: 40px
+            margin: 0; // Remove margin on mobile
+            min-height: 0; // Remove min-height on mobile
+            order: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0;
+            border-left: none;
+            border-right: none;
+            
+            .eyebrow {
+                font-size: $font-size-xl;
+                order: 1;
+                padding: $spacing-md 0; // Top/bottom padding, no left/right padding
+            }
+            
+            .button {
+                display: none;
+            }
+        }
+        
+        .accordion {
+            order: 2;
+            border-left: none;
+            border-right: none;
+        }
+    }
+    
+    // Style for button when moved after accordion (MOBILE ONLY - < 768px)
+    // On tablet (≥768px), button should stay inside accordion--services__card
+    .link-button-mobile {
+        order: 3;
+        display: flex !important;
+        width: calc(100% - 40px - 40px); // Subtract left and right padding (40px each)
+        max-width: 100%;
+        margin: $spacing-lg 40px $spacing-3xl 40px; // Top, right, bottom, left - match 40px padding
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid $color-accent-teal-light;
+        background: $color-white;
+        color: $color-black;
+        text-decoration: none;
+        font-family: $font-family;
+        font-weight: $font-weight-light;
+        font-size: $font-size-md;
+        line-height: $line-height-button;
+        @include button-hover-effect;
+    }
+    
+    // Ensure button stays inside card on tablet (769px - 1024px) - Exclude iPad Mini at 768px
+    @media (min-width: $breakpoint-tablet + 1) and (max-width: $breakpoint-desktop) {
+        .accordion--services__card {
+            .button {
+                // Ensure button is inside card, not moved by JavaScript
+                position: relative !important;
+                order: 2 !important;
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+        }
+        
+        // Hide mobile button style on tablet (but not iPad Mini)
+        .link-button-mobile {
+            display: none !important;
+        }
+    }
+    
+    .accordion--page {
+        grid-template-columns: 1fr;
+        padding: 0;
+        
+        &__left {
+            display: none;
+        }
+        
+        &__right {
+            border-left: none;
+        }
+        
+        .accordion__header {
+            width: $button-width-sm;
+            max-width: $button-width-sm;
+            margin: 0 auto;
+            padding: $spacing-30 0;
+        }
+        
+        @media (orientation: landscape) and (max-width: $breakpoint-tablet) {
+            .accordion__header {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .accordion__item.active &__content-wrapper {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            &__content-image img {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                aspect-ratio: 1;
+            }
+        }
+        
+        .accordion__content {
+            padding: 0 !important;
+            overflow: hidden;
+            
+            .accordion__item:not(.active) & {
+                max-height: 0 !important;
+            }
+            
+            .accordion__item.active & {
+                padding: 0 !important;
+                max-height: 2000px !important;
+            }
+        }
+        
+        &__content-wrapper {
+            display: none;
+        }
+        
+        .accordion__item.active &__content-wrapper {
+            display: flex !important;
+            flex-direction: column;
+            gap: $spacing-lg;
+            padding: 0;
+            width: $button-width-sm;
+            max-width: $button-width-sm;
+            margin: 0 auto;
+        }
+        
+        &__content-image {
+            order: 1;
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-lg;
+            align-items: center;
+            width: 100%;
+            
+            img {
+                width: $button-width-sm;
+                height: 300px;
+                max-width: $button-width-sm;
+                max-height: 300px;
+                object-fit: cover;
+            }
+            
+            .accordion--page__button-desktop {
+                display: none !important;
+            }
+        }
+        
+        &__content-text {
+            order: 2;
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            
+            .service-text-preview {
+                display: block;
+                width: 100%;
+            }
+            
+            .service-text-full {
+                display: none;
+                
+                &.expanded {
+                    display: block;
+                }
+            }
+            
+            .service-read-more {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background: transparent;
+                border: none;
+                color: #7DCAD8;
+                padding: 0;
+                font-family: $font-family;
+                font-weight: $font-weight-light;
+                font-size: $font-size-md;
+                line-height: $line-height-button;
+                text-decoration: none;
+                margin-top: $spacing-md;
+                width: 100%;
+                max-width: 100%;
+                transition: all $transition-base;
+                order: 2;
+                
+                &:hover {
+                    opacity: 0.7;
+                }
+                
+                .read-more-text {
+                    flex: 1;
+                    text-align: left;
+                    color: #7DCAD8;
+                }
+                
+                .read-more-icon {
+                    font-size: $font-size-2xl;
+                    line-height: 1;
+                    transition: transform $transition-base;
+                    flex-shrink: 0;
+                    margin-left: $spacing-sm;
+                    color: #7DCAD8;
+                }
+                
+                &.expanded {
+                    .read-more-icon {
+                        transform: rotate(45deg);
+                    }
+                }
+            }
+            
+            .accordion--page__button-mobile {
+                display: flex !important;
+                order: 3;
+                width: 100%;
+                max-width: 100%;
+                margin-top: $spacing-md;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+// Small Mobile (≤480px)
+@media (max-width: $breakpoint-mobile) {
+    .accordion--services__card .eyebrow {
+        font-size: $font-size-xl;
+    }
+}
+

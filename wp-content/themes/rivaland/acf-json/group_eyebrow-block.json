@@ -1,0 +1,83 @@
+{
+    "key": "group_eyebrow_block",
+    "title": "Eyebrow Block",
+    "fields": [
+        {
+            "key": "field_eyebrow_text",
+            "label": "Eyebrow Text",
+            "name": "eyebrow_text",
+            "type": "text",
+            "instructions": "The label or category text to display",
+            "required": 1,
+            "default_value": "",
+            "placeholder": "Enter eyebrow text"
+        },
+        {
+            "key": "field_eyebrow_variant",
+            "label": "Color Variant",
+            "name": "eyebrow_variant",
+            "type": "select",
+            "instructions": "Choose the color scheme variant",
+            "required": 0,
+            "choices": {
+                "primary": "Primary (Teal color)",
+                "secondary": "Secondary",
+                "light": "Light",
+                "dark": "Dark"
+            },
+            "default_value": "primary",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_eyebrow_tag",
+            "label": "HTML Tag",
+            "name": "eyebrow_tag",
+            "type": "select",
+            "instructions": "Choose the HTML element to use",
+            "required": 0,
+            "choices": {
+                "p": "Paragraph (p)",
+                "span": "Span",
+                "div": "Div"
+            },
+            "default_value": "p",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value"
+        },
+        {
+            "key": "field_eyebrow_class",
+            "label": "Additional CSS Classes",
+            "name": "eyebrow_class",
+            "type": "text",
+            "instructions": "Add custom CSS classes (space-separated)",
+            "required": 0,
+            "placeholder": "custom-class another-class"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf/eyebrow-block"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Eyebrow/label component block with variant options",
+    "show_in_rest": 0
+}
+

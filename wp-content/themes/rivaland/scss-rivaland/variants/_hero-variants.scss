@@ -1,0 +1,669 @@
+// ============================================
+// HERO VARIANTS
+// ============================================
+// Variant styles for hero component
+// Usage: <header class="hero hero--home hero--light">
+//        <header class="hero hero--about hero--dark">
+//        <header class="hero hero--services hero--light">
+//
+// TYPE VARIANTS (layout/structure):
+// - hero--home: Default full-height hero with image background
+// - hero--about: Fixed height hero with diagonal triangle
+// - hero--services: Hero with content + image below
+//
+// COLOR VARIANTS (can be combined with type):
+// - hero--light: Light color scheme
+// - hero--dark: Dark color scheme
+
+// ============================================
+// TYPE VARIANTS
+// ============================================
+
+// Home type (default - full height with image)
+.hero--home {
+    height: 100vh;
+    background: url("assets/images/header.jpg") center center/cover no-repeat;
+    background-color: $color-primary-dark;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: $spacing-md;
+        right: $spacing-md;
+        bottom: $spacing-md;
+        left: $spacing-md;
+        background: $color-primary-dark-opacity-55;
+    }
+}
+
+// About type (fixed height with diagonal triangle)
+.hero--about {
+    height: 664px; // Fixed height on desktop
+    position: relative;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    
+    // Remove padding area around hero (override ::before from .hero)
+    &::before {
+        display: none;
+    }
+    
+    // Diagonal split with teal triangle
+    &::after {
+        content: "";
+        position: absolute;
+        top: -500px;
+        bottom: 0;
+        right: 0;
+        left: 60%;
+        width: 40%;
+        height: calc(100% + 500px);
+        background: $color-accent-teal;
+        clip-path: polygon(0 100%, 100% 100%, 100% 0);
+        z-index: 0;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: $z-nav;
+        max-width: 900px;
+        padding: 0 $spacing-5xl 0 $spacing-6xl;
+        margin: auto 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        h1 {
+            font-size: $font-size-8xl; // 56px
+            font-weight: 300;
+            line-height: 1.3;
+            padding-left: 75px;
+            position: relative;
+            z-index: 1;
+        }
+    }
+}
+
+// Services type (content + image below)
+.hero--services {
+    background: $color-primary;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; // Ensure content fits within container
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    
+    @media (min-width: 1024px) {
+        height: 922px;
+    }
+    
+    &::before {
+        display: none;
+    }
+    
+    .nav {
+        // Nav padding must match base .nav exactly: 68px $spacing-5xl on desktop
+        // Responsive padding handled by _navigation.scss breakpoints
+        // Don't override - let _navigation.scss handle all padding for consistency
+        // Ensure navbar scales responsively to full width
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        
+        @media (min-width: $breakpoint-desktop) {
+            flex-shrink: 0;
+            // Ensure padding matches base nav on desktop
+            padding: 68px $spacing-5xl !important;
+        }
+        
+        // Ensure logo sizing matches other pages exactly
+        .logo {
+            img,
+            svg {
+                height: $spacing-lg !important; // 24px
+                width: auto !important;
+                max-width: none !important;
+            }
+        }
+        
+        // Ensure nav links match other pages exactly
+        .nav-links a {
+            font-size: $font-size-md !important; // 18px
+            line-height: $line-height-button !important; // 38px
+        }
+        
+        // Ensure contact button matches other pages exactly
+        .contact-btn {
+            padding: $spacing-10 $spacing-xl !important; // 10px 28px
+            font-size: $font-size-sm !important; // 15px
+        }
+    }
+    
+    // Note: Services page should NOT show contact button on tablet
+    // Contact button should only be visible on desktop (>1024px)
+    // Tablet breakpoint (768px - 1024px) should hide contact button like other pages
+    
+    // Small tablet/mobile breakpoint
+    @media (max-width: $breakpoint-tablet) {
+        .nav {
+            // Let _navigation.scss handle mobile padding
+            padding: $spacing-lg $spacing-3xl !important;
+            // Ensure responsive width
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+    }
+    
+    @media (max-width: $breakpoint-mobile) {
+        .nav {
+            // Let _navigation.scss handle small mobile padding
+            padding: $spacing-md $spacing-2xl !important;
+            // Ensure responsive width
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: $z-nav;
+        max-width: 900px;
+        padding: 0 $spacing-5xl 0 $spacing-6xl;
+        margin: auto 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 400px;
+        background: $color-primary;
+        flex-shrink: 0;
+        
+        @media (min-width: $breakpoint-desktop) {
+            // Navbar + hero-content should total 320px
+            // Navbar padding: 68px top + 68px bottom = 136px
+            // Navbar content height: ~38px (nav links line-height)
+            // Total navbar: ~174px
+            // Hero-content: 320px - 174px = 146px
+            height: 146px;
+            min-height: 146px;
+        }
+        
+        h1 {
+            color: $color-white;
+            font-size: $font-size-8xl; // 56px
+            font-weight: 300;
+            line-height: 1.3;
+            padding-left: 75px;
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            text-align: left;
+        }
+    }
+    
+    .hero-image {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        background: $color-white;
+        flex-shrink: 0;
+        max-height: 100%;
+        
+        @media (min-width: $breakpoint-desktop) {
+            height: 428px;
+            max-height: 428px;
+        }
+        
+        img {
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+}
+
+// ============================================
+// COLOR VARIANTS (can be combined with type variants)
+// ============================================
+
+// Light color scheme
+.hero--light {
+    // Home type with light colors
+    &.hero--home {
+        background: url("assets/images/header.jpg") center center/cover no-repeat;
+        background-color: $color-primary-dark;
+        
+        .hero-content h1 {
+            color: $color-white;
+        }
+        
+        .highlight {
+            color: $color-accent;
+        }
+    }
+    
+    // About type with light colors
+    &.hero--about {
+        background: $color-white;
+        
+        .hero-content h1 {
+            color: $color-primary;
+        }
+        
+        &::after {
+            background: $color-accent-teal;
+        }
+    }
+    
+    // Services type with light colors
+    &.hero--services {
+        background: $color-white;
+        
+        .hero-content {
+            background: $color-white;
+            
+            h1 {
+                color: $color-primary;
+            }
+        }
+        
+        .hero-image {
+            background: $color-white;
+        }
+    }
+}
+
+// Dark color scheme
+.hero--dark {
+    // Home type with dark colors
+    &.hero--home {
+        background: url("assets/images/header.jpg") center center/cover no-repeat;
+        background-color: $color-primary-dark;
+        
+        .hero-content h1 {
+            color: $color-white;
+        }
+        
+        .highlight {
+            color: $color-accent;
+        }
+    }
+    
+    // About type with dark colors (default)
+    &.hero--about {
+        background: $color-primary; // Dark blue
+        
+        .hero-content h1 {
+            color: #fff;
+        }
+        
+        &::after {
+            background: $color-accent-teal;
+        }
+    }
+    
+    // Services type with dark colors (default)
+    &.hero--services {
+        background: $color-primary;
+        
+        .hero-content {
+            background: $color-primary;
+            
+            h1 {
+                color: $color-white;
+            }
+        }
+        
+        .hero-image {
+            background: $color-white;
+        }
+    }
+}
+
+// Legacy support: hero--dark without type defaults to hero--about--dark
+.hero--dark:not(.hero--home):not(.hero--about):not(.hero--services) {
+    height: 664px;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    background: #202A44;
+    
+    &::before {
+        display: none;
+    }
+    
+    &::after {
+        content: "";
+        position: absolute;
+        top: -500px;
+        bottom: 0;
+        right: 0;
+        left: 60%;
+        width: 40%;
+        height: calc(100% + 500px);
+        background: $color-accent-teal;
+        clip-path: polygon(0 100%, 100% 100%, 100% 0);
+        z-index: 0;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: $z-nav;
+        max-width: 900px;
+        padding: 0 $spacing-5xl 0 $spacing-6xl;
+        margin: auto 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        
+        h1 {
+            color: #fff;
+            font-size: $font-size-8xl; // 56px
+            font-weight: 300;
+            line-height: 1.3;
+            padding-left: 75px;
+            position: relative;
+            z-index: 1;
+        }
+    }
+}
+
+// ============================================
+// RESPONSIVE STYLES
+// ============================================
+
+// Mobile Landscape / Tablet (768px - 1024px)
+@media (min-width: 768px) and (max-width: 1024px) {
+    // Ensure hero image appears before intro in document flow
+    .hero--services {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        
+        // Calculate total height: navbar (~140px) + hero-content (~200px) + hero-image (~200px) = ~540px
+        height: 540px;
+        min-height: 540px;
+        max-height: 540px;
+        
+        .nav {
+            flex-shrink: 0;
+            height: auto;
+            // Use standard tablet padding (not desktop) to match other pages
+            // Ensure responsive width on tablet
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            // Ensure proper flexbox alignment
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            
+            // Ensure logo stays left-aligned
+            .logo {
+                order: 0 !important;
+                flex: 0 0 auto !important;
+                margin-right: auto !important;
+                text-align: left !important;
+                
+                img,
+                svg {
+                    height: $spacing-lg !important; // 24px
+                    width: auto !important;
+                    max-width: none !important;
+                }
+            }
+            
+            // Ensure nav links match desktop
+            .nav-links {
+                order: 1 !important;
+                flex: 0 0 auto !important;
+                margin: 0 auto !important;
+                
+                a {
+                    font-size: $font-size-md !important; // 18px
+                    line-height: $line-height-button !important;
+                }
+            }
+        }
+        
+        // Hide contact button on tablet - should match other pages
+        .nav .contact-btn {
+            display: none !important;
+        }
+        
+        .hero-content {
+            order: 1; // Ensure content comes first
+            flex-shrink: 0;
+            min-height: 200px;
+            height: 200px;
+            padding: $spacing-3xl $spacing-3xl;
+        }
+        
+        .hero-image {
+            position: relative;
+            order: 2; // Ensure image comes after content
+            flex-shrink: 0;
+            height: 200px;
+            min-height: 200px;
+            max-height: 200px;
+            overflow: hidden;
+            
+            img {
+                height: 100%;
+                max-height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+// Mobile (≤768px)
+@media (max-width: $breakpoint-tablet) {
+    // Hero-services mobile styles
+    .hero--services {
+        height: auto !important; // Fit to content instead of fixed height
+        min-height: auto !important; // Remove any min-height constraints
+        margin-bottom: 0;
+        padding-bottom: 0;
+        
+        .hero-content {
+            min-height: 0 !important; // Override base min-height: 400px to eliminate blank space
+            height: auto !important; // Remove any fixed height
+            max-height: none !important; // Remove any max-height constraints
+            flex: 0 0 auto !important; // Don't grow or shrink, just fit content
+            flex-shrink: 1 !important; // Allow shrinking to fit content
+            padding: $spacing-sm $spacing-3xl $spacing-sm; // Minimal vertical padding (16px top, 40px left/right, 16px bottom)
+            margin: 0; // Remove auto margin that causes spacing
+            justify-content: flex-start; // Align to top instead of center
+            
+            h1 {
+                font-size: $font-size-5xl;
+                margin: 0; // Remove any default margin
+                padding-left: 0; // Remove left padding on mobile
+                line-height: 1.2; // Tighter line height to reduce height
+            }
+        }
+        
+        .hero-image {
+            width: 100%;
+            min-height: 200px;
+            height: 50vh; // Set a defined height so image can fill it
+            margin: 0; // Remove any margin
+            padding: 0; // Remove any padding
+            margin-top: 0; // Ensure no top margin
+            overflow: hidden; // Ensure image doesn't overflow
+            position: relative; // For absolute positioning if needed
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; // Scale to fill container while maintaining aspect ratio
+                object-position: center; // Center the image
+                display: block;
+            }
+        }
+    }
+    
+    // Hero-dark mobile styles - triangle from left of text bottom to bottom right with overhang
+    .hero--dark,
+    .hero-dark { // Legacy class support
+        overflow: visible; // Allow triangle to extend beyond container
+        max-height: 701px;
+        width: 100%;
+        max-width: 100%;
+        
+        // Ensure nav works the same as regular hero
+        // Note: Nav padding and sizing should be handled by _navigation.scss for consistency
+        .nav {
+            // Don't override padding - let _navigation.scss handle it
+            position: relative;
+            z-index: $z-menu-toggle-active;
+            width: 100%;
+            max-width: 100%;
+            
+            &.menu-open {
+                position: relative;
+                z-index: $z-menu-open;
+                
+                .nav-links {
+                    top: 0;
+                }
+            }
+        }
+        
+        .menu-toggle {
+            display: flex;
+            order: 2;
+            position: relative;
+            z-index: $z-menu-toggle-active;
+        }
+        
+        .logo {
+            order: 1;
+            position: relative;
+            z-index: $z-menu-toggle-active;
+            
+            // Logo sizing should match base navigation styles
+            // Mobile size is handled by _navigation.scss media queries
+            // No overrides needed - _navigation.scss handles all sizing
+        }
+        
+        // Ensure mobile navigation elements are visible and don't overhang
+        .nav-links {
+            width: 100%;
+            max-width: 100vw;
+            left: 0;
+            right: 0;
+            overflow-x: hidden;
+            opacity: 0;
+            transition: top $transition-slow 0.3s, opacity 0.3s ease 0.2s;
+            
+            // Hide content until menu has moved past nav bar
+            // Fade out immediately when closing, then slide up
+            > * {
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            
+            .mobile-contact {
+                display: block !important;
+                margin-right: 0;
+                padding-right: $spacing-md;
+                
+                .contact-arrow {
+                    display: inline-flex !important;
+                    visibility: visible !important;
+                    right: $spacing-3xl !important;
+                }
+            }
+            
+            .mobile-logo {
+                display: none;
+                
+                .mobile-logo-img {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    margin: 0 auto;
+                }
+            }
+        }
+        
+        .nav.menu-open .nav-links {
+            opacity: 1;
+            transition: top $transition-slow, opacity 0.3s ease 0.2s;
+            
+            > * {
+                opacity: 1;
+                transition: opacity 0.3s ease 0.2s;
+            }
+        }
+        
+        // When closing, fade out content first, then slide up
+        .nav:not(.menu-open) .nav-links {
+            transition: top $transition-slow 0.2s, opacity 0.2s ease;
+            
+            > * {
+                transition: opacity 0.2s ease;
+            }
+        }
+        
+        .nav.menu-open .nav-links .mobile-logo {
+            display: block !important;
+        }
+        
+        .contact-arrow .button-arrow {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .mobile-contact {
+            margin-right: 0 !important;
+            overflow: hidden;
+        }
+        
+        &::after {
+            top: 0;
+            bottom: -30px;
+            right: -100px;
+            left: 0;
+            width: calc(100% + 100px);
+            height: calc(100%);
+            clip-path: polygon(0 60%, 100% 100%, 0 100%);
+        }
+        
+        .hero-content {
+            justify-content: flex-start;
+            padding-top: $spacing-5xl;
+            padding-left: $spacing-3xl;
+            padding-right: $spacing-3xl;
+            max-width: 100%;
+            
+            h1 {
+                padding-left: 0;
+                text-align: left;
+                font-size: $font-size-5xl; // 36px
+                line-height: 1.4;
+                font-weight: 300;
+                color: $color-white;
+                width: 311px;
+                height: 173px;
+                
+                .highlight {
+                    color: $color-white; // Remove accent color, make it same as text
+                }
+            }
+        }
+    }
+}
+

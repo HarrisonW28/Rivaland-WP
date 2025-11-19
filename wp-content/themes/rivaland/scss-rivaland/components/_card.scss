@@ -1,0 +1,250 @@
+// ============================================
+// CARD COMPONENT
+// ============================================
+// Standardized card component replacing:
+// - project-card
+// - news-card
+// - service-card
+//
+// Usage:
+// <article class="card card--project">
+//     <div class="card__content">...</div>
+// </article>
+
+.card {
+    // Base card styles
+    display: flex;
+    flex-direction: column;
+    background: $color-white;
+    border: 1px solid $color-border-light;
+    transition: all $transition-base;
+    cursor: pointer;
+    position: relative;
+    
+    // Card image
+    &__image {
+        width: 100%;
+        overflow: hidden;
+        
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform $transition-base;
+        }
+    }
+    
+    // Card content wrapper
+    &__content {
+        padding: $spacing-lg $spacing-xl;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+        flex: 1;
+    }
+    
+    // Card eyebrow/label
+    &__eyebrow {
+        font-size: $font-size-xs;
+        color: $color-accent-teal;
+        margin: 0;
+        font-weight: $font-weight-normal;
+    }
+    
+    // Card title
+    &__title {
+        font-size: $font-size-2xl;
+        color: $color-primary-light;
+        margin: 0;
+        font-weight: $font-weight-normal;
+    }
+    
+    // Card text/description
+    &__text {
+        font-size: $font-size-base;
+        color: $color-text;
+        margin: 0;
+        line-height: $line-height-base;
+    }
+    
+    // Card meta (for project cards)
+    &__meta {
+        color: $color-text-secondary;
+        font-size: $font-size-md;
+        margin: 0;
+    }
+    
+    // Card location (for project cards)
+    &__location {
+        color: $color-primary-light;
+        font-size: $font-size-xl;
+        margin: 0;
+        font-weight: $font-weight-light;
+    }
+    
+    // Card status (for project cards)
+    &__status {
+        font-weight: $font-weight-normal;
+    }
+    
+    // Card link
+    &__link {
+        color: $color-black;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: $spacing-xs;
+        margin-top: auto;
+    }
+    
+    // Card arrow icon
+    &__arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: $color-text-secondary;
+        transition: color $transition-base;
+        
+        svg {
+            width: $icon-size-sm;
+            height: $spacing-sm;
+        }
+    }
+    
+    // Hover state
+    &:hover {
+        transform: translateY(-4px);
+        
+        .card__image img {
+            transform: scale(1.05);
+        }
+        
+        .card__eyebrow,
+        .card__title,
+        .card__arrow {
+            color: $color-white;
+        }
+    }
+    
+    // Project card variant
+    &--project {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        padding: $spacing-50;
+        padding-left: $spacing-6xl;
+        border-bottom: 1px solid $color-border-light;
+        align-items: center;
+        gap: $spacing-md;
+        border: none;
+        border-bottom: 1px solid $color-border-light;
+        
+        &:hover {
+            background: $color-primary;
+            transform: none;
+            
+            .card__meta,
+            .card__location,
+            .card__arrow {
+                color: $color-white;
+            }
+        }
+        
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+    
+    // News card variant
+    &--news {
+        width: 630px;
+        height: 630px;
+        min-height: 630px;
+        overflow: hidden;
+        
+        .card__arrow {
+            position: absolute;
+            bottom: $spacing-md;
+            right: $spacing-md;
+        }
+        
+        &:hover {
+            background: $color-primary;
+            
+            .card__eyebrow,
+            .card__title,
+            .card__arrow {
+                color: $color-white;
+            }
+        }
+        
+        @media (max-width: $breakpoint-tablet) {
+            width: 100%;
+            height: auto;
+            min-height: 400px;
+            
+            .card__arrow {
+                position: static;
+                margin-top: $spacing-md;
+                align-self: flex-end;
+            }
+        }
+    }
+    
+    // Service card variant
+    &--service {
+        background: transparent;
+        padding: $spacing-3xl;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: $spacing-3xl;
+        border-top: 1px solid $color-border;
+        border-right: 1px solid $color-border;
+        border-bottom: 1px solid $color-border;
+        min-height: 200px;
+    }
+    
+    // Dark variant
+    &--dark {
+        background: $color-primary;
+        border-color: $color-white-opacity-20;
+        
+        .card__eyebrow {
+            color: $color-white-opacity-70;
+        }
+        
+        .card__title {
+            color: $color-white;
+        }
+        
+        .card__text {
+            color: $color-white-opacity-85;
+        }
+        
+        .card__arrow {
+            color: $color-white-opacity-70;
+        }
+        
+        &:hover {
+            background: $color-white-opacity-10;
+        }
+    }
+}
+
+// Legacy class support (for gradual migration)
+.project-card {
+    @extend .card;
+    @extend .card--project;
+}
+
+.news-card {
+    @extend .card;
+    @extend .card--news;
+}
+
+.service-card {
+    @extend .card;
+    @extend .card--service;
+}
+
