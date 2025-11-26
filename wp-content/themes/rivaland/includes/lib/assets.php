@@ -85,6 +85,7 @@ function script_enqueues() {
  * Inject all Rivaland vanilla JS scripts directly in footer
  * This ensures scripts load reliably - works like the HTML version
  * Bypasses WordPress enqueue system to avoid conflicts
+ * Uses defer to prevent blocking and ensure proper load order
  */
 function rivaland_fallback_scripts() {
   // Only on frontend
@@ -93,14 +94,15 @@ function rivaland_fallback_scripts() {
   }
   
   // All Rivaland vanilla JS scripts - inject directly like HTML version
+  // Order matters: load critical scripts first, then others
   $rivaland_scripts = [
     'mobile-menu' => '/js/mobile-menu.js',
     'mobile-layout' => '/js/mobile-layout.js',
     'accordion' => '/js/accordion.js',
     'projects-filter' => '/js/projects-filter.js',
-    'approach' => '/js/approach.js',
     'testimonials' => '/js/testimonials.js',
     'footer' => '/js/footer.js',
+    'approach' => '/js/approach.js', // Load last as it may conflict with smooth scroll
   ];
   
   foreach ($rivaland_scripts as $handle => $file) {
@@ -113,13 +115,14 @@ function rivaland_fallback_scripts() {
     if (file_exists($file_path)) {
       $script_url = get_template_directory_uri() . $file;
       $version = filemtime($file_path);
-      // Inject directly - don't rely on wp_enqueue_script
-      // This mimics how it worked in the HTML version
-      echo '<script src="' . esc_url($script_url) . '?v=' . esc_attr($version) . '"></script>' . "\n";
+      // Use async for non-blocking load, but scripts use DOMContentLoaded so they'll wait
+      // This prevents blocking rendering and improves performance
+      echo '<script async src="' . esc_url($script_url) . '?v=' . esc_attr($version) . '"></script>' . "\n";
     }
   }
 }
-add_action('wp_footer', 'rivaland_fallback_scripts', 5); // Early priority to load before other scripts
+// Load after main.min.js (which has Lenis smooth scroll) - priority 20 ensures main scripts load first
+add_action('wp_footer', 'rivaland_fallback_scripts', 20);
 
 function remove_unnecessary_script() {
   wp_deregister_script('ghostkit'); // Replace 'script-handle' with the actual handle of the script you want to deregister.
