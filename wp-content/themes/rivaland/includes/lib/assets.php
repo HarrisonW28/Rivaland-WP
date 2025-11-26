@@ -8,7 +8,7 @@ function script_enqueues() {
   wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js', array(), '3.3.1', true);
   wp_enqueue_script('main-scripts', get_template_directory_uri() . '/dist/main.min.js', array('jquery'), '1.0.0', true);
   
-  // Rivaland specific scripts
+  // Rivaland specific scripts (vanilla JS - no jQuery dependency)
   $rivaland_scripts = [
     'mobile-menu' => '/js/mobile-menu.js',
     'mobile-layout' => '/js/mobile-layout.js',
@@ -25,7 +25,7 @@ function script_enqueues() {
       wp_enqueue_script(
         $handle,
         get_template_directory_uri() . $file,
-        array('jquery'),
+        array(), // No dependencies - these are vanilla JS scripts
         filemtime($file_path),
         true
       );

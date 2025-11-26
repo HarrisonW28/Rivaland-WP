@@ -1,4 +1,7 @@
 <?php
+    // Store block script handles for frontend enqueuing
+    $GLOBALS['acf_block_scripts'] = [];
+
     function registerBlockTypes() {
     $block_directory = get_template_directory() . '/includes/blocks';
     $block_url = get_template_directory_uri() . '/includes/blocks';
@@ -8,6 +11,7 @@
         if ($fileinfo->isDir() && !$fileinfo->isDot()) {
             $block_name = $fileinfo->getFilename();
             $block_json_file = "$block_directory/$block_name/block.json";
+            $block_js_file = "$block_directory/$block_name/dist/block.js";
 
             if (file_exists($block_json_file)) {
                 // Read the block.json file
@@ -24,20 +28,26 @@
                 // Add 'spacing' => true to 'ghostkit'
                 $supports['ghostkit']['spacings'] = true;
 
+                // Register script for the block if it exists
+                if (file_exists($block_js_file)) {
+                    $script_handle = "$block_name-scripts";
+                    $script_version = filemtime($block_js_file);
+                    
+                    wp_register_script(
+                        $script_handle,
+                        "$block_url/$block_name/dist/block.js",
+                        array('jquery'),
+                        $script_version,
+                        true
+                    );
 
-                // Register script for the block
-                wp_register_script(
-                    "$block_name-scripts",
-                    "$block_url/$block_name/dist/block.js",
-                    [],
-                    filemtime("$block_directory/$block_name/dist/block.js"),
-                    true
-                );
+                    // Store the script handle for this block
+                    $GLOBALS['acf_block_scripts']["acf/$block_name"] = $script_handle;
+                }
 
                 // Register the block with dynamic supports
                 register_block_type($block_json_file, [
                     'supports' => $supports,
-                    'script' => "$block_name-scripts",
                 ]);
             }
         }
@@ -45,6 +55,37 @@
 }
 
 add_action('init', 'registerBlockTypes');
+
+/**
+ * Enqueue block scripts on the frontend when blocks are rendered
+ */
+function enqueue_acf_block_scripts($block_content, $block) {
+    // Only enqueue on frontend, not in editor or REST API
+    if (is_admin() || wp_is_json_request() || (defined('REST_REQUEST') && REST_REQUEST)) {
+        return $block_content;
+    }
+
+    // Initialize global if not set
+    if (!isset($GLOBALS['acf_block_scripts'])) {
+        $GLOBALS['acf_block_scripts'] = [];
+    }
+
+    // Check if this is an ACF block and if we have a script for it
+    if (isset($block['blockName']) && 
+        strpos($block['blockName'], 'acf/') === 0 && 
+        isset($GLOBALS['acf_block_scripts'][$block['blockName']])) {
+        
+        $script_handle = $GLOBALS['acf_block_scripts'][$block['blockName']];
+        
+        // Enqueue script if not already enqueued or done
+        if (!wp_script_is($script_handle, 'enqueued') && !wp_script_is($script_handle, 'done')) {
+            wp_enqueue_script($script_handle);
+        }
+    }
+
+    return $block_content;
+}
+add_filter('render_block', 'enqueue_acf_block_scripts', 10, 2);
 
 
     /**

@@ -1,0 +1,20 @@
+warning: in the working copy of 'wp-content/themes/rivaland/includes/lib/assets.php', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/wp-content/themes/rivaland/includes/lib/assets.php b/wp-content/themes/rivaland/includes/lib/assets.php[m
+[1mindex 84b46b6..7223016 100644[m
+[1m--- a/wp-content/themes/rivaland/includes/lib/assets.php[m
+[1m+++ b/wp-content/themes/rivaland/includes/lib/assets.php[m
+[36m@@ -9,12 +9,12 @@[m [mfunction script_enqueues() {[m
+   wp_enqueue_script('main-scripts', get_template_directory_uri() . '/dist/main.min.js', array('jquery'), '1.0.0', true);[m
+   [m
+   // Rivaland specific scripts[m
+[32m+[m[32m  // Component-specific scripts that still need their own files.[m
+[32m+[m[32m  // (Accordion and approach logic now live inside dist/main.min.js via imports in js/main.js.)[m
+   $rivaland_scripts = [[m
+     'mobile-menu' => '/js/mobile-menu.js',[m
+     'mobile-layout' => '/js/mobile-layout.js',[m
+[31m-    'accordion' => '/js/accordion.js',[m
+     'projects-filter' => '/js/projects-filter.js',[m
+[31m-    'approach' => '/js/approach.js',[m
+     'testimonials' => '/js/testimonials.js',[m
+     'footer' => '/js/footer.js',[m
+   ];[m
