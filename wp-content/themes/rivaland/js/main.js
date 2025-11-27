@@ -39,6 +39,9 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
     const smoothScrolling = () => {
       const lenis = new Lenis()
       
+      // Store Lenis globally so other scripts can access it
+      window.lenis = lenis;
+      
       lenis.on('scroll', ScrollTrigger.update)
       
       gsap.ticker.add((time)=>{

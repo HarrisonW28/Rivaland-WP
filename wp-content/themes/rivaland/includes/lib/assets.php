@@ -115,14 +115,15 @@ function rivaland_fallback_scripts() {
     if (file_exists($file_path)) {
       $script_url = get_template_directory_uri() . $file;
       $version = filemtime($file_path);
-      // Use async for non-blocking load, but scripts use DOMContentLoaded so they'll wait
-      // This prevents blocking rendering and improves performance
+      // Use async for non-blocking load - scripts use DOMContentLoaded so they'll wait
+      // This prevents blocking rendering and improves performance (may cause some lag but smooth scroll works)
       echo '<script async src="' . esc_url($script_url) . '?v=' . esc_attr($version) . '"></script>' . "\n";
     }
   }
 }
-// Load after main.min.js (which has Lenis smooth scroll) - priority 20 ensures main scripts load first
-add_action('wp_footer', 'rivaland_fallback_scripts', 20);
+// Load after main.min.js (which has Lenis smooth scroll) - priority 25 ensures main scripts load and initialize first
+// Scripts use DOMContentLoaded so they'll wait for DOM and Lenis initialization
+add_action('wp_footer', 'rivaland_fallback_scripts', 25);
 
 function remove_unnecessary_script() {
   wp_deregister_script('ghostkit'); // Replace 'script-handle' with the actual handle of the script you want to deregister.

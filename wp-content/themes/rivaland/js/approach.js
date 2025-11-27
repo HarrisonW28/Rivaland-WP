@@ -1,59 +1,101 @@
-// Approach section vertical scroll progress bar
-document.addEventListener('DOMContentLoaded', function() {
+// Approach section with enhanced hover-to-scroll interaction
+// Implements momentum-based detection, velocity tracking, and smart boundary handling
+// Works with Lenis smooth scrolling
+
+function initApproach() {
     const approachContainer = document.querySelector('.approach-container');
     const approachSection = document.querySelector('.approach-section');
     const progressBar = approachSection ? approachSection.querySelector('.approach-progress') : null;
     
-    if (approachContainer && progressBar && approachSection) {
+    // Check if elements exist - if not, wait a bit and try again
+    if (!approachContainer || !progressBar || !approachSection) {
+        setTimeout(initApproach, 100);
+        return;
+    }
+    
+    // Prevent double initialization
+    if (window.approachInitialized) return;
+    window.approachInitialized = true;
+    
+    // Wait for Lenis to be available
+    function waitForLenis(callback) {
+        if (window.lenis) {
+            callback(window.lenis);
+        } else {
+            const checkInterval = setInterval(() => {
+                if (window.lenis) {
+                    clearInterval(checkInterval);
+                    callback(window.lenis);
+                }
+            }, 50);
+            
+            setTimeout(() => {
+                clearInterval(checkInterval);
+                callback(null);
+            }, 1000);
+        }
+    }
+    
+    waitForLenis(function(lenis) {
+        initializeApproach(lenis);
+    });
+    
+    function initializeApproach(lenis) {
+        // Store lenis reference globally
+        window.approachLenis = lenis;
+        
+        // Enhanced state management
+        const state = {
+            isActive: false,              // Section is hovered/in viewport (>80%)
+            isLocked: false,              // Page scroll is currently locked
+            scrollVelocity: 0,            // Current scroll velocity (px/ms)
+            lastScrollTime: 0,            // Timestamp of last scroll event
+            lastScrollDelta: 0,           // Last scroll delta value
+            boundaryBuffer: 50,           // Pixels from boundary before unlock consideration
+            velocityThreshold: 2,         // px/ms threshold for fast scroll detection
+            unlockAttempts: 0,            // Number of unlock attempts at boundary
+            unlockAttemptsRequired: 2,     // Required attempts before unlock (slow scroll)
+            isUnlocking: false,           // Flag to prevent rapid lock/unlock cycles
+            lastScrollPosition: 0,         // Last scroll position for velocity calculation
+            momentum: 0                   // Preserved momentum for transfer to Lenis
+        };
+        
         // Ensure container can scroll - force height calculation
         const pages = approachContainer.querySelectorAll('.approach-page');
         if (pages.length > 0) {
             const containerHeight = approachContainer.clientHeight;
             pages.forEach(page => {
-                // Ensure each page is exactly the container height
                 page.style.minHeight = containerHeight + 'px';
                 page.style.height = containerHeight + 'px';
             });
         }
         
-        let hasScrolledAllPages = false;
-        
+        // Progress bar update function
         function updateProgress() {
             const scrollTop = approachContainer.scrollTop;
             const containerHeight = approachContainer.clientHeight;
             const scrollHeight = approachContainer.scrollHeight;
-            const pageHeight = containerHeight; // Each page is 100vh
-            const totalPages = pages.length;
+            const pageHeight = containerHeight;
             
-            // Check if we've scrolled through all pages (within 5px of the end)
-            const maxScroll = scrollHeight - containerHeight;
-            hasScrolledAllPages = scrollTop >= maxScroll - 5;
-            
-            // Calculate which page we're on (0 = page 1, 1 = page 2, etc.)
+            // Calculate which page we're on
             const currentPage = Math.floor(scrollTop / pageHeight);
             const pageProgress = (scrollTop % pageHeight) / pageHeight;
             
-            // Progress calculation: 
-            // Page 1: starts at 50% (when scrollTop = 0), fills to 100% (when scrollTop = pageHeight)
-            // Page 2: stays at 100% (already scrolled through page 1)
+            // Progress calculation: Page 1: 50% to 100%, Page 2+: 100%
             let progress;
             if (currentPage === 0) {
-                // On page 1: 50% + (pageProgress * 50%) = 50% to 100%
                 progress = 50 + (pageProgress * 50);
             } else {
-                // On page 2 or beyond: already at 100%
                 progress = 100;
             }
             
-            // Clamp progress between 50 and 100
             const clampedProgress = Math.max(50, Math.min(100, progress));
             
-            // Get the text box width from the first page's approach-right element for width calculation
+            // Get text box width for progress bar
             const firstPage = pages[0];
             const approachRight = firstPage ? firstPage.querySelector('.approach-right') : null;
             const textElement = approachRight ? approachRight.querySelector('.approach-text') : null;
             
-            // Use text element width for progress bar width
             let textBoxWidth = 0;
             if (textElement) {
                 const textRect = textElement.getBoundingClientRect();
@@ -65,43 +107,133 @@ document.addEventListener('DOMContentLoaded', function() {
                 textBoxWidth = approachContainer.clientWidth;
             }
             
-            // Position progress bar at bottom left of right container (not aligned with text)
-            // Get the container's left position relative to the approach section
+            // Position progress bar
             const sectionRect = approachSection.getBoundingClientRect();
             const containerRect = approachContainer.getBoundingClientRect();
             const containerLeft = containerRect.left - sectionRect.left;
             
-            // Calculate width based on progress using text box width
-            // Ensure minimum width of 20px so it's always draggable
             const progressWidth = Math.max(20, (clampedProgress / 100) * textBoxWidth);
             progressBar.style.width = progressWidth + 'px';
-            progressBar.style.left = containerLeft + 'px'; // At the left edge of the right container
+            progressBar.style.left = containerLeft + 'px';
         }
         
-        // Check if approach section is fully in viewport
-        function isSectionInViewport() {
+        // Check if section is >80% in viewport (not just fully visible)
+        function isSectionInViewport(threshold = 0.8) {
             const rect = approachSection.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             const windowWidth = window.innerWidth;
-            // Section is fully in viewport if top is at or above viewport top and bottom is at or below viewport bottom
-            return rect.top >= 0 && rect.bottom <= windowHeight && 
-                   rect.left >= 0 && rect.right <= windowWidth;
+            
+            // Calculate intersection area
+            const visibleTop = Math.max(0, rect.top);
+            const visibleBottom = Math.min(windowHeight, rect.bottom);
+            const visibleLeft = Math.max(0, rect.left);
+            const visibleRight = Math.min(windowWidth, rect.right);
+            
+            const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+            const visibleWidth = Math.max(0, visibleRight - visibleLeft);
+            const sectionArea = rect.height * rect.width;
+            const visibleArea = visibleHeight * visibleWidth;
+            
+            return sectionArea > 0 && (visibleArea / sectionArea) >= threshold;
         }
         
-        // Check if approach container can scroll in a direction
+        // Check if container can scroll
         function canScrollDown() {
             const scrollTop = approachContainer.scrollTop;
             const scrollHeight = approachContainer.scrollHeight;
             const containerHeight = approachContainer.clientHeight;
-            return scrollTop < scrollHeight - containerHeight - 5;
+            return scrollTop < scrollHeight - containerHeight - state.boundaryBuffer;
         }
         
         function canScrollUp() {
-            return approachContainer.scrollTop > 5;
+            return approachContainer.scrollTop > state.boundaryBuffer;
         }
         
-        // Intercept page scroll when approach section is active
-        function handlePageScroll(e) {
+        // Calculate scroll velocity (px/ms)
+        function calculateVelocity(delta, timestamp) {
+            if (state.lastScrollTime === 0) {
+                state.lastScrollTime = timestamp;
+                state.lastScrollDelta = delta;
+                return 0;
+            }
+            
+            const timeDelta = timestamp - state.lastScrollTime;
+            if (timeDelta === 0) return state.scrollVelocity;
+            
+            // Use exponential moving average for smoother velocity
+            const instantVelocity = Math.abs(delta) / timeDelta;
+            state.scrollVelocity = state.scrollVelocity * 0.7 + instantVelocity * 0.3;
+            
+            state.lastScrollTime = timestamp;
+            state.lastScrollDelta = delta;
+            
+            return state.scrollVelocity;
+        }
+        
+        // Check if at boundary with hysteresis buffer
+        function isAtBoundary(position, direction) {
+            const currentScroll = approachContainer.scrollTop;
+            const maxScroll = approachContainer.scrollHeight - approachContainer.clientHeight;
+            const buffer = state.boundaryBuffer;
+            
+            if (direction === 'up') {
+                return currentScroll <= buffer;
+            } else {
+                return currentScroll >= (maxScroll - buffer);
+            }
+        }
+        
+        // Smart unlock decision based on velocity and attempts
+        function shouldUnlock(direction, position, velocity) {
+            const atBoundary = isAtBoundary(position, direction);
+            const highVelocity = velocity > state.velocityThreshold;
+            const multipleAttempts = state.unlockAttempts >= state.unlockAttemptsRequired;
+            
+            // Fast unlock conditions - user scrolling fast at boundary = wants to exit
+            if (atBoundary && highVelocity) {
+                return true;
+            }
+            
+            // Slow unlock conditions - user made multiple attempts = intentional exit
+            if (atBoundary && multipleAttempts) {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        // Use IntersectionObserver with 80% threshold for more responsive activation
+        let lastIntersectionState = false;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Section must be >80% in viewport
+                const isInView = entry.isIntersecting && entry.intersectionRatio >= 0.8;
+                
+                if (isInView !== lastIntersectionState) {
+                    lastIntersectionState = isInView;
+                    state.isActive = isInView;
+                    
+                    if (!isInView) {
+                        // Section left viewport - unlock
+                        if (state.isLocked) {
+                            unlockPage();
+                        }
+                    }
+                }
+            });
+        }, {
+            threshold: [0, 0.8, 0.9, 1.0], // Multiple thresholds for better detection
+            rootMargin: '0px'
+        });
+        
+        observer.observe(approachSection);
+        
+        // Section becomes active when in viewport - no hover required
+        // Once active and locked, stays locked until section leaves viewport or boundary reached
+        // This allows continuous scrolling without keeping mouse over section
+        
+        // Enhanced wheel handler with velocity tracking and smart interception
+        function handleWheelScroll(e) {
             // Skip if modifier keys are pressed
             if (e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) {
                 return;
@@ -112,46 +244,294 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Check if section is fully in viewport
-            if (!isSectionInViewport()) {
+            // Calculate velocity
+            const timestamp = performance.now();
+            const velocity = calculateVelocity(e.deltaY, timestamp);
+            
+            // Only intercept if section is >80% in view (no hover required)
+            if (!state.isActive) {
+                if (state.isLocked) {
+                    unlockPage();
+                }
                 return;
             }
             
-            // Scrolling down
-            if (e.deltaY > 0) {
-                // If container can scroll down, intercept and scroll container
-                if (canScrollDown()) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    e.stopImmediatePropagation();
-                    approachContainer.scrollTop += e.deltaY;
-                    updateProgress();
-                    return false;
+            const scrollingDown = e.deltaY > 0;
+            const scrollingUp = e.deltaY < 0;
+            const currentScroll = approachContainer.scrollTop;
+            const maxScroll = approachContainer.scrollHeight - approachContainer.clientHeight;
+            
+            // Check boundaries with buffer
+            const atTop = isAtBoundary(currentScroll, 'up');
+            const atBottom = isAtBoundary(currentScroll, 'down');
+            
+            // Smart unlock decision
+            const direction = scrollingDown ? 'down' : 'up';
+            if (shouldUnlock(direction, currentScroll, velocity)) {
+                // Unlock and allow page scroll
+                if (state.isLocked) {
+                    // Preserve momentum for Lenis
+                    state.momentum = velocity * 10; // Convert to reasonable scroll amount
+                    unlockPage();
                 }
-                // Container at bottom - allow normal page scroll down
+                // Reset unlock attempts
+                state.unlockAttempts = 0;
                 return;
             }
             
-            // Scrolling up
-            if (e.deltaY < 0) {
-                // If container can scroll up, intercept and scroll container
-                if (canScrollUp()) {
+            // Track unlock attempts at boundary
+            if ((atTop && scrollingUp) || (atBottom && scrollingDown)) {
+                state.unlockAttempts++;
+            } else {
+                state.unlockAttempts = 0; // Reset if not at boundary
+            }
+            
+            // Check if container can scroll in requested direction
+            const containerCanScrollDown = currentScroll < (maxScroll - state.boundaryBuffer);
+            const containerCanScrollUp = currentScroll > state.boundaryBuffer;
+            const canScroll = scrollingDown ? containerCanScrollDown : (scrollingUp ? containerCanScrollUp : false);
+            
+            if (canScroll) {
+                // Prevent default and handle container scroll
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
-                    approachContainer.scrollTop += e.deltaY;
-                    updateProgress();
-                    return false;
+                
+                // Stop Lenis immediately
+                if (lenis) {
+                    lenis.stop();
                 }
-                // Container at top - allow normal page scroll up (don't prevent)
-                return;
+                
+                if (!state.isLocked) {
+                    lockPage();
+                }
+                
+                // Scroll with momentum-based easing
+                const pageHeight = approachContainer.clientHeight;
+                const currentPage = Math.floor((currentScroll + pageHeight / 2) / pageHeight);
+                
+                if (scrollingDown) {
+                    const nextPage = currentPage + 1;
+                    const targetScroll = Math.min(nextPage * pageHeight, maxScroll);
+                    
+                    approachContainer.scrollTo({
+                        top: targetScroll,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    const prevPage = currentPage - 1;
+                    const targetScroll = Math.max(0, prevPage * pageHeight);
+                    
+                    approachContainer.scrollTo({
+                        top: targetScroll,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Update progress and arrows using RAF for smooth updates
+                requestAnimationFrame(() => {
+                    updateProgress();
+                    updateArrowStates();
+                });
+                
+                    return false;
+            } else {
+                // Can't scroll - unlock if locked
+                if (state.isLocked) {
+                    unlockPage();
+                }
             }
         }
         
-        // Make progress bar draggable
+        // Lock/unlock functions with smooth transitions
+        let lockTimeout = null;
+        let unlockTimeout = null;
+        
+        function lockPage() {
+            if (state.isLocked || state.isUnlocking) return;
+            
+            // Clear any pending unlock
+            if (unlockTimeout) {
+                clearTimeout(unlockTimeout);
+                unlockTimeout = null;
+                state.isUnlocking = false;
+            }
+            
+            // Clear any pending lock
+            if (lockTimeout) {
+                clearTimeout(lockTimeout);
+            }
+            
+            lockTimeout = setTimeout(() => {
+                if (state.isLocked || state.isUnlocking) return;
+                state.isLocked = true;
+                
+                if (lenis) {
+                    lenis.stop();
+                    if (lenis.options) {
+                        lenis.options.smoothWheel = false;
+                    }
+                }
+                document.body.style.overflow = 'hidden';
+                lockTimeout = null;
+            }, 30);
+        }
+        
+        function unlockPage() {
+            if (!state.isLocked) return;
+            
+            // Clear any pending lock
+            if (lockTimeout) {
+                clearTimeout(lockTimeout);
+                lockTimeout = null;
+            }
+            
+            // Clear any pending unlock
+            if (unlockTimeout) {
+                clearTimeout(unlockTimeout);
+            }
+            
+            state.isUnlocking = true;
+            
+            unlockTimeout = setTimeout(() => {
+                if (!state.isLocked) {
+                    state.isUnlocking = false;
+                    return;
+                }
+                
+                state.isLocked = false;
+                state.isUnlocking = false;
+                
+                if (lenis) {
+                    if (lenis.options) {
+                        lenis.options.smoothWheel = true;
+                    }
+                    lenis.start();
+                    
+                    // Transfer momentum to Lenis if available
+                    if (state.momentum !== 0) {
+                        // Scroll page by momentum amount
+                        const currentScroll = window.scrollY || document.documentElement.scrollTop;
+                        lenis.scrollTo(currentScroll + state.momentum, {
+                            duration: 0.5,
+                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                        });
+                        state.momentum = 0; // Reset momentum
+                    }
+                }
+                document.body.style.overflow = '';
+                unlockTimeout = null;
+            }, 200);
+        }
+        
+        // Intercept wheel events at capture phase (before Lenis)
+        window.addEventListener('wheel', handleWheelScroll, { passive: false, capture: true });
+        
+        // Enhanced touch handling with velocity tracking
+        let touchStartY = 0;
+        let touchStartScroll = 0;
+        let touchStartTime = 0;
+        let isTouching = false;
+        
+        approachSection.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 1 && state.isActive) {
+                isTouching = true;
+                touchStartY = e.touches[0].clientY;
+                touchStartScroll = approachContainer.scrollTop;
+                touchStartTime = performance.now();
+            }
+        }, { passive: true });
+        
+        approachSection.addEventListener('touchmove', function(e) {
+            if (!isTouching || e.touches.length !== 1) {
+                if (state.isLocked) {
+                    unlockPage();
+                }
+                return;
+            }
+            
+            // Only handle if section is active (in viewport)
+            if (!state.isActive) {
+                if (state.isLocked) {
+                    unlockPage();
+                }
+                return;
+            }
+            
+            const touchCurrentY = e.touches[0].clientY;
+            const touchDelta = touchStartY - touchCurrentY;
+            const touchTime = performance.now() - touchStartTime;
+            const touchVelocity = Math.abs(touchDelta) / touchTime;
+            
+            const currentScroll = approachContainer.scrollTop;
+            const maxScroll = approachContainer.scrollHeight - approachContainer.clientHeight;
+            const scrollingDown = touchDelta > 0;
+            const scrollingUp = touchDelta < 0;
+            
+            const atTop = isAtBoundary(currentScroll, 'up');
+            const atBottom = isAtBoundary(currentScroll, 'down');
+            const direction = scrollingDown ? 'down' : 'up';
+            
+            // Smart unlock for touch
+            if (shouldUnlock(direction, currentScroll, touchVelocity)) {
+                if (state.isLocked) {
+                    state.momentum = touchVelocity * 10;
+                    unlockPage();
+                }
+                state.unlockAttempts = 0;
+                return;
+            }
+            
+            if ((atTop && scrollingUp) || (atBottom && scrollingDown)) {
+                state.unlockAttempts++;
+            } else {
+                state.unlockAttempts = 0;
+            }
+            
+            const containerCanScrollDown = currentScroll < (maxScroll - state.boundaryBuffer);
+            const containerCanScrollUp = currentScroll > state.boundaryBuffer;
+            const canScroll = scrollingDown ? containerCanScrollDown : (scrollingUp ? containerCanScrollUp : false);
+            
+            if (canScroll) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                
+                if (lenis) {
+                    lenis.stop();
+                }
+                if (!state.isLocked) {
+                    lockPage();
+                }
+                
+                const newScrollTop = touchStartScroll + touchDelta;
+                approachContainer.scrollTop = Math.min(
+                    Math.max(0, newScrollTop),
+                    maxScroll
+                );
+                
+                requestAnimationFrame(() => {
+                    updateProgress();
+                    updateArrowStates();
+                });
+            } else {
+                if (state.isLocked) {
+                    unlockPage();
+                }
+            }
+        }, { passive: false });
+        
+        approachSection.addEventListener('touchend', function() {
+            isTouching = false;
+            const hasAnyScroll = canScrollDown() || canScrollUp();
+            if (state.isActive && hasAnyScroll && !state.isLocked) {
+                lockPage();
+            } else if (!hasAnyScroll && state.isLocked) {
+                unlockPage();
+            }
+        }, { passive: true });
+        
+        // Progress bar draggable
         let isDragging = false;
-        let dragStartX = 0;
-        let dragStartScroll = 0;
         let textBoxWidth = 0;
         
         function updateTextBoxWidth() {
@@ -172,8 +552,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         progressBar.addEventListener('mousedown', function(e) {
             isDragging = true;
-            dragStartX = e.clientX;
-            dragStartScroll = approachContainer.scrollTop;
             updateTextBoxWidth();
             e.preventDefault();
             e.stopPropagation();
@@ -185,45 +563,58 @@ document.addEventListener('DOMContentLoaded', function() {
             const sectionRect = approachSection.getBoundingClientRect();
             const containerRect = approachContainer.getBoundingClientRect();
             const containerLeft = containerRect.left - sectionRect.left;
-            
-            // Calculate relative X position from the start of the progress bar
             const relativeX = e.clientX - sectionRect.left - containerLeft;
-            
-            // Calculate progress percentage based on drag position
-            // Clamp to 0-100% range - only allow dragging within progress bar bounds
             const progressPercent = Math.max(0, Math.min(100, (relativeX / textBoxWidth) * 100));
-            
-            // Convert progress to scroll position
-            // Progress 50% = scroll 0, Progress 100% = scroll maxScroll
             const scrollHeight = approachContainer.scrollHeight - approachContainer.clientHeight;
             const normalizedProgress = Math.max(0, Math.min(1, (progressPercent - 50) / 50));
             const targetScroll = normalizedProgress * scrollHeight;
             
             approachContainer.scrollTop = targetScroll;
+            requestAnimationFrame(() => {
             updateProgress();
+                updateArrowStates();
+            });
         });
         
         document.addEventListener('mouseup', function() {
             isDragging = false;
         });
         
-        // Prevent text selection while dragging
         progressBar.addEventListener('selectstart', function(e) {
             if (isDragging) {
                 e.preventDefault();
             }
         });
         
-        // Add global wheel listener to intercept page scroll (only when not scrolling container directly)
-        window.addEventListener('wheel', handlePageScroll, { passive: false, capture: true });
+        // Throttled scroll handler for container updates
+        let scrollRafId = null;
+        approachContainer.addEventListener('scroll', function() {
+            if (scrollRafId) return;
+            
+            scrollRafId = requestAnimationFrame(() => {
+                updateProgress();
+                updateArrowStates();
         
-        // Update on scroll
-        approachContainer.addEventListener('scroll', updateProgress);
+                // Reset unlock attempts when scrolling normally
+                const currentScroll = approachContainer.scrollTop;
+                const maxScroll = approachContainer.scrollHeight - approachContainer.clientHeight;
+                const atTop = isAtBoundary(currentScroll, 'up');
+                const atBottom = isAtBoundary(currentScroll, 'down');
+                
+                if (!atTop && !atBottom) {
+                    state.unlockAttempts = 0;
+                }
+                
+                scrollRafId = null;
+            });
+        }, { passive: true });
         
         // Initial update
-        setTimeout(updateProgress, 100);
+        setTimeout(() => {
+            requestAnimationFrame(updateProgress);
+        }, 100);
         
-        // Debounce helper for resize
+        // Debounce helper
         function debounce(func, wait) {
             let timeout;
             return function executedFunction(...args) {
@@ -236,19 +627,17 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         }
         
-        // Update on resize (debounced for performance)
+        // Throttled resize handler
         const debouncedResize = debounce(function() {
-            // Recalculate page heights on resize
             const containerHeight = approachContainer.clientHeight;
             pages.forEach(page => {
                 page.style.minHeight = containerHeight + 'px';
                 page.style.height = containerHeight + 'px';
             });
-            // Recalculate progress bar position after resize
-            setTimeout(updateProgress, 100);
+            requestAnimationFrame(updateProgress);
         }, 150);
         
-        window.addEventListener('resize', debouncedResize);
+        window.addEventListener('resize', debouncedResize, { passive: true });
         
         // Mobile navigation arrows
         const prevButton = approachSection.querySelector('.approach-prev');
@@ -258,18 +647,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!prevButton || !nextButton) return;
             
             const currentScroll = approachContainer.scrollTop;
-            const pageHeight = approachContainer.clientHeight;
             const maxScroll = approachContainer.scrollHeight - approachContainer.clientHeight;
-            const scrollThreshold = 5; // Small threshold to account for rounding
+            const scrollThreshold = 5;
             
-            // Disable prev button if at the start
             if (currentScroll <= scrollThreshold) {
                 prevButton.classList.add('disabled');
             } else {
                 prevButton.classList.remove('disabled');
             }
             
-            // Disable next button if at the end
             if (currentScroll >= maxScroll - scrollThreshold) {
                 nextButton.classList.add('disabled');
             } else {
@@ -303,12 +689,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
             
-            // Update arrow states on scroll
-            approachContainer.addEventListener('scroll', updateArrowStates);
-            
-            // Initial state update
+            approachContainer.addEventListener('scroll', updateArrowStates, { passive: true });
             updateArrowStates();
         }
     }
-});
+}
 
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApproach);
+} else {
+    initApproach();
+}

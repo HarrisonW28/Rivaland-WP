@@ -37,19 +37,7 @@ a,
 
 main {
     background: $color-white;
-    
-    // Desktop (≥1025px) - constrain content width
-    @media (min-width: $breakpoint-desktop + 1) {
-        max-width: 1440px;
-        margin: 0 auto;
-        width: 100%;
-    }
-    
-    // For viewport 1920px+, keep same constraint
-    @media (min-width: 1920px) {
-        max-width: 1440px;
-        margin: 0 auto;
-    }
+    width: 100%;
 }
 
 // ============================================
